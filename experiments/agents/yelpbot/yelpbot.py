@@ -154,7 +154,8 @@ def clean_up_response_restaurant(
 
 
 suql_knowledge = SUQLKnowledgeBase(
-    llm_model_name="azure/gpt-4o",
+    # llm_model_name="azure/gpt-4o",
+    llm_model_name="gpt-4o",
     tables_with_primary_keys={"restaurants": "_id"},
     database_name="restaurants",
     embedding_server_address="http://127.0.0.1:8509",
@@ -163,13 +164,14 @@ suql_knowledge = SUQLKnowledgeBase(
     },
     postprocessing_fn=postprocess_suql,
     result_postprocessing_fn=clean_up_response_restaurant,
-    api_base="https://ovaloairesourceworksheet.openai.azure.com/",
-    api_version="2024-08-01-preview",
+    # api_base="https://ovaloairesourceworksheet.openai.azure.com/",
+    # api_version="2024-08-01-preview",
 )
 
 # Define the SUQL React Parser
 suql_parser = SUQLParser(
     llm_model_name="gpt-4o",
+    # llm_model_name="gpt-4",
 )
 
 # Define the agent
@@ -183,7 +185,7 @@ yelpbot = Agent(
     knowledge_base=suql_knowledge,
     knowledge_parser=suql_parser,
 ).load_from_gsheet(
-    gsheet_id="1pCAMsK4xh5QbYD9aPUG66iMOdOJt-xJRVZqZyl23TgI",
+    gsheet_id="1pVcD0GBCkEYLCFxck77Nu8s_nvlFLijmTNxyl_Kf968",
 )
 
 

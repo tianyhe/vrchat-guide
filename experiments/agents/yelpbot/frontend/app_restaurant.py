@@ -69,7 +69,7 @@ async def initialize():
             knowledge_base=suql_knowledge,
             knowledge_parser=suql_parser,
         ).load_from_gsheet(
-            gsheet_id="1pCAMsK4xh5QbYD9aPUG66iMOdOJt-xJRVZqZyl23TgI",
+            gsheet_id="1pVcD0GBCkEYLCFxck77Nu8s_nvlFLijmTNxyl_Kf968",
         ),
     )
 

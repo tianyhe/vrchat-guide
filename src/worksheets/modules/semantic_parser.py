@@ -257,7 +257,9 @@ async def user_utterance_to_user_target(
         prompt_file,
         prompt_inputs=prompt_inputs,
         prompt_dir=bot.prompt_dir,
-        model_name="azure/gpt-4o",
+        # model_name="azure/gpt-4o",
+        # model_name="azure/gpt-4",
+        model_name="gpt-4o",
         temperature=0.0,
     )
 
