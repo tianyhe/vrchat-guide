@@ -1,0 +1,77 @@
+<|startofinstruction|>
+You are a semantic parser. Generate a query for a VRChat events database and the `vrchat_general_info` document with the following signature:
+
+CREATE TABLE events (
+    id TEXT PRIMARY KEY,          -- iCalUID of the event
+    summary TEXT,                 -- Title/summary of the event
+    start TIMESTAMP,              -- Start time of the event
+    end TIMESTAMP,                -- End time of the event  
+    location TEXT,                -- VRChat world location
+    description TEXT              -- Event details and instructions
+);
+
+vrchat_general_info : FREE_TEXT;
+
+Today's date is {{date}} and the day is {{day}}.
+
+Do not generate fields beyond the given fields. The `answer` function can be used on FREE_TEXT fields.
+Use `location = 'world name'` to search events in specific VRChat worlds, don't use other operations on the location field.
+To reference a specific event, use `id` field, do not use the summary field.
+
+Here are some examples of the queries you need to generate:
+{# Basic example - Finding an event by name #}
+User: What is the Movie Night event?
+Target: SELECT id, summary, start, end, location, description FROM events WHERE summary LIKE '%Movie Night%' LIMIT 1;
+--
+{# Basic example for time-based queries #}
+User: What events are happening tomorrow?
+Target: SELECT *, answer(description, 'what are the main activities?') FROM events WHERE DATE(start) = DATE('{{ date }}' + INTERVAL '1 day') ORDER BY start LIMIT 3;
+--
+{# Query with specific world location #}
+User: Are there any events in The Black Cat world?
+Target: SELECT *, answer(description, 'what type of event is this?') FROM events WHERE location = 'The Black Cat' AND start > NOW() ORDER BY start LIMIT 3;
+--
+{# Query about event requirements or details using description #}
+User: What do I need to prepare for the VRChat Fashion Show?
+Target: SELECT answer(description, 'what are the requirements and preparations needed?') FROM events WHERE summary LIKE '%Fashion Show%' AND start > NOW() LIMIT 1;
+--
+{# Query for upcoming events with time window #}
+User: Show me events happening this weekend
+Target: SELECT *, answer(description, 'what kind of event is this?') FROM events WHERE start >= DATE_TRUNC('week', NOW()) + INTERVAL '5 days' AND start < DATE_TRUNC('week', NOW()) + INTERVAL '7 days' ORDER BY start LIMIT 3;
+--
+{# Query for events by type/category using description #}
+User: I want to join a game night event
+Target: SELECT *, answer(description, 'is this a game night event?') FROM events WHERE answer(description, 'is this a gaming or game night event?') = 'Yes' AND start > NOW() ORDER BY start LIMIT 3;
+--
+{# Follow-up query about attendee limit #}
+User: How many people can join this event?
+Target: SELECT answer(description, 'what is the attendee limit?') FROM events WHERE id = '{{previous_event_id}}' LIMIT 1;
+--
+{# Query for accessibility information #}
+User: Which events are suitable for desktop users?
+Target: SELECT *, answer(description, 'is this event suitable for desktop users?') FROM events WHERE answer(description, 'is this event accessible to desktop users?') = 'Yes' AND start > NOW() ORDER BY start LIMIT 3;
+--
+{# Example on how to use answer on just vrchat_general_info #}
+User: What are the rules for joining events?
+Target: answer(vrchat_general_info, "what are the general rules for joining VRChat events?")
+--
+{# Query for event duration #}
+User: How long is the dance party event?
+Target: SELECT *, EXTRACT(HOUR FROM (end - start)) as duration FROM events WHERE summary LIKE '%Dance Party%' AND start > NOW() LIMIT 1;
+--
+{# Query for recurring events #}
+User: Are there any weekly meetups?
+Target: SELECT *, answer(description, 'is this a recurring weekly event?') FROM events WHERE answer(description, 'is this a weekly recurring event?') = 'Yes' AND start > NOW() ORDER BY start LIMIT 3;
+<|endofinstruction|>
+
+<|startofinput|>
+{% for dlg_turn in dlg %}
+User: {{ dlg_turn.user_utterance }}
+{% if dlg_turn.user_target is not none %}
+Target: {{ dlg_turn.user_target }}
+Results: {{ dlg_turn.db_results }}
+{% endif %}
+Agent: {{ dlg_turn.agent_utterance }}
+{% endfor %}
+User: {{ query }}
+Target: <|endofinput|>
