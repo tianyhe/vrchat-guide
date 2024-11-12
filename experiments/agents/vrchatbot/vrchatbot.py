@@ -3,6 +3,7 @@ import datetime
 import json
 import os
 from decimal import Decimal
+from typing import Dict, List
 from uuid import uuid4
 
 from loguru import logger
@@ -70,21 +71,52 @@ def add_event(
 current_dir = os.path.dirname(os.path.realpath(__file__))
 prompt_dir = os.path.join(current_dir, "prompts")
 
+
+def postprocess_suql(query: str) -> str:
+    """Postprocess SUQL queries for VRChat events."""
+    # Replace any known patterns or add specific transformations
+    # Example: Convert time zones, format dates, etc.
+    return query
+
+def result_postprocess(results: List[Dict], columns: List[str]) -> List[Dict]:
+    """Postprocess query results to match event format."""
+    processed_results = []
+    for result in results:
+        # Convert timestamps, format descriptions, etc.
+        if '_id' in result:
+            result = {
+                'id': result['_id'],
+                'summary': result.get('summary', ''),
+                'start_time': result.get('start_time'),
+                'end_time': result.get('end_time'),
+                'location': result.get('location', ''),
+                'description': result.get('description', '')
+            }
+        processed_results.append(result)
+    return processed_results
+
 # Define Knowledge Base
 suql_knowledge = SUQLKnowledgeBase(
     # llm_model_name="azure/gpt-4o",
     llm_model_name="gpt-4o",
-    tables_with_primary_keys={"events": "_id"},
-    database_name="events",
-    embedding_server_address="http://127.0.0.1:8509",
-    source_file_mapping={
-        "vrchat_general_info": os.path.join(current_dir, "vrchat_general_info.txt")
+    tables_with_primary_keys={
+        "events": "_id",  # Main events table
     },
+    database_name="vrchat_events",
+    embedding_server_address="http://127.0.0.1:8608",  # Enhanced embedding server
+    source_file_mapping={
+        "vrchat_general_info": os.path.join(current_dir, "text_sources/vrchat_general_info.txt"),
+        "vrchat_community_guidelines": os.path.join(current_dir, "text_sources/vrchat_community_guidelines.txt"),
+        "vrchat_user_guide": os.path.join(current_dir, "text_sources/vrchat_user_guide.txt")
+    },
+    db_host="127.0.0.1",
+    db_port="5432",  # Make sure this matches your PostgreSQL setup
+    db_username="vrchat_user",
+    db_password="NEUcs7980",
     postprocessing_fn=postprocess_suql,
-    result_postprocessing_fn=None,
-    # api_base="https://ovaloairesourceworksheet.openai.azure.com/",
-    # api_version="2024-08-01-preview",
+    result_postprocessing_fn=result_postprocess,
 )
+
 
 # Define the SUQL React Parser
 suql_parser = SUQLParser(

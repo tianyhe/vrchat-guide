@@ -8,7 +8,7 @@ from kraken.utils import DialogueTurn
 from loguru import logger
 from pydantic import BaseModel
 from suql import suql_execute
-from suql.agent import DialogueTurn
+from suql.agent import DialogueTurn as SUQLDialogueTurn
 
 from worksheets.environment import Answer, GenieRuntime
 from worksheets.llm import llm_generate
@@ -46,38 +46,90 @@ class SUQLKnowledgeBase(BaseModel):
     # Maximum number of rows to return in the result
     max_rows: int = 3
 
+    # Username for the database
+    db_username: Optional[str] = None
+
+    # Password for the database
+    db_password: Optional[str] = None
+
+    # db host
+    db_host: str = "127.0.0.1"
+
+    # db port
+    db_port: str = "5432"
+
     # Additional parameters for Azure
     api_base: Optional[str] = None
 
     api_version: Optional[str] = None
 
+    # def run(self, query, *args, **kwargs):
+    #     """Run the SUQL query and return the result."""
+
+    #     if self.postprocessing_fn:
+    #         query = self.postprocessing_fn(query)
+
+    #     query = query.strip().replace("\\'", "'")
+
+    #     results, column_names, _ = suql_execute(
+    #         query,
+    #         table_w_ids=self.tables_with_primary_keys,
+    #         database=self.database_name,
+    #         llm_model_name=self.llm_model_name,
+    #         embedding_server_address=self.embedding_server_address,
+    #         source_file_mapping=self.source_file_mapping,
+    #         db_username=self.db_username,
+    #         db_password=self.db_password,
+    #         db_host=self.db_host,
+    #         db_port=self.db_port,
+    #         api_base=self.api_base,
+    #         api_version=self.api_version,
+    #     )
+
+    #     # Convert the results to a list of dictionaries for genie worksheets
+    #     results = [dict(zip(column_names, result)) for result in results]
+
+    #     if self.result_postprocessing_fn:
+    #         results = self.result_postprocessing_fn(results, column_names)
+
+    #     return results[: self.max_rows]
+
     def run(self, query, *args, **kwargs):
         """Run the SUQL query and return the result."""
+        try:
+            if self.postprocessing_fn:
+                query = self.postprocessing_fn(query)
 
-        if self.postprocessing_fn:
-            query = self.postprocessing_fn(query)
+            query = query.strip().replace("\\'", "'")
 
-        query = query.strip().replace("\\'", "'")
+            # Create database connection string
+            db_url = f"postgresql://{self.db_username}:{self.db_password}@{self.db_host}:{self.db_port}/{self.database_name}"
 
-        results, column_names, _ = suql_execute(
-            query,
-            table_w_ids=self.tables_with_primary_keys,
-            database=self.database_name,
-            llm_model_name=self.llm_model_name,
-            embedding_server_address=self.embedding_server_address,
-            source_file_mapping=self.source_file_mapping,
-            api_base=self.api_base,
-            api_version=self.api_version,
-        )
+            # Execute query with proper parameters
+            results, column_names, _ = suql_execute(
+                query,
+                table_w_ids=self.tables_with_primary_keys,
+                database=self.database_name,
+                llm_model_name=self.llm_model_name,
+                embedding_server_address=self.embedding_server_address,
+                source_file_mapping=self.source_file_mapping,
+                select_username=self.db_username,
+                select_userpswd=self.db_password,
+                host=self.db_host,
+                port=self.db_port,
+            )
 
-        # Convert the results to a list of dictionaries for genie worksheets
-        results = [dict(zip(column_names, result)) for result in results]
+            # Convert the results to a list of dictionaries for genie worksheets
+            results = [dict(zip(column_names, result)) for result in results]
 
-        if self.result_postprocessing_fn:
-            results = self.result_postprocessing_fn(results, column_names)
+            if self.result_postprocessing_fn:
+                results = self.result_postprocessing_fn(results, column_names)
 
-        return results[: self.max_rows]
+            return results[: self.max_rows]
 
+        except Exception as e:
+            logger.error(f"Error in SUQL execution: {str(e)}")
+            return []
 
 class BaseSUQLParser(BaseModel):
     """Base class for SUQL parsers"""
@@ -107,7 +159,7 @@ class BaseSUQLParser(BaseModel):
                 db_result = db_results[i]
 
             suql_dlg_history.append(
-                DialogueTurn(
+                SUQLDialogueTurn(
                     user_utterance=user_utterance,
                     db_results=db_result,
                     user_target=user_target,
