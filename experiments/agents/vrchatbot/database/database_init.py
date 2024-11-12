@@ -1,8 +1,13 @@
 import os
+import sys
 from datetime import datetime, timezone, timedelta
 from loguru import logger
 import psycopg2
 from psycopg2.extras import RealDictCursor
+
+current_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(current_dir)
+
 from database.api_client import GoogleCalendarClient
 from database.event_store import EventStore
 from database.sync_service import CalendarSyncService

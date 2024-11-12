@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+from dotenv import load_dotenv
 
 import chainlit as cl
 from loguru import logger
@@ -9,6 +10,8 @@ from worksheets.agent import Agent
 from worksheets.annotation_utils import get_agent_action_schemas, get_context_schema
 from worksheets.chat_chainlit import generate_next_turn_cl
 from worksheets.modules import CurrentDialogueTurn
+
+load_dotenv()
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(current_dir, "..", ".."))

@@ -1,4 +1,5 @@
 import os
+import sys
 import asyncio
 from pathlib import Path
 from typing import Optional
@@ -7,19 +8,20 @@ from fastapi import FastAPI
 import uvicorn
 from contextlib import asynccontextmanager
 
+current_dir = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(current_dir)
 from database.database_init import VRChatDatabaseManager
 from embedding_server.server import VRChatEmbeddingServer
 from database.sync_service import CalendarSyncService
-
 class VRChatServices:
     def __init__(
         self,
-        db_host: str = "localhost",
+        db_host: str = "127.0.0.1",
         db_port: str = "5432",
         db_name: str = "vrchat_events",
         db_user: str = "vrchat_user",
         db_password: str = os.getenv("DB_PASSWORD", "NEUcs7980"),
-        embedding_host: str = "localhost",
+        embedding_host: str = "127.0.0.1",
         embedding_port: str = "8608",
         credentials_file: str = "credentials.json",
         text_sources_dir: str = "data",
