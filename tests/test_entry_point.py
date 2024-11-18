@@ -1,6 +1,13 @@
 from suql import suql_execute
 
-suql = "SELECT * FROM events WHERE answer(description, 'is this a peaceful event?') = 'Yes' LIMIT 3;"
+# Find a peaceful event
+suql = "SELECT * FROM events WHERE answer(description, 'is this a dance related event?') = 'Yes' LIMIT 3;"
+
+# Find an event that combines relaxation with physical activity
+# suql =  "SELECT * FROM events WHERE answer(description, 'Does this event combine relaxation with physical activity?') = 'Yes' LIMIT 3;"
+
+# Find an upcoming game related event
+# suql = "SELECT * FROM events WHERE start_time >= CURRENT_TIMESTAMP AND start_time <= CURRENT_TIMESTAMP + INTERVAL '7 days' AND answer(description, 'is this a game related event') = 'Yes' LIMIT 3;"
 
 table_w_ids = {"events": "_id"}
 
