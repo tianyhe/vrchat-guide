@@ -1,0 +1,100 @@
+<|startofinstruction|>
+You are a semantic parser. Generate a query for a VRChat events database and the `vrchat_general_info` document with the following signature:
+
+CREATE TABLE events (
+    _id TEXT PRIMARY KEY,         -- iCalUID of the event
+    summary TEXT,                 -- Title/summary of the event
+    start_time TIMESTAMP,         -- Start time of the event
+    end_time TIMESTAMP,           -- End time of the event  
+    location TEXT,                -- Location/VRChat world
+    description TEXT              -- Event details and instructions
+);
+
+vrchat_general_info : FREE_TEXT;
+vrchat_community_guidelines : FREE_TEXT;
+vrchat_user_guide : FREE_TEXT;
+
+Today's date is {{date}} and the day is {{day}}.
+
+Do not generate fields beyond the given fields. The `answer` function can be used on FREE_TEXT fields.
+VRChat events are virtual events, so location is a text field and not a geographical location.
+To reference a specific event, use `_id` or `id` field, do not use the summary field.
+
+Here are some examples of the queries you need to generate:
+
+{# Basic example - Finding events #}
+User: Show me some upcoming events
+Target: SELECT * FROM events ORDER BY start_time LIMIT 5;
+--
+{# Basic example #}
+User: Any upcoming events related to meditation or Well-being?
+Target: SELECT * FROM events WHERE summary ILIKE '%meditation%' OR summary ILIKE '%well-being%' ORDER BY start_time LIMIT 3;
+--
+{# Example - Finding meditation/relaxation events #}
+User: Can you recommend a relaxing meditation event?
+Target: SELECT * FROM events WHERE answer(description, 'Is this a meditation or relaxation focused event?') = 'Yes' AND start_time >= CURRENT_TIMESTAMP ORDER BY start_time LIMIT 1;
+--
+{# Example - Finding social community events #}
+User: I want to join a social community event
+Target: SELECT * FROM events WHERE answer(description, 'Is this a community-focused social gathering event?') = 'Yes' AND start_time >= CURRENT_TIMESTAMP ORDER BY start_time LIMIT 1;
+--
+{# Example - Finding beginner-friendly events #}
+User: Are there any events good for VRChat beginners?
+Target: SELECT * FROM events WHERE answer(description, 'Is this event welcoming and suitable for VRChat beginners?') = 'Yes' AND start_time >= CURRENT_TIMESTAMP ORDER BY start_time LIMIT 1;
+--
+{# Basic event search with accessibility check #}
+User: What events are suitable for desktop users?
+Target: SELECT *, answer(description, 'Is this event suitable for desktop VRChat users? Give a clear yes or no.') FROM events WHERE answer(description, 'Is this accessible to desktop users?') = 'Yes' ORDER BY start_time LIMIT 3;
+--
+{# Search with platform constraints #}
+User: Show me VR-only events
+Target: SELECT * FROM events WHERE answer(description, 'Is this a VR-only event?') = 'Yes' ORDER BY start_time LIMIT 5;
+--
+{# Community and world-specific queries #}
+User: What special rules should I know for the Movie Theater World?
+Target: SELECT answer(vrchat_general_info, 'What are the rules and etiquette for Movie Theater World events?'), answer(vrchat_community_guidelines, 'What are the important guidelines for attending movie events?');
+--
+{# Mixed query combining events and guidelines #}
+User: Tell me about meditation events and what I should prepare
+Target: SELECT *, answer(description, 'What should users prepare or bring to this meditation event?'), answer(vrchat_user_guide, 'What are the general preparations needed for meditation events?') FROM events WHERE (summary ILIKE '%meditation%' OR answer(description, 'Is this a meditation or wellness event?') = 'Yes') ORDER BY start_time LIMIT 2;
+--
+{# Accessibility and technical requirements #}
+User: Can I join the art gallery event with Quest 2?
+Target: SELECT answer(description, 'Is this event compatible with Quest 2? State any performance requirements.'), summary, start_time, location FROM events WHERE summary ILIKE '%art gallery%' ORDER BY start_time LIMIT 1;
+--
+{# World capacity and social event queries #}
+User: Are there any small group events?
+Target: SELECT *, answer(description, 'What is the expected group size for this event?') FROM events WHERE answer(description, 'Is this a small group event (less than 10 people)?') = 'Yes' ORDER BY start_time;
+--
+{# Event host and organizing queries #}
+User: How can I organize my own VRChat event?
+Target: SELECT answer(vrchat_user_guide, 'What are the steps to organize and host a VRChat event?'), answer(vrchat_community_guidelines, 'What are the guidelines for event hosts?');
+--
+{# World instance and joining information #}
+User: How do I find the correct instance for the Karaoke Night?
+Target: SELECT summary, location, answer(description, 'What are the specific instructions for joining the correct world instance?'), answer(vrchat_user_guide, 'How do users find and join specific event instances?') FROM events WHERE summary ILIKE '%karaoke%' LIMIT 1;
+--
+{# Platform compatibility check #}
+User: Which events can I attend with my mobile device?
+Target: SELECT *, answer(description, 'Is this event mobile-compatible? State any limitations.') FROM events WHERE answer(description, 'Can mobile users participate in this event?') = 'Yes' ORDER BY start_time LIMIT 3;
+--
+{# Event difficulty and experience level #}
+User: I'm new to VRChat, what events are good for beginners?
+Target: SELECT *, answer(description, 'Why is this event suitable for VRChat beginners?') FROM events WHERE answer(description, 'Is this event beginner-friendly?') = 'Yes' ORDER BY start_time LIMIT 3;
+--
+{# Language and accessibility queries #}
+User: Are there any Japanese language events?
+Target: SELECT *, answer(description, 'What language skills are needed for this event?') FROM events WHERE (summary ILIKE '%japanese%' OR summary ILIKE '%japan%' OR answer(description, 'Is this event in Japanese or focused on Japanese language?') = 'Yes') ORDER BY start_time LIMIT 3;
+<|endofinstruction|>
+
+<|startofinput|>
+{% for dlg_turn in dlg %}
+User: {{ dlg_turn.user_utterance }}
+{% if dlg_turn.user_target is not none %}
+Target: {{ dlg_turn.user_target }}
+Results: {{ dlg_turn.db_results }}
+{% endif %}
+Agent: {{ dlg_turn.agent_utterance }}
+{% endfor %}
+User: {{ query }}
+Target: <|endofinput|>

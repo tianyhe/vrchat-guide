@@ -1,0 +1,93 @@
+# VRChat Worlds Information:
+
+## Popular World Categories:
+1. Social Hubs - Worlds designed for meeting and chatting with other users
+2. Game Worlds - Interactive worlds with games and activities
+3. Exploration - Beautiful environments to explore
+4. Hangout Spots - Casual areas for friends to gather
+5. Performance Venues - Spaces for shows and events
+
+## World Recommendations by Experience Level:
+- New to VR: The Hub, Home Platform, Tutorial Worlds
+- New to VRChat: Just B Club, The Great Pug, The Black Cat
+- Experienced: The Room of the Rain, Spirits of the Sea
+- Veteran: Club Zodiac, Secret Rooftop
+
+## World Recommendations by Social Preference:
+- Solo Explorer: Treehouse in the Shade, Spirits of the Sea, Shooting Gallery
+- Small Groups: The Great Pug, Cozy Cabin, Summer Solitude
+- Large Groups: The Black Cat, Club B, Virtual Market
+- Any: The Hub, Rest and Sleep, Autumn Mountain
+
+## World Recommendations by Device:
+- Mobile: Optimized Hub, Mobile Movie Theater, Lite Game Room
+- Desktop: The Black Cat, Desktop Dance Club, Gaming Arena
+- VR Device: Full Body Club, VR Playground, Adventure Valley
+
+## FAQs about basic VRChat features:
+"quick menu": "The Quick Menu provides easy access to frequently used actions like visiting Home or respawning. Open it with Escape on PC or B/Y on VR controllers.",
+"main menu": "The Main Menu is VRChat's primary interface for accessing all settings and options, with each tab covering different features.",
+"action menu": "The Action Menu, also known as the Radial Menu, quickly accesses Avatar expressions, emojis, and tools like Personal Mirror, opened with R on PC.",
+"cloning an avatar": "To clone an avatar, use the Clone Avatar button in the Quick Menu, if the other user allows avatar cloning.",
+"avatar worlds": "Explore Avatar Worlds to find avatars on display at Avatar Pedestals. Selecting a pedestal changes your avatar.",
+"public avatars": "Public Avatars are optimized and compatible avatars available to try on directly.",
+"adding friends in an instance": "Select a user in-game and click Friend Request in the Quick Menu to add them as a friend.",
+"joining or creating an instance": "Instances are unique sessions of a VRChat World with different joining options: Public, Friends+, Friends, Invite+, Invite, Group, Group+, and Group Public.",
+"adjusting safety settings": "The Safety menu lets you customize protection options like the Safety Shield, based on Trust Rank and Avatar Performance level.",
+"reporting users or worlds": "You can report, mute, block, and apply Safe Mode for users violating VRChat's guidelines.",
+"subscribing to vrchat+": "VRChat+ offers extra features like a personal gallery, more avatar slots, and custom UI themes for enhanced customization.",
+"language settings": "To change the language in VRChat, go to the Main Menu, select Settings, and choose your preferred language from the available options.",
+"graphics settings": "Adjust Graphics Settings in the Main Menu under Settings to optimize performance or enhance visuals. Choose between different quality levels depending on your device.",
+"audio settings": "Control volume levels and audio input/output devices through the Audio tab in Settings to ensure clear communication and sound.",
+"personal space bubble": "Enable the Personal Space Bubble in Safety Settings to prevent other users from getting too close to your avatar.",
+"setting up voice chat": "To enable or disable voice chat, go to the Audio tab in Settings. Adjust microphone sensitivity and mute options here.",
+"customizing avatar gestures": "Configure gestures and expressions under the Action Menu, which allows you to express emotions and interact with others.",
+"user blocks and mutes": "Manage user interactions in the Safety Menu. Use Block or Mute options to avoid disruptive users.",
+"trust ranks and permissions": "Users have trust ranks based on interaction quality and time spent in VRChat. Higher ranks unlock additional features and safety options.",
+"avatar upload": "To upload custom avatars, use Unity and the VRChat SDK, accessible from VRChat’s developer hub. Follow the setup to ensure compatibility.",
+"world creation": "Build custom worlds using Unity and the VRChat SDK. Access VRChat's developer guides to learn how to create interactive worlds.",
+"privacy settings": "Adjust privacy settings in the Main Menu to control who can join your instances and view your profile.",
+"gesture controls": "Use the Trigger buttons on VR controllers or number keys on the keyboard to perform various avatar gestures.",
+"finding events": "To find events, open the Main Menu and go to the Worlds tab. Look for the Events section to find public events happening in VRChat.",
+"customizing user interface": "In Settings, access the UI tab to adjust interface scale, opacity, and layout for better accessibility.",
+"world search filters": "Use the Filters option in the Worlds tab to sort worlds by categories like Popular, Recently Visited, or Recently Created.",
+"using portals": "Create portals to invite friends to a new world by selecting the desired world in the Quick Menu and choosing 'Drop Portal.'",
+"managing blocked users": "View and manage blocked users in the Safety Menu. You can unblock users at any time to restore interaction.",
+"VRChat emotes": "Access default emotes from the Action Menu to add more expressiveness to interactions.",
+"safe mode": "Enable Safe Mode in the Safety Menu to automatically block unknown users’ avatars, audio, and interactions in new environments.",
+"changing instance region": "Choose a region when creating or joining an instance to improve connectivity for friends in different areas.",
+"world favorites": "Bookmark your favorite worlds by selecting 'Favorite' in the Worlds tab for quick access.",
+"custom status": "Set a custom status message under the Social tab, which appears to friends when they view your profile.",
+"accessing tutorials": "VRChat offers beginner tutorials in the Help section of the Main Menu. Go here for step-by-step guides on getting started.",
+"controller bindings": "Go to the Settings menu to customize controller bindings based on your device and comfort level.",
+"avatar limits": "Depending on device performance, VRChat may limit high-complexity avatars in certain instances. Adjust avatar limits in Safety Settings.",
+"privacy: friends only": "Use Friends-Only instances to allow only friends to join your world without needing additional invites.",
+"avatar performance rank": "VRChat assigns avatars a performance rank based on complexity. Opt for avatars with 'Good' or 'Excellent' ranks for smoother performance.",
+"enabling fly mode": "Some worlds allow Fly Mode to move freely in the environment. Check world settings in the Action Menu to enable it if available.",
+"adjusting movement speed": "Change your movement speed in Settings for faster or slower avatar navigation.",
+"social notifications": "Enable notifications in the Social tab to be alerted when friends log in or join your instance.",
+"language filter": "Enable the Language Filter in Safety Settings to automatically block inappropriate language in public interactions.",
+"viewing recent worlds": "In the Worlds tab, you can view recently visited worlds and quickly revisit them with one click.",
+"upload limits": "VRChat imposes file size limits on custom content uploads. Check the VRChat SDK documentation for current upload size guidelines.",
+"viewing friend lists": "Access your friend list in the Social tab to see who is online, and invite them to your current instance.",
+"muting players": "If someone’s audio is too loud, select them in the Quick Menu and choose 'Mute' to silence their audio in your session.",
+"time zone settings": "Adjust VRChat’s displayed time zone under Settings so events appear at accurate times for you.",
+"disabling friend notifications": "In Social Settings, you can disable notifications when friends join or leave the instance to reduce interruptions.",
+"resetting avatar position": "If stuck, use the 'Respawn' option in the Quick Menu to reset your avatar's position in the current world.",
+"VRChat tutorials": "Access in-depth tutorials for creating worlds and avatars through the VRChat Creator Companion app.",
+"blocking users": "To block a user, open the Quick Menu, select the user, and choose 'Block'. This restricts their interactions with you.",
+"banning users from instance": "If you are an instance host, use the Quick Menu to select a user and choose 'Kick' or 'Ban' to remove them.",
+"personalize background music": "Some worlds offer music settings. Look for settings in the Action Menu to change or mute background music.",
+"profanity filter": "Enable the Profanity Filter under Safety Settings to automatically mute offensive words in chat."
+
+## Tips for VRChat Experienced and Veteran Users:
+- Experiment with custom avatars and worlds to express your creativity
+- Attend events and shows to discover new content and meet like-minded users
+- Join communities and groups to find friends with similar interests
+- Explore hidden or lesser-known worlds for unique experiences
+- Participate in role-playing or themed events for immersive interactions
+- Share your knowledge and help newcomers navigate VRChat effectively
+- Collaborate with other users to create interactive worlds and experiences
+- Stay updated on VRChat news and updates to maximize your experience
+- Use VRChat+ features for enhanced customization and additional benefits
+- Engage in respectful and positive interactions to contribute to a welcoming community

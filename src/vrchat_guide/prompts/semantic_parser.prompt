@@ -1,0 +1,305 @@
+<|startofinstruction|>
+Your goal is to write python code statements using the given APIs and Databases based on the user utterance. Plan your response first, then generate the User Target.
+
+Today's date is {{ date }} and the day is {{ day }}.
+
+These are the APIs available to you:
+{{ apis }}
+- TaskList(user_task: Enum["Update Profile", "Explore Event"])
+- UserProfile(username: str, experience_level: Enum["New to VR", "New to VRChat", "Experienced", "Veteran"], device_mode: Enum["Mobile", "Desktop", "VR Device"], social_preference: Enum["Solo Explorer", "Small Groups", "Large Groups", "Any"], profile_confirm: bool)
+- ExploreEvent(event: Event, note: str, attendees: List[str], event_confirm: bool)
+- answer(query: str)
+
+The `answer` function can answer questions using the following database:
+{{ dbs }}
+
+You should NEVER create a new variable on your own.
+For example: `answer = answer("What time is the Movie Night event?")` is not allowed.
+You should directly write `answer("What time is the Movie Night event?")`
+
+You will be given:
+- The state of the conversation, if present.
+- The agent's action, if present.
+- The last turn of the conversation.
+
+Follow these guidelines:
+- Set the `user_task` field of the `TaskList` API to 'Update Profile' when the user wants to update their profile.
+- Set the `user_task` field of the `TaskList` API to 'Explore Event' when the user wants to find or join events.
+- When referring to a specific event, provide its `id` in the `answer` query.
+- Use the `confirm()` function to confirm the user's event choice when Agent Action has `AskForFieldConfirmation()`.
+- You should update fields by using `api_name.field_name = value` if the user is updating an API instance already present in the state.
+- If the user refuses to confirm, set the field to `False`.
+- If the user is chit-chatting, greeting or thanking, then just write: # Chit-chat, greeting or thanking.
+
+Here are some examples:
+Example: Without state being present.
+State:
+```
+None
+```
+Agent Action:
+```
+None
+```
+
+Last-turn Conversation:
+Agent: Hello! I'm VRChat Guide. I can help you update your profile or explore VRChat events. What would you like to do?
+User: I want to set up my VRChat profile for the first time
+
+User Target:
+```
+TaskList(user_task='Update Profile')
+UserProfile()
+```
+--
+Example: Profile creation with username.
+State:
+```
+task_list = TaskList(user_task='Update Profile')
+user_profile = UserProfile()
+```
+Agent Action:
+```
+[
+    "Ask(UserProfile, username, VRChat username of the user)"
+]
+```
+
+Last-turn Conversation:
+Agent: I'll help you set up your profile. What's your VRChat username?
+User: My username is VRExplorer123
+
+User Target:
+```
+user_profile.username = "VRExplorer123"
+```
+--
+Example: Experience level selection with device.
+State:
+```
+task_list = TaskList(user_task='Update Profile')
+user_profile = UserProfile(username="VRExplorer123")
+```
+Agent Action:
+```
+[
+    "Ask(UserProfile, experience_level, User's experience level with VR and VRChat)"
+]
+```
+
+Last-turn Conversation:
+Agent: Thanks VRExplorer123! What's your experience level with VR and VRChat?
+User: I'm new to VR and using an Oculus Quest 2
+
+User Target:
+```
+user_profile.experience_level = "New to VR"
+user_profile.device_mode = "VR Device"
+```
+--
+Example: Social preference selection.
+State:
+```
+task_list = TaskList(user_task='Update Profile')
+user_profile = UserProfile(username="VRExplorer123", experience_level="New to VR", device_mode="VR Device")
+```
+Agent Action:
+```
+[
+    "Ask(UserProfile, social_preference, User's preferred social interaction style)"
+]
+```
+
+Last-turn Conversation:
+Agent: How do you prefer to socialize in VRChat?
+User: I prefer spend time by myself
+
+User Target:
+```
+user_profile.social_preference = "Solo Explorer"
+```
+--
+Example: Social preference selection.
+State:
+```
+task_list = TaskList(user_task='Update Profile')
+user_profile = UserProfile(username="VRExplorer123", experience_level="New to VR", device_mode="VR Device")
+```
+Agent Action:
+```
+[
+    "Ask(UserProfile, social_preference, User's preferred social interaction style)"
+]
+```
+
+Last-turn Conversation:
+Agent: How do you prefer to socialize in VRChat?
+User: I like just hanging out with couple of my friends
+
+User Target:
+```
+user_profile.social_preference = "Small Groups"
+```
+--
+Example: Event search without location.
+State:
+```
+task_list = TaskList(user_task='Explore Event')
+```
+Agent Action:
+```
+None
+```
+
+Last-turn Conversation:
+Agent: I can help you find VRChat events. What kind of events are you interested in?
+User: Are there any movie nights this weekend?
+
+User Target:
+```
+answer("find movie night events this weekend")
+```
+--
+Example: Event confirmation with attendees.
+State:
+```
+task_list = TaskList(user_task='Explore Event')
+answer = answer("find movie night events this weekend")
+events = [Event(id="evt123", summary="Anime Movie Night", start="2024-11-16 20:00:00", end="2024-11-16 22:00:00", location="Movie Theater World", description="Join us for anime night! We'll be watching classic animations together. All platforms welcome.")]
+answer.result = events
+explore_event = ExploreEvent(event=events[0])
+```
+Agent Action:
+```
+[
+    "AskForFieldConfirmation(explore_event, event_confirm)"
+]
+```
+
+Last-turn Conversation:
+Agent: I found an Anime Movie Night this Saturday at 8 PM in Movie Theater World. Would you like to join?
+User: Yes, and I want to bring two friends: john@email.com and sara@email.com
+
+User Target:
+```
+explore_event.event_confirm = True
+explore_event.attendees = ["john@email.com", "sara@email.com"]
+```
+--
+Example: Event search with specific requirements.
+State:
+```
+task_list = TaskList(user_task='Explore Event')
+```
+Agent Action:
+```
+None
+```
+
+Last-turn Conversation:
+Agent: What kind of events would you like to explore?
+User: I'm looking for beginner-friendly events that work with desktop mode
+
+User Target:
+```
+answer("find events where answer(description, 'is this event suitable for desktop users?') = 'Yes' AND answer(description, 'is this event beginner-friendly?') = 'Yes'")
+```
+--
+Example: Update profile preferences.
+State:
+```
+user_profile = UserProfile(username="VRExplorer123", experience_level="New to VR", device_mode="VR Device")
+```
+Agent Action:
+```
+[
+    "Ask(UserProfile, social_preference, User's preferred social interaction style)"
+]
+```
+
+Last-turn Conversation:
+Agent: What's your preferred way of socializing in VRChat?
+User: I prefer small groups until I get more comfortable
+
+User Target:
+```
+user_profile.social_preference = "Small Groups"
+```
+--
+Example: Event confirmation rejection.
+State:
+```
+explore_event = ExploreEvent(event=events[0], attendees=["friend@email.com"])
+```
+Agent Action:
+```
+[
+    "AskForFieldConfirmation(explore_event, event_confirm)"
+]
+```
+
+Last-turn Conversation:
+Agent: Would you like me to add the Anime Movie Night to your calendar?
+User: Actually no, I changed my mind
+
+User Target:
+```
+explore_event.event_confirm = False
+```
+--
+Example: Querying event details.
+State:
+```
+events = [Event(id="evt123", summary="Game Night", start="2024-11-16 20:00:00", end="2024-11-16 22:00:00", location="Game Hub World")]
+```
+Agent Action:
+```
+None
+```
+
+Last-turn Conversation:
+Agent: I found a Game Night event. Would you like to know more about it?
+User: Yes, what kind of games will they play?
+
+User Target:
+```
+answer("What games will be played at the Game Night event with id evt123?")
+```
+--
+Example: General information query.
+State:
+```
+None
+```
+Agent Action:
+```
+None
+```
+
+Last-turn Conversation:
+Agent: Hello! How can I help you today?
+User: What are the rules for joining events?
+
+User Target:
+```
+answer("what are the general rules for joining VRChat events?")
+```
+--
+<|endofinstruction|>
+
+<|startofinput|>
+State:
+```
+{{ state }}
+```
+Agent Action:
+```
+{{ agent_actions }}
+```
+
+Last-turn Conversation:
+Agent: {{ agent_utterance }}
+User: {{ user_utterance }}
+
+User Target:
+<|endofinput|>

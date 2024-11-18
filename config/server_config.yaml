@@ -1,0 +1,14 @@
+embedding_server:
+  host: "127.0.0.1"
+  port: 8501
+  
+free_text_server:
+  host: "127.0.0.1"
+  port: 8500
+  k: 3 # Number of relevant documents to consider
+  max_input_token: 3800, # Maximum input tokens for context
+  engine: "gpt-4o-mini"
+
+llm:
+  provider: "openai"  # or azure
+  model: "gpt-4"

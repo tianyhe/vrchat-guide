@@ -1,0 +1,9 @@
+[submodule "packages/genie-worksheets"]
+	path = packages/genie-worksheets
+	url = https://github.com/stanford-oval/genie-worksheets.git
+[submodule "packages/neu-llm-avatars"]
+	path = packages/neu-llm-avatars
+	url = https://github.com/a1bamasak1/NEU-LLM-Avartars.git
+[submodule "packages/suql"]
+	path = packages/suql
+	url = https://github.com/stanford-oval/suql.git
