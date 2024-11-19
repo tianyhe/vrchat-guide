@@ -34,7 +34,7 @@ To install Genie, we recommend using uv ([UV installation guide](https://github.
 
 ```bash
 # Clone the repository
-git clone https://github.com/tianyhe/vrchat-guide.git
+git clone --recurse-submodules https://github.com/tianyhe/vrchat-guide.git
 cd vrchat-guide
 
 # If submodules are not cloned, run the following command
