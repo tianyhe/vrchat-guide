@@ -131,7 +131,7 @@ and place it the following path:
 ```bash
 ./llm_config.yaml
 ./src/vrchat_guide/llm_config.yaml
-./packages/genie-worksheets/packages/knowledge-agent/src/knowledge_agent/llm_config.yaml
+./packages/genie-worksheets/packages/knowledge-agent/llm_config.yaml
 ```
 
 #### Spreadsheet Specification
