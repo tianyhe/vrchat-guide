@@ -222,10 +222,9 @@ You can run the agent in VRChat by running:
 
 ## 📖 Documentation
 
-For detailed development instructions and API documentation, please refer to:
-- [Development Guide](docs/development.md)
-- [API Reference](docs/api/README.md)
-- [Configuration Guide](docs/configuration.md)
+For detailed development instructions and documentation, please refer to:
+- [Custom Agent Development Guide](https://github.com/stanford-oval/genie-worksheets)
+- [Custom SUQL Database Setup Guide](https://github.com/stanford-oval/suql/blob/main/docs/install_source.md)
 
 ## 🤝 Contributing
 
