@@ -23,6 +23,7 @@ An intelligent VRChat agent built using the Genie Worksheets framework, demonstr
 - Python 3.11 or higher
 - PostgreSQL 14 or higher
 - UV package manager
+- ffmpeg (for audio processing in VRChat)
 - OpenAI API key / Azure OpenAI API key
 
 ## 🚀 Quick Start
@@ -53,10 +54,11 @@ uv pip install -e ".[all]"
 
 # Install SpaCy Model
 python -m spacy download en_core_web_sm
-
 ```
 
 ### 2. Environment Configuration
+
+#### Linux / MacOS
 
 Create a `.env` file in the project root:
 
@@ -78,8 +80,104 @@ Load the environment:
 source .env  # Remember to source after opening new terminal sessions
 ```
 
-### 3. Database Setup
+#### Windows
 
+Create a `env.ps1` file in the project root:
+
+```powershell
+$env:PYTHONPATH += ";$PWD\packages\genie-worksheets\src;$PWD\packages\genie-worksheets\packages\knowledge-agent\src;$PWD\packages\neu-llm-avatars;$PWD\packages\suql\src;$PWD\packages"
+
+# OpenAI API Key (Set this variable if you want to use OpenAI endpoint)
+$env:OPENAI_API_KEY = "your_openai_api_key"
+```
+
+Load the environment:
+```powershell
+. .\env.ps1
+```
+
+### 3. Configure Required Services and Credentials
+
+#### LLM Config File Setup
+
+Create the llm_config.yaml file 
+
+```yaml
+# llm_config.yaml
+chat_models:
+  gpt-4:
+    provider: azure
+    model: gpt-4
+    api_key: your_azure_openai_api_key
+    azure_endpoint: your_azure_openai_endpoint
+    api_version: your_azure_openai_api_version
+    deployment_id: gpt-4
+    prompt_token_cost: 0.03 # custom cost for prompt tokens
+    completion_token_cost: 0.06 # custom cost for completion tokens
+
+  gpt-35-turbo:
+    provider: azure
+    model: gpt-35-turbo
+    api_key: your_azure_openai_api_key
+    azure_endpoint: your_azure_openai_endpoint
+    api_version: your_azure_openai_api_version
+    deployment_id: gpt-35-turbo
+    prompt_token_cost: 0.0015 # custom cost for prompt tokens
+    completion_token_cost: 0.002 # custom cost for completion tokens
+```
+
+and place it the following path:
+
+```bash
+./llm_config.yaml
+./src/vrchat_guide/llm_config.yaml
+./packages/genie-worksheets/packages/knowledge-agent/src/knowledge_agent/llm_config.yaml
+```
+
+#### Spreadsheet Specification
+
+To run a new agent, you should have a Google Service Account and have access to the spreadsheet that defined the agent policy. 
+You can follow the instructions [here](https://cloud.google.com/iam/docs/service-account-overview) to create a Google Service Account.
+Share the created spreadsheet with the service account email.
+
+You should save the service_account key as `service_account.json` in the following path:
+
+```bash
+./packages/genie-worksheets/packages/src/worksheets/service_account.json
+```
+
+Here is a starter worksheet that you can use for your reference: [Starter Worksheet](https://docs.google.com/spreadsheets/d/1ST1ixBogjEEzEhMeb-kVyf-JxGRMjtlRR6z4G2sjyb4/edit?usp=sharing)
+
+Here is a sample spreadsheet for our VRChat agent: [VRChat Guide Agent](https://docs.google.com/spreadsheets/d/1aLyf6kkOpKYTrnvI92kHdLVip1ENCEW5aTuoSZWy2fU/edit?gid=0#gid=0)
+
+Please note that we only use the specification defined in the first sheet of the spreadsheet.
+
+For more information about creating your own agent, please refer to the [Genie Worksheets](https://github.com/stanford-oval/genie-worksheets) repository.
+
+#### Google Calendar API Configuration
+
+Setup the Google Calendar API and place the credentials in the following path:
+```bash
+./config/credentials.json
+```
+First time  you run the program, you should authorize the application to access your Google Calendar. The `token.json` file will be created in the same directory.
+
+### 4. Database Setup - Linux / MacOS
+
+The following services are required to run the VRChat Guide agent:
+
+- PostgreSQL Database
+- Embedding Server (FAISS)
+- Free-text Server
+
+The database and agent can run on separate machines (e.g., a server and a client). The database can be set up on a separate machine, and the agent can be run on a local machine.
+But the address and port are needed for the agent to connect to the database.
+
+#### PostgresSQL Database
+
+The PostgreSQL database is used to store event information and user preferences. Initialize the database schema if not already initialized:
+
+Create the database and users:
 ```bash
 # Setup PostgreSQL Database
 sudo -u postgres psql
@@ -96,62 +194,14 @@ postgres=# \q
 
 ```
 
-### 4. Configure Required Services and Credentials
-
-#### LLM Config File Setup
-
-Create the llm_config.yaml file and place it the following path:
-
-```bash
-./llm_config.yaml
-./src/vrchat_guide/llm_config.yaml
-./packages/genie-worksheets/packages/knowledge-agent/src/knowledge_agent/llm_config.yaml
-```
-
-#### Spreadsheet Specification
-
-To create a new agent, you should have a Google Service Account and create a new spreadsheet. 
-You can follow the instructions [here](https://cloud.google.com/iam/docs/service-account-overview) to create a Google Service Account.
-Share the created spreadsheet with the service account email.
-
-You should save the service_account key as `service_account.json` in the following path:
-
-```bash
-./packages/genie-worksheets/packages/src/worksheets/service_account.json
-```
-
-Here is a starter worksheet that you can use for your reference: [Starter Worksheet](https://docs.google.com/spreadsheets/d/1ST1ixBogjEEzEhMeb-kVyf-JxGRMjtlRR6z4G2sjyb4/edit?usp=sharing)
-
-Here is a sample spreadsheet for a restaurant agent: [VRChat Guide Agent](https://docs.google.com/spreadsheets/d/1aLyf6kkOpKYTrnvI92kHdLVip1ENCEW5aTuoSZWy2fU/edit?gid=0#gid=0)
-
-Please note that we only use the specification defined in the first sheet of the spreadsheet.
-
-#### Google Calendar API Configuration
-
-Setup the Google Calendar API and place the credentials in the following path:
-```bash
-./config/credentials.json
-```
-First time  you run the program, you should authorize the application to access your Google Calendar. The `token.json` file will be created in the same directory.
-
-
-### 5. Start Required Services
-
-The following services are required to run the VRChat Guide agent:
-
-- PostgreSQL Database
-- Embedding Server (FAISS)
-- Free-text Server
-
-Each of them should be started in separate terminal windows.
-
-#### Start PostgreSQL Database
-
-The PostgreSQL database is used to store event information and user preferences. Initialize the database schema if not already initialized:
+Initialize the database schema if not already initialized:
 ```bash
 # Initialize Schema (only need to run once)
 python scripts/database/init_database.py
+```
 
+Start the events syncing process:
+```bash
 # Start Calendar Events Sync
 python scripts/db_sync.py
 ```
@@ -162,7 +212,7 @@ The Embedding Server is used to generate embeddings for free-text queries. Start
 ```bash
 python packages/suql/src/suql/faiss_embedding.py
 ```
-p.s. This will occasionally crash, but it's fine.
+p.s. This will occasionally crash, but it's fine. Just wait a few seconds and run it again.
 
 #### Start Free-text Server (in new terminal)
 
@@ -171,15 +221,17 @@ The Free-text Server is used to handle free-text queries. Start the server using
 python scripts/free_text_server.py
 ```
 
+For more information about SUQL and its usage, please refer to the [SUQL](https://github.com/stanford-oval/suql) repository.
+
 ## 🧪 Verify Development Setup
 
 ```bash
 # Test dependencies
 python tests/verify_install.py
-python tests/test_dependencies.py
+python tests/test_dependencies.py 
 
 # Test database connection
-python tests/test_db_connection.py
+python tests/test_db_connection.py 
 
 # Test entry point
 python tests/test_entry_point.py
@@ -198,7 +250,12 @@ You can run the agent in a web interface by running:
 For our agent:
 ```bash
 cd src/vrchat_guide/frontend/
+
+# Start the VRChat Guide Agent in web interface without metrics logging
 chainlit run app_vrchat_guide.py --port 8800
+
+# or with metrics logging
+chainlit run app_vrchat_guide_wlog.py --port 8800 --metrics
 ```
 
 ### Running the Agent (Text Mode)
