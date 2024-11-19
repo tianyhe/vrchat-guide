@@ -17,7 +17,7 @@ current_dir = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(current_dir, "..", ".."))
 
 
-from vrchatbot.vrchatbot import (
+from vrchat_guide.vrchatbot import (
         update_profile,
         add_event,
         prompt_dir,
@@ -28,7 +28,7 @@ from vrchatbot.vrchatbot import (
 logger.remove()
 
 logger.add(
-    os.path.join(current_dir, "..", "user_logs", "user_logs.log"), rotation="1 day"
+    os.path.join(current_dir, "user_logs.log"), rotation="1 day"
 )
 
 # Unhappy paths
