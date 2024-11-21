@@ -1,6 +1,8 @@
 # Clone the repository
 git clone https://github.com/tianyhe/vrchat-guide.git
+
 Set-Location vrchat-guide
+
 
 # If submodules are not cloned
 git submodule update --init --recursive
@@ -44,9 +46,10 @@ psql -U postgres
 
 {run all 4 scripts in wsl}:
 if you encounter any error while running init_database.py or other,
-go to powershell in your windows and run
+go to powershell in your windows and run `ipconfig`
+and check for
 
-an and check for
+```
 Ethernet adapter vEthernet (WSL (Hyper-V firewall)):
 
    Connection-specific DNS Suffix  . :
@@ -54,37 +57,39 @@ Ethernet adapter vEthernet (WSL (Hyper-V firewall)):
    IPv4 Address. . . . . . . . . . . : 172.28.192.1
    Subnet Mask . . . . . . . . . . . : 255.255.240.0
    Default Gateway . . . . . . . . . :
+```
 
 pick IPV4 address from here and change
-host:{your IPV4 address} in init_database.py and in the entire codebase where you are defining host. (e.g. \scripts\db_sync.py, \packages\suql\src\suql\postgresconnection.py (something like this) etc)
+`host:{your IPV4 address}` in init_database.py and in the entire codebase where you are defining host. (e.g. \scripts\db_sync.py, \packages\suql\src\suql\postgresconnection.py (something like this) etc)
 
 For running services:
 # Initialize database schema
-python scripts/database/init_database.py
+`python scripts/database/init_database.py`
 
 # Start Calendar Events Sync
-python scripts/db_sync.py
+`python scripts/db_sync.py`
 
 # Start Embedding Server (new terminal)
-python packages/suql/src/suql/faiss_embedding.py
+`python packages/suql/src/suql/faiss_embedding.py`
 
 # Start Free-text Server (new terminal)
-python scripts/free_text_server.py
+`python scripts/free_text_server.py`
 
 
 
 For running the agent:
 # Web Interface
-Set-Location src/vrchat_guide/frontend/
-chainlit run app_vrchat_guide.py --port 8800
+`Set-Location src/vrchat_guide/frontend/`
+`chainlit run app_vrchat_guide.py --port 8800`
 
 # Text Mode
-python src/vrchat_guide/vrchatbot.py
+`python src/vrchat_guide/vrchatbot.py`
 
 
 # running integration:
 Run two client on one machine (as you sent me in the video, but with two different accounts)
 bring those two avatar's in same world (send friend request, accept, send invite, accept)
 
+and then run
 `cd \SimulationSystem-VRCHAT`
 `python integration.py`
