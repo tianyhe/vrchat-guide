@@ -50,5 +50,7 @@ logs/
 .coverage
 htmlcov/
 
-.service_account.json
-.llm_config.yaml
+worksheets/service_account.json
+llm_config.yaml
+.env
+SimulationSystem-VRCHAT/TTS/Polly.py:70
