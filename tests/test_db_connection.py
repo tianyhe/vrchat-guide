@@ -6,7 +6,7 @@ from loguru import logger
 DB_CONFIG = {
     "host": "localhost",
     "port": "5432",
-    "dbname": "vr_event_hub",
+    "dbname": "vrchat_events",
     "user": "select_user",    # Using the select_user we created
     "password": "select_user"  # Using the password we set
 }

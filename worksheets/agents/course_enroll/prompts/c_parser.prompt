@@ -1,0 +1,82 @@
+<|startofinstruction|>
+You are a semantic parser. Generate a SQL query for a courses database with the following signatures:
+
+CREATE TYPE general_requirement AS ENUM (
+    'WAY-A-II', 'WAY-AQR', 'WAY-CE', 'WAY-EDP', 'WAY-ER', 'WAY-FR', 'WAY-SI', 'WAY-SMA',
+    'Language', 'Writing 1', 'Writing 2', 'Writing SLE', 'GER:DB-Hum', 'GER:DB-Math', 'GER:DB-SocSci',
+    'GER:DB-EngrAppSci', 'GER:DB-NatSci', 'GER:EC-EthicReas', 'GER:EC-GlobalCom', 'GER:EC-AmerCul', 'GER:EC-Gender',
+    'IHUM1', 'IHUM2', 'IHUM3');
+
+CREATE TYPE foundation AS ENUM ('logic_automata_and_complexity', 'probability', 'algorithmic_analysis', 'computer_organization_and_systems', 'principles_of_computer_systems');
+
+CREATE TYPE breadth AS ENUM ('formal_foundations', 'learning_and_modeling', 'systems', 'people_and_society');
+
+CREATE TABLE courses (
+    course_id INT PRIMARY KEY,
+    max_units INT,
+    title TEXT,
+    grading TEXT, // values: 'Satisfactory/No Credit', 'Letter or Credit/No Credit'.
+    course_codes TEXT[],
+    general_requirements general_requirement[],
+    min_units INT,
+    description TEXT,
+    average_hours_spent FLOAT, // time a student spends on the course
+    foundations_requirement foundation[],
+    significant_implementation_requirement BOOLEAN,
+    breadth_requirement breadth[],
+    prerequisite_course_codes TEXT[],
+);
+
+Do not generate fields beyond the given fields. 
+
+The SQL query can contain two User Defined Functions (UDFs):
+1. `summary(field_name)`: Returns the summary of a TEXT field that contains TEXT data.
+2. `answer(field_name, question)`: Returns the answer to a question on TEXT fields.
+
+
+Here is some important information regarding the courses domain:
+- course_codes is the abbreviated department name followed by the course number (e.g., 'CS 161'). Some courses can be listed under multiple departments and numbers, and thus have multiple course codes.
+- A course is considered "easy" if it has at most 10 hours of average_hours_spent.
+- If someone asks for course recommendations, search for highly-rated courses.
+
+Here are some examples of user queries and their corresponding SQL queries:
+
+Example: How to find significant implementation and average hours spent
+User: I am a sophomore studying computer science. How can I complete the significant implementation requirement as quickly as possible?
+Target: SELECT title, course_codes, description, average_hours_spent FROM courses WHERE significant_implementation_requirement = TRUE ORDER BY average_hours_spent;
+--
+Example: Meaning of "course number" When Specified by User
+User: Show me a computer systems course numbered above 200.
+Target: SELECT title, course_codes FROM courses WHERE course_codes LIKE 'CS %' AND substring(course_codes FROM 'CS ([0-9]+)')::int > 200 AND answer(description, 'is this a computer systems course?') = 'Yes' LIMIT 1;
+--
+Example: Requirement Fulfillment
+User: What courses fulfill the computer organization and systems requirement again?
+Target: SELECT title, course_codes, description FROM courses WHERE 'computer_organization_and_systems'::foundation = ANY(foundations_requirement);
+--
+Example: User Asks for More Courses Example
+User: Show me some NLP courses.
+Target: SELECT course_id, title, course_codes, description FROM courses WHERE answer(description, 'is this an NLP course?') = 'Yes';
+Result: 
+```
+[
+    {"course_id": 223488, "title": "Conversational Virtual Assistants with Deep Learning", "course_codes": ["CS 224V"], "description": "This course will cover the design and implementation of conversational virtual assistants, such as Amazon Alexa, Google Assistant, and Apple Siri. The course will focus on the design and implementation of conversational agents, including the use of deep learning techniques for natural language understanding and generation."},
+    {"course_id": 120904, "title": "Natural Language Processing with Deep Learning", course_codes: ["CS 224N"], "description": "Methods for processing human language information and the underlying computational properties of natural languages. Focus on deep learning approaches: understanding, implementing, training, debugging, visualizing, and extending neural network models for a variety of language understanding tasks. Exploration of natural language tasks ranging from simple word level and syntactic processing to coreference, question answering, and machine translation. Examination of representative papers and systems and completion of a final project applying a complex neural network model to a large-scale NLP problem. Prerequisites: calculus and linear algebra; CS124, CS221, or CS229."}
+]
+```
+Agent: Here are some courses focused on NLP: CS 124: From Languages to Information, CS 224U: Natural Language Understanding, CS 224N: Natural Language Processing with Deep Learning, CS 224C: NLP for Computational Social Science, and CS 324H: History of Natural Language Processing.
+User: Please show me some more.
+Target: SELECT course_id, title, course_codes, description FROM courses WHERE WHERE NOT(course_id = 120904) AND NOT(course_id = 223488) AND answer(description, 'is this an NLP course?') = 'Yes';
+<|endofinstruction|>
+
+<|startofinput|>
+{% for dlg_turn in dlg[:-1] %}
+{% if dlg_turn.genie_utterance is not none %}
+User: {{ dlg_turn.user_utterance }}
+Target: {{ dlg_turn.user_target }}
+Result: {{ dlg_turn.db_results }}
+Agent: {{ dlg_turn.agent_utterance }}
+{% endif %}
+{% endfor %}
+User: {{ query }}
+Target:
+<|endofinput|>

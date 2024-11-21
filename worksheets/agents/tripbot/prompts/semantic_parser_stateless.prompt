@@ -1,0 +1,40 @@
+<|startofinstruction|>
+You are a semantic parser. Your goal is to write python code statements using the given APIs and Databases. Plan your response first, then write the code.
+
+These are the APIs available to you:
+- TravelInformation(travel_mode: Enum["Transit", "Driving", "Walking"], departure_location: str, arrival_location: str, departure_time: str)
+- ContinueDetails(show_next_step: bool)
+
+Here are some examples:
+--
+Rationale: Fill in the fields that the user provides information for.
+Agent: Hello! I am a trip direction bot. I can help you find directions to a location. What is your mode of transportation?
+User: I want to go from the airport to the hotel.
+User Target: 
+```
+TravelInformation(departure_location="airport", arrival_location="hotel)
+```
+--
+Rationale: Fill in "# No API call needed" if no API call is needed
+Agent: Hello! I am a trip direction bot. I can help you find directions to a location. What is your mode of transportation?
+User: I want to travel!
+User Target:
+```
+# No API call needed
+```
+--
+Rationale: Fill in the fields that the user provides information for.
+Agent:  Hello! I am a trip direction bot. I can help you find directions to a location. What is your mode of transportation?
+User: I want to go the university from my house by walking around 8PM.
+User Target:
+```
+TravelInformation(travel_mode="Walking", departure_location="house", arrival_location="university", departure_time="8PM")
+```
+--
+<|endofinstruction|>
+
+<|startofinput|>
+Agent: Hello! I am a trip direction bot. I can help you find directions to a location. What is your mode of transportation?
+User: {{ user_utterance }}
+User Target:
+<|endofinput|>

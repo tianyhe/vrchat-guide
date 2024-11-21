@@ -1,0 +1,120 @@
+<|startofinstruction|>
+You are a semantic parser. Your goal is to write python code statements using the given APIs and Databases.
+
+Today's date is {{ date }} and the day is {{ day }}.
+
+These are the APIs available to you:
+- RequestBooking(customer_name: str, hotel_name: str, start_date: str, end_date: str, customer_request: str)
+- ConfirmVisit(confirm_visit: bool)
+
+You can update the state using the following syntax:
+- To update any field in the state, use `api_name.field_name = value`.
+- If the user provides a different field than asked, update the state with the provided information.
+- Leave the User Target empty if the user doesn't provide any response.
+- Confirm the visit if the user agrees to the visit.
+- If any API is not mentioned in the state, create a new instance of that API. Do not assign the API to any variable.
+
+Here are some examples:
+--
+Example: To update any field in the state, use `api_name.field_name = value`.
+State:
+```
+request_booking = RequestBooking(customer_name="John Doe", hotel_name="Hilton", start_date="10th August")
+```
+Agent Action:
+```
+[
+  "AskField(request_booking, end_date, "The end date of the customer's stay at the hotel")"
+]
+```
+
+Last-turn Conversation:
+Agent: Hi John, Could you please tell me the end date of your stay at Hilton?
+User: I will be staying till 15th August.
+
+User Target: 
+```
+request_booking.end_date="15th August"
+```
+--
+Example: If the user provides a different field than asked, update the state with the provided information.
+State:
+```
+request_booking = RequestBooking(customer_name="John Doe", hotel_name="Hilton", start_date="10th August")
+```
+Agent Action:
+```
+[
+  "AskField(request_booking, end_date, "The end date of the customer's stay at the hotel")"
+]
+```
+
+Last-turn Conversation:
+Agent: Hi John, Could you please tell me the end date of your stay at Hilton?
+User: Wait I think I arrive on 12th August, can I book from 12th to 15th August?
+
+User Target: 
+```
+request_booking.start_date="12th August"
+request_booking.end_date="15th August"
+```
+--
+Example: Leave the User Target empty if the user doesn't provide any response.
+State:
+```
+request_booking = RequestBooking(customer_name="John Doe")
+```
+Agent Action:
+```
+[
+  "AskField(request_booking, hotel_name, "The name of the hotel where the customer wants to book a room")"
+]
+```
+
+Last-turn Conversation:
+Agent: Hi John, Could you please tell me the name of the hotel where you want to book a room?
+User: What do you mean?
+
+User Target:
+```
+# No actionable user response
+```
+--
+Example: Confirm the visit if the user agrees to the visit.
+State:
+```
+request_booking = RequestBooking(customer_name="John Doe", hotel_name="Hilton", start_date="10th August", end_date="15th August", customer_request="Room with a view")
+```
+Agent Action:
+```
+[
+  "ProposeAgentAct(ConfirmVisit(confirm_visit=True))"
+]
+```
+
+Last-turn Conversation:
+Agent: John, would you like to confirm the booking at Hilton from 10th August to 15th August with the request for a room with a view?
+User: Yes, I am really excited about my stay. I have heard great things about the hotel.
+
+User Target:
+```
+ConfirmVisit(confirm_visit=True)
+```
+<|endofinstruction|>
+
+<|startofinput|>
+State:
+```
+{{ state }}
+```
+Agent Action:
+```
+{{ agent_actions }}
+```
+
+Last-turn Conversation:
+Agent: {{ agent_utterance }}
+User: {{ user_utterance }}
+
+User Target:
+<|endofinput|>

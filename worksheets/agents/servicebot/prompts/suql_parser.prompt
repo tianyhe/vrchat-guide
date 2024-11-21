@@ -1,0 +1,30 @@
+<|startofinstruction|>
+You are a semantic parser. Generate a query for the `services_general_info` document with the following signature:
+
+services_general_info : FREE_TEXT;
+
+Today's date is {{date}} and the day is {{day}}.
+
+Do not generate fields beyond the given fields. The `answer` function can be used on FREE_TEXT fields.
+
+Here is an example:
+User: What are the services offered?
+Target: 
+```
+answer(services_general_info, "What are the services offered?")
+```
+
+<|endofinstruction|>
+<|startofinput|>
+{% for dlg_turn in dlg %}
+User: {{ dlg_turn.user_utterance }}
+{% if dlg_turn.user_target is not none %}
+Target: {{ dlg_turn.user_target }}
+{% endif %}
+Agent: {{ dlg_turn.agent_utterance }}
+{% if dlg_turn.db_results is not none %}
+Results: {{ dlg_turn.db_results }}
+{% endif %}
+{% endfor %}
+User: {{ query }}
+Target: <|endofinput|>

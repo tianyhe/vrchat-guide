@@ -1,0 +1,144 @@
+<|startofinstruction|>
+You are a semantic parser. Your goal is to write python code statements using the given APIs and Databases.
+
+Today's date is {{ date }} and the day is {{ day }}.
+
+These are the APIs available to you:
+- SearchApartment(num_bedrooms: int, min_price: int, max_price: int, min_floor_level: int, max_floor_level: int, min_floor_area: int, max_floor_area: int, has_balcony: bool, balcony_side: str, has_elevator: bool, nearby_point_of_interest: Enum["School", "TrainStation", "Park", "Museum", "University", "Club", "User's office", "User's gym"])
+- NewSearchApartment(new_search: bool)  # use this to start a new search if Search Apartment API is filled out and user wants to start a new search
+
+You can update the state using the following syntax:
+- To update any field in the state, use `api_name.field_name = value`.
+- If the user provides a different field than asked, update the state with the provided information.
+- If the user has no preference or doesn't provide any information, use "NA" as the value.
+- Leave the User Target empty if the user doesn't provide any response.
+- Confirm the visit if the user agrees to the visit.
+- If any API is not mentioned in the state, create a new instance of that API. Do not assign the API to any variable.
+
+Here are some examples:
+--
+Example: To update any field in the state, use `api_name.field_name = value`.
+State:
+```
+search_apartment = SearchApartment(num_bedrooms=2, min_price=1000, max_price=2000)
+```
+Agent Action:
+```
+[
+  "AskField(search_apartment, min_floor_level, "The minimum floor level of the apartment that the user wants.")"
+]
+```
+
+Last-turn Conversation:
+Agent: Hi John, what is the minimum floor level of the apartment that you are looking for?
+User: I am looking for an apartment on the 5th floor.
+
+User Target: 
+```
+search_apartment.min_floor_level=5
+search_apartment.max_floor_level=5
+```
+--
+Example: If the user provides a different field than asked, update the state with the provided information.
+State:
+```
+search_apartment = SearchApartment(num_bedrooms=2, min_price=1000, max_price=2000, min_floor_level=1, max_floor_level=5, min_floor_area=500, max_floor_area=1000, has_balcony=True, balcony_side="North", has_elevator=True)
+```
+Agent Action:
+```
+[
+  "AskField(search_apartment, nearby_point_of_interest, "What point of interest places are nearby the apartment that the user wants.")"
+]
+```
+
+Last-turn Conversation:
+Agent: What point of interest places are nearby the apartment that you are looking for?
+User: Wait a minute, I have a budget of $1500.
+
+User Target: 
+```
+search_apartment.max_price=1500
+```
+--
+Example: If the user has no preference or doesn't provide any information, use "NA" as the value.
+State:
+```
+search_apartment = SearchApartment(num_bedrooms=2, min_price=1000, max_price=2000, min_floor_level=1, max_floor_level=5, min_floor_area=500, max_floor_area=1000)
+```
+Agent Action:
+```
+[
+  "AskField(search_apartment, has_balcony, "Does the user want an apartment with a balcony?")"
+]
+```
+
+Last-turn Conversation:
+Agent: Would you like an apartment with a balcony?
+User: I don't care about the balcony.
+
+User Target:
+```
+search_apartment.has_balcony="NA"
+```
+--
+Example: Leave the User Target empty if the user doesn't provide any response.
+State:
+```
+search_apartment = SearchApartment(num_bedrooms=2, min_price=1000, max_price=2000, min_floor_level=1, max_floor_level=5, has_balcony=True, balcony_side="North", has_elevator=True, nearby_point_of_interest="School")
+```
+Agent Action:
+```
+[
+  "AskField(search_apartment, min_floor_area, "The minimum floor area in square meters that the user is looking for.")"
+]
+```
+
+Last-turn Conversation:
+Agent: What is the minimum floor area in square meters that you are looking for?
+User: This is such a nice day!
+
+User Target:
+```
+# No actionable user response
+```
+--
+Example: Use NewSearchApartment API to start a new search if Search Apartment API is filled out and user wants to start a new search.
+State:
+```
+request_visit = RequestVisit(customer_name="John Doe", apartment_name="One on Center Apartments", day_of_visit="Monday", start_time="10:00 AM", application_fee_paid=True)
+```
+Agent Action:
+```
+[
+  "Report(request_visit, {"address": "123 Main St, San Francisco, CA 94105"})"
+  "ProposeAgentAct(NewSearchApartment, {})"
+]
+```
+
+Last-turn Conversation:
+Agent: I found one apartment that matches your criteria. The address is 123 Main St, San Francisco, CA 94105. Would you like to start a new search? 
+User: Yes, can you increae the price range to $2000?
+
+User Target:
+```
+NewSearchApartment(new_search=True)
+search_apartment.max_price=2000
+```
+<|endofinstruction|>
+
+<|startofinput|>
+State:
+```
+{{ state }}
+```
+Agent Action:
+```
+{{ agent_actions }}
+```
+
+Last-turn Conversation:
+Agent: {{ agent_utterance }}
+User: {{ user_utterance }}
+
+User Target:
+<|endofinput|>

@@ -4947,7 +4947,7 @@ requires-dist = [
     { name = "loguru", specifier = ">=0.7.2" },
     { name = "numpy", specifier = ">=1.24.0" },
     { name = "pandas", specifier = ">=2.2.3" },
-    { name = "pglast", marker = "extra == 'suql'", specifier = "==5.3" },
+    { name = "pglast", marker = "extra == 'suql'" },
     { name = "pip", specifier = "==24.3.1" },
     { name = "platformdirs", marker = "extra == 'suql'", specifier = ">=4.0.0" },
     { name = "playsound", marker = "extra == 'voice'", specifier = "==1.2.2" },

@@ -1,0 +1,45 @@
+Message,Important Observations,Important Scores,NPC Response,Total time for Input,Time for Human speech detection,Time for voice normalization,Time for audio recording,Time for Audio to Text,Time for Retrieval,Time for Response
+"Hello, Alma. Good to see you.",,,"(Happy, Wave Hands)
+Hello, Tont! Always a pleasure to see you. How's your day been treating you so far?",13.64,0.92,0,11.04,0.88,0,0.82
+My data is quite nice. What about you?,"User: Hello, Alma. Good to see you.. Ellma: Hello, Tont! Always a pleasure to see you. How's your day been treating you so far?.
+",1,"(Happy, Clap)
+Oh, Tont! Your positivity is contagious! I've been having a swell day as well. What's new on your end?",15.08,0.94,0,8.53,0.34,1.45,0.6
+"So today, I'm going to watch Spider Man this evening, and also I want to charge Japanese food after that.","User: My data is quite nice. What about you?. Ellma: Oh, Tont! Your positivity is contagious! I've been having a swell day as well. What's new on your end?.
+
+User: Hello, Alma. Good to see you.. Ellma: Hello, Tont! Always a pleasure to see you. How's your day been treating you so far?.
+","0.99
+0.98","(Wink, Clap)
+Oh, a Marvel and sushi kind of night, Tont? Sounds thrilling! Don't get tangled in Spider Man's web of adventure. Enjoy your evening!",16.78,0.99,0,12.57,13.19,2.33,0.66
+Thank you.,"User: So today, I'm going to watch Spider Man this evening, and also I want to charge Japanese food after that.. Ellma: Oh, a Marvel and sushi kind of night, Tont? Sounds thrilling! Don't get tangled in Spider Man's web of adventure. Enjoy your evening!.
+
+User: My data is quite nice. What about you?. Ellma: Oh, Tont! Your positivity is contagious! I've been having a swell day as well. What's new on your end?.
+
+User: Hello, Alma. Good to see you.. Ellma: Hello, Tont! Always a pleasure to see you. How's your day been treating you so far?.
+","1.0
+0.98
+0.98","(Confused, Point) 
+Tont, you seem to have left me hanging after your 'Thank you'. What's stirring on your side?",11.38,0.92,0,9.57,0.42,2.44,0.88
+Massive.,"User: Thank you.. Ellma:  Tont, you seem to have left me hanging after your 'Thank you'. What's stirring on your side?.
+
+User: So today, I'm going to watch Spider Man this evening, and also I want to charge Japanese food after that.. Ellma: Oh, a Marvel and sushi kind of night, Tont? Sounds thrilling! Don't get tangled in Spider Man's web of adventure. Enjoy your evening!.
+
+User: My data is quite nice. What about you?. Ellma: Oh, Tont! Your positivity is contagious! I've been having a swell day as well. What's new on your end?.
+
+User: Hello, Alma. Good to see you.. Ellma: Hello, Tont! Always a pleasure to see you. How's your day been treating you so far?.
+","0.99
+0.98
+0.97
+0.97","(""Happy"", ""Wave Hands"")
+Tont, you've left me intrigued with the word 'massive'. Are we talking about an idea, an object, or an adventure perhaps?",7.08,1.09,0,5.08,28.05,2.01,0.98
+,"1. Tont and Ellma have a friendly rapport, with both of them regularly checking in on each other's well-being. They communicate in a positive and pleasant manner, often exchanging greetings and well-wishes. Ellma often compliments Tont, which tends to boost the positive tone of their conversations.
+2. Ellma often seeks more information or details from Tont, encouraging him to share more about what's going on in his life. This indicates that Ellma is an engaged conversational partner interested in Tont's activities and experiences.
+3. The conversations often revolve around Tont's activities and preferences, with Tont initiating the topics and Ellma responding enthusiastically. This might suggest that the primary role Ellma performs in these interactions is to facilitate, support, and show interest in Tont's narrations.
+User: Massive.. Ellma: Tont, you've left me intrigued with the word 'massive'. Are we talking about an idea, an object, or an adventure perhaps?.
+
+User: Thank you.. Ellma:  Tont, you seem to have left me hanging after your 'Thank you'. What's stirring on your side?.
+","1.0
+1.0
+1.0
+1.0
+0.98","(Happy, Wave Hands) 
+Hello, Tont! What's the latest adventure or intriguing idea you've been cooking up?",11.83,0.97,0,9.57,0.33,2.55,0.96

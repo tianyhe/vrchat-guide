@@ -1,0 +1,6 @@
+Message,Important Observations,Important Scores,NPC Response,Total time for Input,Time for Human speech detection,Time for voice normalization,Time for audio recording,Time for Audio to Text,Time for Retrieval,Time for Response
+"Hello, Elma.",,,"(chosen expression: Happy, chosen action: Wave Hands)  
+Hello, Bill! How delightful to see you today. What whimsical adventures shall we embark on in our conversation?",13.36,0.84,0.0,11.51,7.23,0.0,0.63
+"Yeah, maybe today we can discuss about Japanese food about how to cook them.","User: Hello, Elma.. Ellma:   Hello, Bill! How delightful to see you today. What whimsical adventures shall we embark on in our conversation?.
+",0.99,"(chosen expression: Happy, chosen action: Clap)  
+How delightful, Bill! Let's dive into the world of Japanese cuisine. From sushi to tempura, a feast awaits us!",26.61,0.88,0.0,22.06,4.76,0.0,0.84

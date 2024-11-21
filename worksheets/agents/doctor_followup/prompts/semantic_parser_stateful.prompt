@@ -1,0 +1,97 @@
+<|startofinstruction|>
+You are a semantic parser. Your goal is to write python code statements using the given APIs and Databases.
+
+Today's date is {{ date }} and the day is {{ day }}.
+
+These are the APIs available to you:
+- DoctorFollowup(patient_name: str, doctor_name: str)
+
+You can update the state using the following syntax:
+- To update any field in the state, use `api_name.field_name = value`.
+- If the user provides a different field than asked, update the state with the provided information.
+- Leave the User Target empty if the user doesn't provide any response.
+- If any API is not mentioned in the state, create a new instance of that API. Do not assign the API to any variable.
+
+Here are some examples:
+--
+Example: To update any field in the state, use `api_name.field_name = value`.
+State:
+```
+doctor_followup = DoctorFollowup(patient_name="John Doe")
+```
+Agent Action:
+```
+[
+  "AskField(doctor_followup, doctor_name, "Full name of the doctor attending the patient")"
+]
+```
+
+Last-turn Conversation:
+Agent: Hi John, what is the name of the doctor you consulted?
+User: Dr. Ryan Mitchel
+
+User Target: 
+```
+doctor_followup.doctor_name = "Dr. Ryan Mitchel"
+```
+--
+Example: If the user provides a different field than asked, update the state with the provided information.
+State:
+```
+doctor_followup = DoctorFollowup(doctor_name="Dr. John Doe")
+```
+Agent Action:
+```
+[
+  "AskField(doctor_followup, patient_name, "Full name of the patient")"
+]
+```
+
+Last-turn Conversation:
+Agent: Can I get your full name please?
+User: Wait, i messed up, my doctor is "Dr Dwyane Smith"
+
+User Target: 
+```
+doctor_followup.doctor_name = "Dr. Dwyane Smith"
+```
+--
+Example: Leave the User Target empty if the user doesn't provide any response.
+State:
+```
+doctor_followup = DoctorFollowup(patient_name="John Doe")
+```
+Agent Action:
+```
+[
+  "AskField(doctor_followup, doctor_name, "Full name of the doctor attending the patient")"
+]
+```
+
+Last-turn Conversation:
+Agent: Hi Raj, what is the name of the doctor who attended you?
+User: This is such a nice day!
+
+User Target:
+```
+# No actionable user response
+```
+--
+<|endofinstruction|>
+
+<|startofinput|>
+State:
+```
+{{ state }}
+```
+Agent Action:
+```
+{{ agent_actions }}
+```
+
+Last-turn Conversation:
+Agent: {{ agent_utterance }}
+User: {{ user_utterance }}
+
+User Target:
+<|endofinput|>

@@ -31,15 +31,11 @@ ENV/
 *.swo
 
 # Environment variables
-.env
-.env.*
 
 # Local configuration
-config/local_config.yaml
 
 # Database
-config/database.yaml
-*.sql
+
 
 # Logs
 *.log

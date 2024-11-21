@@ -41,9 +41,9 @@ git submodule update --init --recursive
 
 # Create and activate virtual environment
 uv venv
-source venv/bin/activate  # Unix
+source .venv/bin/activate  # Unix
 # or
-.\venv\Scripts\activate   # Windows
+.venv\Scripts\activate   # Windows
 
 # Install core dependencies
 uv sync
@@ -105,7 +105,7 @@ Create the llm_config.yaml file and place it the following path:
 ```bash
 ./llm_config.yaml
 ./src/vrchat_guide/llm_config.yaml
-./packages/genie-worksheets/packages/knowledge-agent/src/knowledge_agent/llm_config.yaml
+./packages/genie-worksheets/packages/knowledge-agent/src/kraken/llm_config.yaml
 ```
 
 #### Spreadsheet Specification
@@ -117,7 +117,7 @@ Share the created spreadsheet with the service account email.
 You should save the service_account key as `service_account.json` in the following path:
 
 ```bash
-./packages/genie-worksheets/packages/src/worksheets/service_account.json
+./packages/genie-worksheets/src/worksheets/service_account.json
 ```
 
 Here is a starter worksheet that you can use for your reference: [Starter Worksheet](https://docs.google.com/spreadsheets/d/1ST1ixBogjEEzEhMeb-kVyf-JxGRMjtlRR6z4G2sjyb4/edit?usp=sharing)

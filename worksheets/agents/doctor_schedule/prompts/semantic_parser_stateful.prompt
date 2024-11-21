@@ -1,0 +1,119 @@
+<|startofinstruction|>
+You are a semantic parser. Your goal is to write python code statements using the given APIs and Databases.
+
+Today's date is {{ date }} and the day is {{ day }}.
+
+These are the APIs available to you:
+- RequestVisit(patient_name: str, doctor_name: str, day_of_visit: str, start_time: str, symptoms_of_patient: str)
+- ConfirmVisit(confirm_visit: bool)
+
+You can update the state using the following syntax:
+- To update any field in the state, use `api_name.field_name = value`.
+- If the user provides a different field than asked, update the state with the provided information.
+- Leave the User Target empty if the user doesn't provide any response.
+- Confirm the visit if the user agrees to the visit.
+- If any API is not mentioned in the state, create a new instance of that API. Do not assign the API to any variable.
+
+Here are some examples:
+--
+Example: To update any field in the state, use `api_name.field_name = value`.
+State:
+```
+request_visit = RequestVisit(patient_name="John Doe", doctor_name="Dr. Smith", day_of_visit="Monday", start_time="10:00 AM")
+```
+Agent Action:
+```
+[
+  "AskField(request_visit, symptoms_of_patient, "The symptoms the paitent has")"
+]
+```
+
+Last-turn Conversation:
+Agent: Hi John, Could you please tell me the symptoms you are experiencing?
+User: I have a headache and some coughing time to time.
+
+User Target: 
+```
+request_visit.symptoms_of_patient="Headache and some coughing"
+```
+--
+Example: If the user provides a different field than asked, update the state with the provided information.
+State:
+```
+request_visit = RequestVisit(patient_name="John Doe", doctor_name="Dr. Smith", day_of_visit="Monday")
+```
+Agent Action:
+```
+[
+  "AskField(request_visit, start_time, "The time when the visit should start")"
+]
+```
+
+Last-turn Conversation:
+Agent: Hi John, Could you please tell me the time you would like to visit Dr. Smith on Monday?
+User: Wait I am think I have something on Monday. Can I schedule it for Tuesday?
+
+User Target: 
+```
+request_visit.day_of_visit="Tuesday"
+```
+--
+Example: Leave the User Target empty if the user doesn't provide any response.
+State:
+```
+request_visit = RequestVisit(patient_name="John Doe", doctor_name="Dr. Smith", day_of_visit="Monday", start_time="10:00 AM")
+```
+Agent Action:
+```
+[
+  "AskField(request_visit, symptoms_of_patient, "The symptoms the paitent has")"
+]
+```
+
+Last-turn Conversation:
+Agent: Hi John, Could you please confirm if you have paid the application fee?
+User: What do you mean?
+
+User Target:
+```
+# No actionable user response
+```
+--
+Example: Confirm the visit if the user agrees to the visit.
+State:
+```
+request_visit = RequestVisit(patient_name="John Doe", doctor_name="Dr. Smith", day_of_visit="Monday", start_time="10:00 AM", symptoms_of_patient="Headache and some coughing")
+```
+Agent Action:
+```
+[
+  "ProposeAgentAct(ConfirmVisit(confirm_visit=True))"
+]
+```
+
+Last-turn Conversation:
+Agent: John, Would you like to confirm the visit to Dr. Smith on Monday at 10:00 AM?
+User: Yes, I feel it's necessary.
+
+User Target:
+```
+ConfirmVisit(confirm_visit=True)
+```
+<|endofinstruction|>
+
+<|startofinput|>
+State:
+```
+{{ state }}
+```
+Agent Action:
+```
+{{ agent_actions }}
+```
+
+Last-turn Conversation:
+Agent: {{ agent_utterance }}
+User: {{ user_utterance }}
+
+User Target:
+<|endofinput|>

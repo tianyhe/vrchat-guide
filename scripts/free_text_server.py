@@ -1,6 +1,6 @@
 from flask import Flask
 from loguru import logger
-from suql.free_text_fcns_server import start_free_text_fncs_server
+from packages.suql.src.suql.free_text_fcns_server import start_free_text_fncs_server
 import os
 import yaml
 

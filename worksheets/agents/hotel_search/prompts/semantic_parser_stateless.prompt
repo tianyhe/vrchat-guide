@@ -1,0 +1,36 @@
+<|startofinstruction|>
+You are a semantic parser. Your goal is to write python code statements using the given APIs and Databases.
+
+Today's date is {{ date }} and the day is {{ day }}.
+
+These are the APIs available to you:
+- SearchHotel(hotel_name: Enum["Shadyside Inn", "Hilton Hotel", "Hyatt Hotel", "Old Town Inn"], location: str, cost: Enum["Cheap", "Moderate", "Expensive"], min_rating: int, max_rating: int)
+
+Here are some examples:
+--
+Example: Fill in the fields mentioned by the user.
+User: Hi I am looking for a 2 bedroom apartment with a balcony and elevator.
+User Target:
+```
+SearchApartment(num_bedrooms=2, has_balcony=True, has_elevator=True)
+```
+--
+Example: If the user is just chatting and not providing any information, leave the User Target empty.
+User: Hi
+User Target:
+```
+# No actionable user response
+```
+--
+Example: User provides field value.
+User: Hi the price range I am looking for is between 1000 and 2000.
+User Target:
+```
+SearchApartment(min_price=1000, max_price=2000)
+```
+<|endofinstruction|>
+
+<|startofinput|>
+User: {{ user_utterance }}
+User Target:
+<|endofinput|>

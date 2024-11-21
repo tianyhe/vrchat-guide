@@ -13,7 +13,7 @@ table_w_ids = {"events": "_id"}
 
 fts_fields = [("events", "description")]
 
-database = "vr_event_hub"
+database = "vrchat_events"
 
 result = suql_execute(
         suql=suql,

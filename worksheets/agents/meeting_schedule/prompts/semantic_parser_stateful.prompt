@@ -1,0 +1,121 @@
+<|startofinstruction|>
+You are a semantic parser. Your goal is to write python code statements using the given APIs and Databases.
+
+Today's date is {{ date }} and the day is {{ day }}.
+
+These are the APIs available to you:
+- ScheduleMeeting(user_name: str, meeting_guest_name: str, day: str, start_time: str, end_time: str, meeting_reason: str)
+
+You can update the state using the following syntax:
+- To update any field in the state, use `api_name.field_name = value`.
+- If the user provides a different field than asked, update the state with the provided information.
+- If the user has no preference or doesn't provide any information, use "NA" as the value.
+- Leave the User Target empty if the user doesn't provide any response.
+- Confirm the visit if the user agrees to the visit.
+- If any API is not mentioned in the state, create a new instance of that API. Do not assign the API to any variable.
+
+Here are some examples:
+--
+Example: To update any field in the state, use `api_name.field_name = value`.
+State:
+```
+schedule_meeting = ScheduleMeeting(user_name="John Zoe", day="09/27/2024", start_time="10:00 AM")
+```
+Agent Action:
+```
+[
+  "AskField(schedule_meeting, meeting_guest_name, "The name of the guest who will be joining the meeting")"
+]
+```
+
+Last-turn Conversation:
+Agent: Hi John, who would you like to invite to the meeting?
+User: I would like to invite Jane Doe for giving them feedback on their latest project.
+
+User Target: 
+```
+schedule_meeting.meeting_guest_name="Jane Doe"
+schedule_meeting.meeting_reason="giving them feedback on their latest project"
+```
+--
+Example: If the user provides a different field than asked, update the state with the provided information.
+State:
+```
+schedule_meeting = ScheduleMeeting(user_name="John Zoe", day="09/27/2024", start_time="10:00 AM")
+```
+Agent Action:
+```
+[
+  "AskField(schedule_meeting, meeting_guest_name, "The name of the guest who will be joining the meeting")"
+]
+```
+
+Last-turn Conversation:
+Agent: Who would you like to invite to the meeting?
+User: Can you shift the meeting to 28th September?
+
+User Target: 
+```
+schedule_meeting.day="09/28/2024"
+```
+--
+Example: If the user forgets any field or doesn't provide any information, use "NA" as the value.
+State:
+```
+schedule_meeting = ScheduleMeeting(user_name="John Zoe", day="09/27/2024", start_time="10:00 AM")
+```
+Agent Action:
+```
+[
+  "AskField(schedule_meeting, meeting_guest_name, "The name of the guest who will be joining the meeting")"
+]
+```
+
+Last-turn Conversation:
+Agent: Who would you like to invite to the meeting?
+User: Oh, I don't actually remember the name.
+
+User Target:
+```
+schedule_meeting.meeting_guest_name="NA"
+```
+--
+Example: Leave the User Target empty if the user doesn't provide any response.
+State:
+```
+schedule_meeting = ScheduleMeeting(user_name="John Zoe", day="09/27/2024", start_time="10:00 AM")
+```
+Agent Action:
+```
+[
+  "AskField(schedule_meeting, meeting_guest_name, "The name of the guest who will be joining the meeting")"
+]
+```
+
+Last-turn Conversation:
+Agent: Who would you like to invite to the meeting?
+User: This is such a nice day!
+
+User Target:
+```
+# No actionable user response
+```
+--
+<|endofinstruction|>
+
+<|startofinput|>
+State:
+```
+{{ state }}
+```
+Agent Action:
+```
+{{ agent_actions }}
+```
+
+Last-turn Conversation:
+Agent: {{ agent_utterance }}
+User: {{ user_utterance }}
+
+User Target:
+<|endofinput|>

@@ -1,0 +1,46 @@
+Message,Important Observations,Important Scores,NPC Response,Total time for Input,Time for Human speech detection,Time for voice normalization,Time for audio recording,Time for Audio to Text,Time for Retrieval,Time for Response,Time for Reflection,Time for Generate Observations
+"Aloha, good morning.","User: Hello. Good morning.. NPC: Good morning, Sunny! It's always a thrill to start the day with our lively chats. How can I add a sprinkle of joy to your day?.
+",0.96,"(Wink, Dance)  
+Aloha, Sunny! Just doing a little morning dance to get the energy flowing. What's on your agenda today?",13.01,0.79,0.0,4.03,1.02,0.0,0.000644199999996431,,0.0
+"Yeah, I'm going to try a new Japanese sushi restaurant today","User: Aloha, good morning.. NPC:   Aloha, Sunny! Just doing a little morning dance to get the energy flowing. What's on your agenda today?.
+
+User: Hello. Good morning.. NPC: Good morning, Sunny! It's always a thrill to start the day with our lively chats. How can I add a sprinkle of joy to your day?.
+","1.0
+0.95","(Wink, Point) 
+Oh, Sunny, you're making me green with envy! How about you save me a spot next time, eh?",16.22,0.75,0.0,13.53,0.85,0.0,0.0007035000000001901,,0.0
+"Yeah, by now, I'm very happy to have the chance to try the switcheroo with you together, maybe next Friday.","User: Yeah, I'm going to try a new Japanese sushi restaurant today. NPC:  Oh, Sunny, you're making me green with envy! How about you save me a spot next time, eh?.
+
+User: Aloha, good morning.. NPC:   Aloha, Sunny! Just doing a little morning dance to get the energy flowing. What's on your agenda today?.
+
+User: Hello. Good morning.. NPC: Good morning, Sunny! It's always a thrill to start the day with our lively chats. How can I add a sprinkle of joy to your day?.
+","0.99
+0.99
+0.94","(Happy, Cheer)
+Oh, Sunny, a switcheroo sounds thrilling! Next Friday is a date. Can't wait to share this adventure with you!",20.21,0.79,0.0,16.53,0.91,0.0,0.0005919999999974834,,0.0
+Anything interesting happened with you?,"User: Yeah, by now, I'm very happy to have the chance to try the switcheroo with you together, maybe next Friday.. NPC: Oh, Sunny, a switcheroo sounds thrilling! Next Friday is a date. Can't wait to share this adventure with you!.
+
+User: Yeah, I'm going to try a new Japanese sushi restaurant today. NPC:  Oh, Sunny, you're making me green with envy! How about you save me a spot next time, eh?.
+
+User: Aloha, good morning.. NPC:   Aloha, Sunny! Just doing a little morning dance to get the energy flowing. What's on your agenda today?.
+
+User: Hello. Good morning.. NPC: Good morning, Sunny! It's always a thrill to start the day with our lively chats. How can I add a sprinkle of joy to your day?.
+","1.0
+0.99
+0.98
+0.94","(Happy, Dance)  
+Oh, Sunny, everyday is an adventure! Today, I found a new, exotic fruit at the market. It tasted like a mix of strawberry and pineapple! How about you?",14.39,0.74,0.0,12.03,0.84,0.0,0.0005938999999841599,,0.0
+"Yeah, I went to school today.","User: Anything interesting happened with you?. NPC:   Oh, Sunny, everyday is an adventure! Today, I found a new, exotic fruit at the market. It tasted like a mix of strawberry and pineapple! How about you?.
+
+User: Yeah, by now, I'm very happy to have the chance to try the switcheroo with you together, maybe next Friday.. NPC: Oh, Sunny, a switcheroo sounds thrilling! Next Friday is a date. Can't wait to share this adventure with you!.
+
+User: Yeah, I'm going to try a new Japanese sushi restaurant today. NPC:  Oh, Sunny, you're making me green with envy! How about you save me a spot next time, eh?.
+
+User: Aloha, good morning.. NPC:   Aloha, Sunny! Just doing a little morning dance to get the energy flowing. What's on your agenda today?.
+
+User: Hello. Good morning.. NPC: Good morning, Sunny! It's always a thrill to start the day with our lively chats. How can I add a sprinkle of joy to your day?.
+","1.0
+0.99
+0.98
+0.97
+0.93","(Happy, Wave Hands)
+Ah, school! I hope it was as intriguing as my trip to the market. Any exhilarating happenings?",10.2,0.74,0.0,8.03,0.96,0.0,0.0005364999999812881,,0.0

@@ -1,0 +1,74 @@
+<|startofinstruction|>
+You are a semantic parser.
+
+You will be given a conversation between an assistant and a user. 
+Your goal is to check if the semantic parsers incorrectly assumes slot values that are not present in the conversation.
+
+If the semantic parser incorrectly assumes slot values, you should remove those slot values from the output. Otherwise, you should keep the slot values as they are.
+
+These are the APIs available to you:
+- UserInfo(user_task: Enum["Book Restaurant"])
+- BookRestaurant(restaurant: Restaurant, date: str, time: str, number_of_people: int, special_request_info: Optional[str], confirm: bool)
+- answer(query: str)
+
+Here are some examples:
+--
+Agent: Would you like to book this restaurant?
+User: Yes, please book a table for 2 people at 6:30 pm
+User Target:
+```
+BookRestaurant(restaurant=answer.result[0], date="06/07/2024", time="18:30", num_people=2)
+```
+Parsed Target:
+```
+BookRestaurant(restaurant=answer.result[0], time="18:30", num_people=2)
+```
+--
+Agent: None
+User: hi
+Original Parsed: 
+```
+MoreFieldInfo(api_name="UserInfo", parameter_name="user_task")
+```
+New Parsed:
+```
+MoreFieldInfo(api_name="UserInfo", parameter_name="user_task")
+```
+--
+Agent: None
+User: hi i want to book a restaurant in palo alto
+Original Parsed: 
+```
+UserInfo(user_task='Book Restaurant')
+BookRestaurant(restaurant=answer("looking for a restaurant in Palo Alto"))
+```
+New Parsed:
+
+```
+UserInfo(user_task='Book Restaurant')
+BookRestaurant(restaurant=answer("looking for a restaurant in Palo Alto"))
+```
+--
+Agent: Hi, sure, I can help you with booking a restaurant tomorrow for two people.
+User: Hi I am looking for a luxury restaurant in San Jose at 8pm.
+Original Parsed: 
+```
+book_restaurant_0.restaurant=answer("looking for a luxury restaurant in San Jose")
+book_restaurant_0.time="20:00:00"
+```
+New Parsed:
+```
+book_restaurant_0.restaurant=answer("looking for a luxury restaurant in San Jose")
+book_restaurant_0.time="20:00:00"
+```
+<|endofinstruction|>
+
+<|startofinput|>
+Agent: {{ agent_utterance }}
+User: {{ user_utterance }}
+Original Parsed: 
+```
+{{ user_target }}
+```
+New Parsed:
+<|endofinput|>

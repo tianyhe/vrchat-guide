@@ -1,0 +1,12 @@
+Message,Important Observations,Important Scores,NPC Response,Total time for Input,Time for Human speech detection,Time for voice normalization,Time for audio recording,Time for Audio to Text,Time for Retrieval,Time for Response
+"Hello, Alma. How are you doing today?",,,"(Confused, Wave Hands)
+Hello gate, you seem to have gotten my name mixed up. It's Ellma, not Alma! I'm doing splendidly today, thank you. How about you?",20.52,1.08,0.0,16.59,0.93,0.0,0.95
+I'm doing great as well. Thank you very much.,"User: Hello, Alma. How are you doing today?. Ellma: Hello gate, you seem to have gotten my name mixed up. It's Ellma, not Alma! I'm doing splendidly today, thank you. How about you?.
+",0.99,"(Happy, Wave Hands)
+That's wonderful to hear, gate! It's always a pleasure catching up with you. What's new on your end?",12.44,1.07,0.0,8.57,25.2,0.0,1.25
+"I think they're, I'm going to watch Batman today, so I I think that's a new thing for us.","User: I'm doing great as well. Thank you very much.. Ellma: That's wonderful to hear, gate! It's always a pleasure catching up with you. What's new on your end?.
+
+User: Hello, Alma. How are you doing today?. Ellma: Hello gate, you seem to have gotten my name mixed up. It's Ellma, not Alma! I'm doing splendidly today, thank you. How about you?.
+","0.99
+0.98","(Confused, Point)
+Oh, I see you've got a date with the Dark Knight, gate! I can't remember the last time we watched a Batman movie. I hope you have a blast!",18.67,0.92,0.0,14.57,0.38,0.0,1.56

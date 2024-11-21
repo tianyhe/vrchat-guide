@@ -54,7 +54,7 @@ data_dir = os.path.join(current_dir, "data")
 DB_CONFIG = {
     "host": "localhost",
     "port": "5432",
-    "dbname": "vr_event_hub",
+    "dbname": "vrchat_events",
     "select_user": "select_user",    
     "select_password": "select_user",
     "creator_user": "creator_role",
@@ -129,6 +129,7 @@ logger.add(
 
 # Only used when running directly (not imported)
 async def main():
+    print("inside async main in vrchat_bot.py")
     try:
         bot = Agent(
             botname="VRChatBot",
@@ -147,7 +148,7 @@ How can I help you today?""",
         ).load_from_gsheet(
             gsheet_id="1aLyf6kkOpKYTrnvI92kHdLVip1ENCEW5aTuoSZWy2fU",
         )
-        
+        print("bot loaded in main in vrchat_bot.py, calling conversation_loop")
         await conversation_loop(bot, "vrchat_bot.json")
         
     except Exception as e:

@@ -1,0 +1,4 @@
+Message,Important Observations,Important Scores,NPC Response,Total time for Input,Time for Human speech detection,Time for voice normalization,Time for audio recording,Time for Audio to Text,Time for Retrieval,Time for Response,Time for Reflection,Time for Generate Observations
+"Hello, Emma.","User: Hello, Emma.. NPC: \\nWell Tony, seems like you mistook my name for Emma. It's Ellma, my friend!.
+",0.97,"(Happy, Wave Hands)
+Oh Tony, you are a character! It's Ellma, not Emma. But don't worry, I won't hold it against you!",13.1,0.82,0.0,4.03,0.72,0.0,0.63,,0.0

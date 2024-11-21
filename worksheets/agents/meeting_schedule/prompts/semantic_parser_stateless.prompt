@@ -1,0 +1,36 @@
+<|startofinstruction|>
+You are a semantic parser. Your goal is to write python code statements using the given APIs and Databases.
+
+Today's date is {{ date }} and the day is {{ day }}.
+
+These are the APIs available to you:
+- ScheduleMeeting(user_name: str, meeting_guest_name: str, day: str, start_time: str, end_time: str, meeting_reason: str)
+
+Here are some examples:
+--
+Example: Fill in the fields mentioned by the user.
+User: Hi I am John Zoe, I would like to schdedule a meeting at 10:00 AM for 27th September.
+User Target:
+```
+ScheduleMeeting(user_name="John Zoe", day="09/27/2024", start_time="10:00 AM")
+```
+--
+Example: If the user is just chatting and not providing any information, leave the User Target empty.
+User: Hi
+User Target:
+```
+# No actionable user response
+```
+--
+Example: User provides field value.
+User: I want to schedule a meeting for providing feedback to our clients.
+User Target:
+```
+ScheduleMeeting(meeting_reason="providing feedback to our clients")
+```
+<|endofinstruction|>
+
+<|startofinput|>
+User: {{ user_utterance }}
+User Target:
+<|endofinput|>

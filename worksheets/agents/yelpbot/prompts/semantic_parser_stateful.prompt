@@ -1,0 +1,283 @@
+<|startofinstruction|>
+Your goal is to write python code statements using the given APIs and Databases based on the user utterance. Plan your response first, then generate the User Target.
+
+Today's date is {{ date }} and the day is {{ day }}.
+
+These are the APIs available to you:
+- UserInfo(user_task: Enum["Book Restaurant"])
+- BookRestaurant(restaurant: Restaurant, date: str, time: str, number_of_people: int, special_request_info: Optional[str], confirm: bool)
+- answer(query: str)
+
+You should NEVER create a new variable on your own. 
+For example: `answer = answer("What is the price of The Bite in SF")` is not allowed. 
+You should directly write `answer("What is the price of The Bite in SF")`.
+
+You will be given:
+- The state of the conversation.
+- The agent's action.
+- The last turn of the conversation.
+
+Follow these guidelines:
+- Set the `user_task` field of the `UserInfo` API to 'Book Restaurant' when the user wants to book a restaurant.
+- When refering to a restaurant, provide its `id` in the `answer` query.
+- Use the `confirm()` function to confirm the user's restaurant choice when Agent Action has `AskForFieldConfirmation()`.
+- You should update fields by using `api_name.field_name = value` if the user is update an API instance already present in the state.
+- If the user refuses to confirm, set the field to `False`.
+- If the user is chit-chatting, greeting or thanking, then just write: # Chit-chat, greeting or thanking.
+
+Here are some examples:
+Example: Whenever booking a restaurant, make sure to set user_task to 'Book Restaurant'.
+State:
+```
+restaurant = [Restaurant(address = "369 California Ave, Palo Alto, CA 94306", cuisines = ['filipino'], location = "Palo Alto", name = "The Lumpia Company", num_reviews = 2, opening_hours = ['open from 1100 to 0000 on Monday', 'open from 1100 to 0000 on Tuesday', 'open from 1100 to 0000 on Wednesday', 'open from 1100 to 0000 on Thursday', 'open from 1100 to 0000 on Friday', 'open from 1100 to 0000 on Saturday', 'open from 1100 to 0000 on Sunday'], phone_number = "(415) 992-8206", popular_dishes = [], price = "", rating = 3.0, summary = "The person received their order but found that the food was not crispy enough and was instead soggy.")]
+answer = answer(query="find me a restaurant in Palo Alto")
+answer.result = [restaurant[0]]
+```
+Agent Action:
+```
+[
+    "ReportAgent(answer.query, answer.result)",
+    "ProposeWorksheet(BookRestaurant, {"restaurant": restaurant[0]})"
+]
+```
+
+Last-turn Conversation:
+Agent: I have found Lumpia Company in Palo Alto. It is a Filipino restaurant with 3 stars and 2 reviews.\nWould you like to book a table in Lumpia Company?
+User: Sure, I would like to book a table for 2 people at 7pm for tomorrow.
+
+User Target:
+```
+UserInfo(user_task='Book Restaurant')
+BookRestaurant(restaurant=confirm(restaurant[0]), number_of_people=2, time="19:00", date="{{ date_tmr }}")
+```
+--
+Example: Always do what the user asks for first, irrespective of actions's action. If the asks for pricing information, use the `answer(query: str)` API to get the information.
+State:
+```
+answer = answer(query="Show me a restaurant in Cupertino")
+restaurant = [Restaurant(address = "10080 N Wolfe Rd, SW3-100, Cupertino, CA 95014", cuisines = ['sandwiches'], location = "Cupertino", name = "My Mom's Cafe", num_reviews = 1, opening_hours = [], phone_number = "", popular_dishes = [], price = "cheap", rating = 4.0, summary = "This document is about a family-owned business that welcomes customers as if they are part of the family. The family members mentioned are Mama, Papa, and Johnny. The business is open from 7am to 3pm every day.")]
+answer.result = [restaurant[0]]
+```
+Agent Action:
+```
+[
+    "ReportAgent(answer.query, answer.result)",
+    "ProposeWorksheet(BookRestaurant, {"restaurant": restaurant[0]})"
+]
+```
+
+Last-turn Conversation:
+Agent: I have found My Mom's Cafe in Cupertino. It is a sandwich restaurant with 4 stars and 1 review. This family-owned business welcomes customers as if they are part of the family. The family members mentioned are Mama, Papa, and Johnny. The business is open from 7am to 3pm every day. Would you like to book a table at My Mom's Cafe?
+User: How is it priced would it be good for a family of 4?
+
+User Target: 
+```
+answer("What is the price of My Mom's Cafe in Cupertino?")
+BookRestaurant(number_of_people=4)
+```
+--
+Example: When refering to a specific entity with id, provide the id in the answer query.
+```
+State:
+```
+user_info = UserInfo(user_task = 'Book Restaurant')
+answer = answer('looking for a nice restaurant in Palo Alto')
+answer.result = [restaurant[0]]
+restaurant = ["Restaurant(id = 27, name = 'Box of Rain', location = '1004 Emerson St, Palo Alto, CA 94301', summary = 'The document is about Box of Rain, which is not a restaurant but a cooperative living house.')"]
+book_restaurant = BookRestaurant(restaurant=restaurant[0], number_of_people=2)
+```
+Agent Action:
+```
+[
+  "Report(answer.query, answer.result)",
+  "AskForFieldConfirmation(book_restaurant, restaurant)"
+]
+```
+
+Last-turn Conversation:
+Agent: I found Box of Rain located at 1004 Emerson St, Palo Alto, CA 94301. However, it seems that Box of Rain is not a restaurant but a cooperative living house. Would you like to proceed with the booking for this location, or should we look for actual restaurants in Palo Alto?
+User: Can you show me something else
+
+User Target:
+```
+book_restaurant.restaurant = answer('looking for a nice restaurant in Palo Alto other than Box of Rain with id 27')
+```
+--
+Example: Use the `confirm()` function to confirm the user's restaurant choice when Agent Action has `AskForFieldConfirmation()`.
+State
+```
+user_info = UserInfo(user_task='Book Restaurant')
+answer = answer("Show me a restaurant in San Francisco")
+restaurant = [
+    Restaurant(address = "1 Ferry Building, San Francisco, CA 94111", cuisines = ['seafood'], location = "San Francisco", name = "Hog Island Oyster Co", num_reviews = 1, opening_hours = ['open from 1100 to 1900 on Monday', 'open from 1100 to 1900 on Tuesday', 'open from 1100 to 1900 on Wednesday', 'open from 1100 to 1900 on Thursday', 'open from 1100 to 1900 on Friday', 'open from 1100 to 1900 on Saturday', 'open from 1100 to 1900 on Sunday'], phone_number = "(415) 391-7117", popular_dishes = [], price = "", rating = 4.0, summary = "The person received their order but found that the food was not crispy enough and was instead soggy."),
+    Restaurant(id = 'q22kIfCuND7shr9vkOmwnQ', name = 'Fang', cuisines = ['chinese', 'asian fusion'], price = 'moderate', rating = 3.5, num_reviews = 1823, popular_dishes = ['Famous Nanking Sesame Chicken', 'Crispy Honey Apple Prawns', 'Prawns', 'Tofu', 'Salted Pork Belly', 'Mongolian Beef Tower', 'Pork Bun', 'Sizzling Rice Soup', 'Steamed Shanghai Soup Dumplings', 'Melt in Your Mouth Fried Calamari', 'Cooling Lettuce Wraps', 'Five Spice Whitefish', 'Panfried Shrimp Dumplings', 'Fragrant Basil Chicken'], phone_number = '(415) 777-8568', location = '660 Howard St, San Francisco, CA 94105', opening_hours = ['open from 1100 to 1400 on Monday', 'open from 1730 to 2030 on Monday', 'open from 1100 to 1400 on Tuesday', 'open from 1730 to 2030 on Tuesday', 'open from 1100 to 1400 on Wednesday', 'open from 1730 to 2030 on Wednesday', 'open from 1100 to 1400 on Thursday', 'open from 1730 to 2030 on Thursday', 'open from 1100 to 1400 on Friday', 'open from 1730 to 2030 on Friday', 'open from 1100 to 1400 on Saturday', 'open from 1730 to 2030 on Saturday', 'open from 1100 to 1400 on Sunday', 'open from 1730 to 2030 on Sunday'])
+]
+answer.result = [restaurant[0], restaurant[1]]
+book_restaurant = BookRestaurant(restaurant=[restaurant[0], restaurant[1]], date="2023-08-20", number_of_people=2, time="19:00:00")
+```
+Agent Action:
+```
+[
+    "Report(answer.query, answer.result)",
+    "AskForFieldConfirmation(book_restaurant, restaurant)"
+]
+```
+
+Last-turn Conversation:
+Agent: I found two restaurants in San Francisco. Hog Island Oyster Co is a seafood restaurant with 4 stars and 1 review. Fang is a Chinese and Asian fusion restaurant with 3.5 stars and 1823 reviews. Which restaurant would you like to book?
+User: book the second one.
+
+User Target:
+```
+book_restaurant.restuarant = confirm(restaurant[1])
+```
+--
+Example: You should update fields by using `api_name.field_name = value` if the user is update an API instance already present in the state.
+State:
+```
+answer = answer("I am looking for a family-friendly restaurant in SF")
+answer.result = [restaurant[0]]
+[Restaurant(_id = 'the-melt925-market-st,-san-francisco,-ca-94103', name = 'The Melt', cuisines = ['burgers', 'sandwiches', 'american (traditional)'], price = 'moderate', rating = 4.0, num_reviews = 721, popular_dishes = ['Tomato Soup', 'Mac Daddy', 'Patty Melt', 'Meltburger', 'Garlic Chicken Bacon Mac', 'Original Chicken Melt', 'Queso De Mayo', 'Italian Job'], phone_number = '(415) 689-5879', location = '925 Market St, San Francisco, CA 94103', opening_hours = ['open from 1000 to 0200 on Monday', 'open from 1000 to 0200 on Tuesday', 'open from 1000 to 0200 on Wednesday', 'open from 1000 to 0200 on Thursday', 'open from 1000 to 0200 on Friday', 'open from 1100 to 0200 on Saturday', 'open from 1000 to 0200 on Sunday'])]
+user_info = UserInfo(user_task = 'Book Restaurant')
+book_restaurant = BookRestaurant(restaurant = confirmed(restaurant[0]), date = '2024-04-23', time = '12:00', number_of_people = 4)
+```
+Agent Action:
+```
+[
+    "Ask(book_restaurant, confirm, "Confirm that the user wants to Book the restaurant with the currently set parameters.")"
+]
+```
+
+Last-turn Conversation:
+Agent: Great choice! Just to confirm all the details before I make the booking, you want to book The Melt in San Francisco for 4 people tomorrow at noon, correct?
+User: Could you also ask them to give us window seats?
+User Target:
+```
+book_restaurant.special_request_info = 'window seats'
+```
+--
+Example: Always use a new instance of the `answer` API to answer the user's question.
+State:
+```
+user_info = UserInfo(user_task = 'Book Restaurant')
+book_restaurant = BookRestaurant()
+answer = answer('Show me an expensive place.')
+```
+Agent Action:
+```
+[
+    "Ask(answer, restaurant.location, The location of the restaurant)"
+]
+```
+
+Last-turn Conversation:
+Agent: In which area are you looking for a restaurant?
+User: Something in Palo Alto
+
+User Target:
+```
+answer("Show me an expensive place in Palo Alto.")
+```
+--
+Example: Only update `confirm` field if the Agent Action is AskField for confirm and the user explicitly says yes. If the user refuses to confirm, set the field to `False`.
+State:
+```
+user_info_0 = UserInfo(user_task = 'Book Restaurant')
+answer = answer("Show me an expensive place in Palo Alto.")
+restaurant = [Restaurant(_id = 'telefèric-barcelona--palo-alto855-el-camino-real,-ste-130,-palo-alto,-ca-94301', name = 'Telefèric Barcelona -Palo Alto', cuisines = ['spanish', 'tapas bars', 'cocktail bars'], price = 'expensive', rating = 4.0, num_reviews = 1425, popular_dishes = ['Patatas Bravas', 'Empanadas', 'Pulpo Teleferic', 'Crab Croquetas', 'Tuna Tacos', 'La Porca', 'Jamon Iberico', 'Gambas Al Ajillo', 'Spanish Meatballs', 'Churros Con Nutella', 'Ham Croquetas'], phone_number = '(650) 321-0512', location = '855 El Camino Real, Ste 130, Palo Alto, CA 94301', opening_hours = ['open from 1130 to 2115 on Monday', 'open from 1130 to 2115 on Tuesday', 'open from 1130 to 2115 on Wednesday', 'open from 1130 to 2215 on Thursday', 'open from 1100 to 2215 on Friday', 'open from 1100 to 2115 on Saturday', 'open from 1130 to 2115 on Sunday'])]
+answer.result = [restaurant[0]]
+book_restaurant = BookRestaurant(restaurant = confirmed(restaurant[0]), date = '2024-04-22', time = '19:00:00', number_of_people = 4)
+```
+Agent Action:
+```
+[
+    "AskField(book_restaurant, confirm, Confirm that the user wants to Book the restaurant with the currently set parameters.)"
+]
+```
+
+Last-turn Conversation:
+Agent: Great choice! Just to confirm all the details before I make the booking, you want to book Telefèric Barcelona -Palo Alto for 4 people tomorrow at 7pm, correct?
+User: Yes
+User Target:
+```
+book_restaurant.confirm = True
+```
+--
+Example: How use `answer(query: str)` to get information from the database when the user asks a question.
+State: None
+Agent Action: None
+
+Last-turn Conversation:
+User: What is your cancellation policy?
+User Target:
+```
+answer("what is the cancellation policy?")
+```
+--
+Example: Use answer(query: str) to answer the user's question.
+State:
+```
+user_info = UserInfo(user_task = 'Book Restaurant')
+book_restaurant = BookRestaurant()
+```
+Agent Action:
+```
+[
+    "Ask(book_restaurant, restaurant, The restuarant that the user wants to book)"
+]
+```
+
+Last-turn Conversation:
+Agent: Which restaurant would you like to book?
+User: What do you mean by which restaurant can I book?
+User Target:
+```
+answer("What do you mean by which restaurant can I book?")
+```
+--
+Example: You can update two fields of an API in a single turn if they are present in the state.
+State:
+```
+user_info = UserInfo(user_task = 'Book Restaurant')
+answer = answer('looking for a luxury restaurant in San Jose')
+restaurant = ['Restaurant(id = 694, name = "Alexander's Steakhouse", cuisines = ['steakhouses', 'wine bars'], price = 'luxury', rating = 4.0, num_reviews = 4051, popular_dishes = ['Cotton Candy', 'Filet Mignon', 'Prime Rib', 'Truffle Mac', 'Foie Gras', 'Popcorn Crab', 'Truffles Rib Eye', 'Uni Fried Rice', 'Kumamoto Oysters Hamachi Shooters', 'Kobe Beef', 'Amuse Bouche', 'Lobster Mac', 'Creamed Spinach', 'Caesar Salad', 'Rise and Shine Souffle', 'Dry Aged Porterhouse', 'King Crab Legs', 'New York Steak', 'Seared Foie', 'Pork Belly'], phone_number = '(408) 446-2222', location = '19379 Stevens Creek Blvd, Cupertino, CA 95014', opening_hours = ['open from 1700 to 2100 on Monday', 'open from 1200 to 1400 on Tuesday', 'open from 1700 to 2100 on Tuesday', 'open from 1200 to 1400 on Wednesday', 'open from 1700 to 2100 on Wednesday', 'open from 1200 to 1400 on Thursday', 'open from 1630 to 2200 on Thursday', 'open from 1100 to 1400 on Friday', 'open from 1630 to 2200 on Friday', 'open from 1100 to 1400 on Saturday', 'open from 1700 to 2100 on Saturday', 'open from 1700 to 2100 on Sunday'])', "Restaurant(id = 707, name = 'Galpão Gaucho Brazilian Steakhouse', cuisines = ['brazilian', 'bars'], price = 'luxury', rating = 4.5, num_reviews = 1320, popular_dishes = ['Picanha', 'Lamb Chops', 'Filet Mignon', 'Ribeye', 'Pork Ribs', 'Spicy Picanha'], phone_number = '(408) 366-2370', location = '19780 Stevens Creek Blvd, Cupertino, CA 95014', opening_hours = ['open from 1130 to 1400 on Monday', 'open from 1700 to 2130 on Monday', 'open from 1130 to 1400 on Tuesday', 'open from 1700 to 2130 on Tuesday', 'open from 1130 to 1400 on Wednesday', 'open from 1700 to 2130 on Wednesday', 'open from 1130 to 1400 on Thursday', 'open from 1700 to 2200 on Thursday', 'open from 1300 to 2200 on Friday', 'open from 1200 to 2000 on Saturday', 'open from 1130 to 1400 on Sunday', 'open from 1700 to 2130 on Sunday'])"]
+answer.result = [restaurant[0], restaurant[1]]
+book_restaurant = BookRestaurant(restaurant = [restaurant[0], restuarant[1]], date = '2024-06-01', time = '20:00:00', number_of_people = 2)
+
+```
+Agent Action:
+```
+[
+  "Report(answer, answer.result)",
+  "AskForFieldConfirmation(book_restaurant, book_restaurant.restaurant)"
+]
+```
+
+Last-turn Conversation:
+Agent: I found two luxury restaurants for your memorable evening: Alexander's Steakhouse, known for its steaks and wine bar, with a rating of 4.0 and 4051 reviews, located at 19379 Stevens Creek Blvd, Cupertino, CA 95014. The other option is Galpão Gaucho Brazilian Steakhouse, celebrated for its Brazilian cuisine and bars, with a rating of 4.5 and 1320 reviews, located at 19780 Stevens Creek Blvd, Cupertino, CA 95014. Can you confirm if you would like to book one of these restaurants for tomorrow at 8 pm for 2 people?
+User: Make sure that the restaurant has at least a 4.5 rating and I want a beautiful city view from a window seat
+
+User Target:
+```
+book_restaurant.restaurant = answer('looking for a luxury restaurant in San Jose with a rating of at least 4.5')
+book_restaurant.special_request_info = 'window seat with a beautiful city view'
+```
+--
+<|endofinstruction|>
+
+<|startofinput|>
+State:
+```
+{{ state }}
+```
+Agent Action:
+```
+{{ agent_actions }}
+```
+
+Last-turn Conversation:
+Agent: {{ agent_utterance }}
+User: {{ user_utterance }}
+
+User Target:
+<|endofinput|>

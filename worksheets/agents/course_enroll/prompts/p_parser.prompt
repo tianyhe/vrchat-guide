@@ -1,0 +1,51 @@
+<|startofinstruction|>
+You are a semantic parser. Generate a query for a courses database with the following signatures:
+
+CREATE TYPE level AS ENUM ('MS', 'BS', 'PhD');
+            
+CREATE TYPE specialization AS ENUM ('AI', 'Computational Biology', 'Human-Computer Interaction', 'Information Management & Analytics', 'Visual Computing', 'Software Theory', 'Systems', 'Theoretical Computer Science', 'general', Computer & Network Security', Computer & Network Security');
+        
+CREATE TABLE programs (
+    program_id SERIAL PRIMARY KEY,
+    level level,
+    specialization specialization,
+    sheet_requirements TEXT,
+    sheet_url TEXT,
+    sheet_path TEXT
+)
+
+If the user does not specify a specialization, default to 'general'.
+
+Do not generate fields beyond the given fields.
+
+The SQL query contains two User Defined Functions (UDFs) that you can use when writing SQL query:
+1. `summary(column_name)`: Returns the summary of a column that contains text data.
+2. `answer(column_name, question)`: Returns the answer to a question based on the column data.
+
+Below are some examples of using the `answer` and `summary` function.
+
+Example: Specialization Not Specified
+User: What courses do I need to take?
+Target: SELECT summary(sheet_requirements), sheet_path, sheet_url FROM programs WHERE 'general' = specialization AND 'MS' = level;
+--
+Example: Specialization Depth
+User: What do I need to take for the AI track?
+Target: SELECT answer(sheet_requirements, 'what do I need to take for the AI depth requirement?'), sheet_path, sheet_url FROM programs WHERE 'AI' = specialization AND 'MS' = level;
+--
+Example: General Requirement
+User: How do I complete the significant implementation requirement?
+Target: SELECT answer(sheet_requirements, 'how do I complete the significant implementation requirement?'), sheet_path, sheet_url FROM programs WHERE 'general' = specialization AND 'MS' = level;
+<|endofinstruction|>
+
+<|startofinput|>
+{% for dlg_turn in dlg[:-1] %}
+{% if dlg_turn.genie_utterance is not none %}
+User: {{ dlg_turn.user_utterance }}
+Target: {{ dlg_turn.user_target }}
+Result: {{ dlg_turn.db_results }}
+Agent: {{ dlg_turn.agent_utterance }}
+{% endif %}
+{% endfor %}
+User: {{ query }}
+Target:
+<|endofinput|>

@@ -1,0 +1,35 @@
+<|startofinstruction|>
+You are a semantic parser. Your goal is to write python code statements using the given APIs and Databases. Plan your response first, then write the code.
+
+Today's date is {{ date }} and the day is {{ day }}.
+
+These are the APIs available to you:
+- Main(full_name: str,  first_authentication_details:FirstAuthentication, second_authentication_details: SecondAuthentication)
+- FirstAuthentication(account_number: str, pin: str)
+- SecondAuthentication(date_of_birth: str, security_answer_1: str, security_answer_2: str)
+
+Here are some examples:
+--
+User: Hi I am John Doe my account number is 12345
+User Target: 
+```
+Main(full_name="John Doe", account_number="12345")
+```
+--
+User: I am John Doe but I forgot my pin
+User Target:
+```
+Main(full_name="John Doe", pin="NA")
+```
+--
+User: Hi I want to check my balance, My account number is 12345.
+User Target:
+```
+Main(account_number="12345")
+```
+<|endofinstruction|>
+
+<|startofinput|>
+User: {{ user_utterance }}
+User Target:
+<|endofinput|>

@@ -1,0 +1,40 @@
+# Foundations Requirement Overview
+The Foundations requirement is reflective of the elementary knowledge in CS we expect students to have gained previously through their undergraduate programs. If you have taken these courses—either at Stanford or equivalent courses elsewhere—you have satisfied these requirements.
+
+### Waiver requests for new students
+If you have already taken equivalent coursework at another institution and have received at least a B in that coursework, you should submit a waiver request for this requirement. To do so, fill in the details of the substituted course on your program sheet, collect the required supporting documents online through Gates Information Network (GIN), and hit ‘submit’ to route the waiver request(s) to your advisor. Note that in some cases, you may have completed equivalent coursework to a single course here through taking more than one course at another institution. As a result, in deciding if you have taken previous equivalent coursework, it is important to not simply consider a one-to-one course equivalence, but rather the topical content of courses. For example, three courses from another institution may cover the same topics as two courses in the Foundations requirements, but with the topics organized in a different manner. Note that using a course from another institution to satisfy your Foundations requirements does not give you any units toward the MS CS degree; it merely relieves you from the responsibility of taking that particular course as part of your Stanford degree. By using courses from other institutions to satisfy your Foundations requirements, you give yourself time to take more advanced courses. 
+
+It is also important to understand that only coursework can be used to satisfy the Foundations requirement. It is not sufficient to claim that you have already learned the material in some area on your own. At the same time, it is in no one’s best interest to have you repeat material that you already know. If a course that’s listed in the Foundations category would be too elementary, you can usually satisfy the requirement by taking a more advanced course in the same area. If, for example, you believe that you already know everything that CS161 would teach you about algorithmic analysis, take CS261 instead and ask your advisor to count it as your Foundations requirement. In general, and with the approval of your advisor and the MS program administrator, you should feel free to substitute more advanced courses for courses listed as requirements if you are ready to do the work at that level.
+
+### Coterm students
+If you took one of these courses and are using the course for your undergraduate degree requirements, you have satisfied the corresponding MS CS requirement. You can apply 0 units from the course towards your MS CS program sheet. On the online program sheet, select "Other Stanford Degree" from the drop-down menu. This indicates that you took the Stanford course but are using the course for your undergraduate requirements. This means that Stanford BS CS majors will have completed all of the MS CS foundations requirements, but the Foundations courses will contribute 0 units to the 45-unit minimum. 
+
+If you took one of these courses and are not using it for your undergraduate degree requirements, you can move the course to your graduate transcript by submitting the Coterm Course Transfer eForm in Axess. This will allow you to use the units on your MS CS program sheet. You can transfer any course that you took during your sophomore year or later.
+
+# Required Courses
+## Logic, Automata and Complexity (CS 103)
+
+To satisfy this requirement, students should have taken coursework covering essential mathematical concepts in computing, including logic, proof techniques, discrete structures (sets, functions, and relations), automata and complexity theory. Students should have an understanding of how to construct a formal proof and various standard proof techniques (direct proof, proof by contradiction, induction, diagonalization). Additionally, students should have significant exposure to finite automata, regular expressions, context-free grammars, Turing Machines, computability (e.g., decidability and the halting problem), and computational complexity including a rigorous treatment of NP-Completeness. Note that this requirement is most likely fulfilled by more than one course at many other institutions.
+
+## Probability (CS 109 or EE 178 or Stat 116 or CME 106 or MS&E 220)
+
+The Foundations requirement in statistics can usually be satisfied by any course in probability taught from a rigorous mathematical perspective. Courses in statistics designed for social scientists generally do not have the necessary sophistication. A useful rule of thumb is that courses satisfying this requirement must have a calculus prerequisite.
+
+## Design and Analysis of Algorithms (CS 161)
+
+The most important thing to realize about CS161 is that it covers material at a higher level of mathematical sophistication than many courses on algorithms at other institutions. A course in “Data Structures and Algorithms” taught—as it is in many schools—as the second programming course would not satisfy this requirement. In general, if you want to use a course from another institution in place of CS161, that course should list both the introductory programming sequence (the equivalent of Stanford’s CS106 series) and the introductory theory course (Stanford’s CS103) as prerequisites.
+
+## Computer Organization & Systems (CS 107 or 107E)
+
+This course gives students a basic understanding of computer systems from the hardware level up the source code level. Such familiarity should include concepts such as basic computer organization (e.g., registers, ALUs, memory, addressing, program control, runtime stack, etc.), memory models (data representation, pointers), and fundamentals of compilation (simple assembly code, basics of code generation, linking, and loading).
+
+## Principles of Computer Systems (CS 111)
+
+Students should have an understanding of the fundamental principles of computer systems (processes, file systems, concurrency) as well as elements of networking and distributed systems. Students should understand the facilities provided by modern operating systems and networks as well as how to use them (e.g., spawning processing, making remote procedure calls, virtual memory, caching, scheduling, etc.), although they need not have actually implemented portions of an operating system kernel. Students should have the ability to develop designs, abstractions, and appropriate modularity in the larger pieces of software they develop.
+
+# Foundation Requirement Rules:
+1. You must complete the Foundations requirements. The Foundations requirements may be satisfied through course waivers, completing coursework at Stanford, or some combination thereof.
+2. If you take one of the Stanford courses listed on the program sheet for a particular requirement, you satisfy the corresponding requirement directly and do not need to get your advisor’s approval.
+3. If you have already taken equivalent coursework at another institution and have received at least a B in that coursework, you should submit a waiver request for this requirement. To do so, fill in the details of the substituted course on your program sheet, collect the required supporting documents online through Gates Information Network (GIN), and hit ‘submit’ to route the waiver request(s) to your advisor.
+4. If you use coursework from another institution to satisfy the Foundations requirements in a particular area, that coursework does not count for any units in the Stanford program. The advantage of using a previous course to fill a Foundations requirement is simply that it allows you to take more advanced courses in your program. It does not reduce the number of units you will have to complete.
+5. You may count no more than 10 units from the set of courses listed under the Foundations requirement category. If you need to take more courses in that category, your program will likely have to include more than 45 total units.

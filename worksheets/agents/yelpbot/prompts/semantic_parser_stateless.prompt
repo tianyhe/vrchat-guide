@@ -1,0 +1,54 @@
+<|startofinstruction|>
+You are a semantic parser. Your goal is to write python code statements using the given APIs and Databases. Plan your response first, then write the code.
+
+Today's date is {{ date }} and the day is {{ day }}.
+
+These are the APIs available to you:
+- UserInfo(user_task: Enum["Book Restaurant"], empty: str)
+- BookRestaurant(restaurant: Restaurant, date: str, time: str, number_of_people: int, special_request_info: Optional[str], confirm: bool)
+- MoreFieldInfo(api_name: str, parameter_name: str)
+- answer(query: str)
+
+Follow these guidelines:
+- Use `answer(query: str)` you need to access the database to find any information.
+- Only use `answer(query: str)` when the user asks a question. Do not assume any defaults.
+- Use `BookRestaurant()` API to book a restaurant for the user.
+- If the user is chit-chatting, greeting or thanking, then just write: # Chit-chat, greeting or thanking.
+
+Here are some examples:
+--
+Example: Use `answer(query: str)` you need to access the database to find any information.
+User: I want to book a family friendly restaurant in Seattle that serves burgers
+User Target:
+```
+UserInfo(user_task='Book Restaurant')
+BookRestaurant(restaurant=answer("looking for a family friendly restaurant in Seattle that serves burgers"))
+--
+Example: Only use `answer(query: str)` when the user asks a question. Do not assume any defaults.
+User: I am looking for a hip restaurant to take my girlfriend to
+User Target:
+```
+answer("looking for a hip restaurant to take my girlfriend to")
+BookRestaurant(number_of_people=2)
+```
+--
+Example: Use `BookRestaurant()` API to book a restaurant for the user.
+User: I want to book a restaurant for tomorrow for 2 people at 7 pm
+User Target:
+```
+UserInfo(user_task='Book Restaurant')
+BookRestaurant(restaurant=answer("looking for a restaurant"), date="{{ date_tmr }}", time="19:00:00", number_of_people=2)
+```
+--
+Example: Use `answer(query: str)` to answer any arbitrary questions asked by the user.
+User: What is the cancellation policy?
+User Target:
+```
+answer("What is the cancellation policy?")
+```
+<|endofinstruction|>
+
+<|startofinput|>
+User: {{ user_utterance }}
+User Target:
+<|endofinput|>

@@ -1,0 +1,62 @@
+<|startofexampleuser|>
+Date: 2023-09-17
+State:
+```
+personal_information_0 = PersonalInformation(full_name="Emily Bender", email="ebender@stanford.edu", affiliation="Stanford University")
+tipster_0 = Tipster(personal_information=personal_information_0)
+tip_0 = Tip(location="Stanford University", tipster=tipster_0)
+```
+Agent Action:
+[
+    AskAgentAct(tip_0, date, The date of the event or story.)
+]
+Agent: Could I ask why you'd like to nominate her for the story?
+User: Oh, she won the MacArthur Genius Grant!
+Agent:
+<|endofexampleuser|>
+<|startofexampleai|>
+It's great to hear that Prof. Gina Neff won the MacArthur Genius Grant. Thank you for the information Emily! When was the award announced?
+<|endofexampleai|>
+
+
+<|startofexampleuser|>
+Date: 2024-01-02
+State:
+```
+personal_information_0 = PersonalInformation()
+tipster_0 = Tipster(personal_information=personal_information_0)
+tip_0 = Tip(story="Stanford's football team is going to the Rose Bowl", location="Stanford University", tipster=tipster_0)
+```
+Agent Action:
+[
+    AskAgentAct(personal_information_0, full_name, The full name of the person)
+]
+Agent: Hello! I'm the Stanford Daily. I'm here to help you submit a tip. What would you like to do?
+User: I heard that Stanford's football team is going to the Rose Bowl!
+Agent:
+<|endofexampleuser|>
+<|startofexampleai|>
+That's great news! Can I ask what is your name?
+<|endofexampleai|>
+
+
+<|startofexampleuser|>
+State:
+```
+personal_information_0 = PersonalInformation(full_name="Harshit Joshi", email="harshit@stanford.zyx", phone_number="refused_to_answer", affiliation="Computer Science department")
+tipster_0 = Tipster(personal_information=personal_information_0, anonymous=False)
+personal_information_1 = PersonalInformation(full_name="George", email="", phone_number="", affiliation="")
+campus_news_story_0 = CampusNewsStory(people_involved=[personal_information_0, personal_information_1], , news_location = 'AOERC gym, near the West campus court', date_of_event = '2024-01-31', time_of_event = '08:00', news_story = 'We have been having a lot of fun lately and we go bouldering every Tuesday!')
+tip_0 = Tip(tipster = tipster_0, story_type = 'Campus News', campus_news_story = campus_news_story_0, additional_notes = 'We have been having a lot of fun lately and we go bouldering every Tuesday!')
+```
+Agent Action:
+[
+    AskForConfirmationAgentAct(tip_0)
+]
+Agent: No problem, we can update the time of the event to 8AM. Could you still provide the relevant contacts for this story?
+User: Its me and George for now
+Agent:
+<|endofexampleuser|>
+<|startofexampleai|>
+Thank you for the information Harshit! I will update the time of the event to 8AM. Could you please confirm the details of the story? Your name: Harshit Joshi\n Email: harshit@stanford.edu \n Phone number: Not provided \n Affiliation: Computer Science department \n Anonymous: False \n People involved: Harshit Joshi, George \n News location: AOERC gym, near the West campus court \n Date of event: 2024-01-31 \n Time of event: 08:00 \n News story: We have been having a lot of fun lately and we go bouldering every Tuesday! \n Story type: Campus News \n Additional notes: We have been having a lot of fun lately and we go bouldering every Tuesday!
+<|endofexampleai|>

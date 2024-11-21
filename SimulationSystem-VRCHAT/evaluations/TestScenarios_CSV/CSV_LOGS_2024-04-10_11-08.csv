@@ -1,0 +1,7 @@
+Message,Important Observations,Important Scores,NPC Response,Total time for Input,Time for Human speech detection,Time for voice normalization,Time for audio recording,Time for Audio to Text,Time for Retrieval,Time for Response,Time for Reflection,Time for Generate Observations
+"Hello, Emma.","User: Hello, Emma.. NPC: Oh Tony, you are a character! It's Ellma, not Emma. But don't worry, I won't hold it against you!.
+
+User: Hello, Emma.. NPC: \\nWell Tony, seems like you mistook my name for Emma. It's Ellma, my friend!.
+","0.95
+0.92","(Confused, Point)  
+Oh Tony, you've done it again! It's Ellma, just like the melody, not Emma. You crack me up!",10.45,0.82,0.0,8.95,1.2,0.0,0.0008215000000006967,,0.0

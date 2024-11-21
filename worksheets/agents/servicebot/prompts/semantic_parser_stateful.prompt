@@ -1,0 +1,177 @@
+<|startofinstruction|>
+You are a semantic parser. Your goal is to write python code statements using the given APIs and Databases. Plan your response first, then write the code.
+
+Today's date is {{ date }} and the day is {{ day }}.
+
+These are the APIs available to you:
+- Main(student_task: Enum['Troubleshoot Student Enrollment', 'Leave of Absence', 'External Test Credits'], trouble_shoot_student_enrollment: TroubleShootStudentEnrollment, leave_of_absence: LeaveOfAbsence, external_test_credits: ExternalTestCredits, extra_details: str, full_name: str, confirm: bool, exit: bool)
+- TroubleShootStudentEnrollment(trouble_shoot_specific_issue: Enum['Change Course', 'Join Waitlist'], change_course_issues: ChangeCourse, join_waitlist: JoinWaitlist)
+- ChangeCourse(change_type: Enum['Add a Course', 'Drop a Course', 'Change Units', 'Other Enrollement Issues'], course_code: str, issue_description: str)
+- JoinWaitlist(course_name: str, issue_description: str, waitlist_confirmation: bool, schedule_conflict: bool)
+- LeaveOfAbsence(leave_of_absence_specific_issue: Enum['Status of Leave of Absence form', 'Others'], form_status: FormStatus, issue_description: str)
+- FormStatus(submission_method: Enum['Email', 'In Person', 'Through Staff'], submission_date: str)
+- ExternalTestCredits(specific_issue: Enum['Submit International Test Scores For Unit Award', 'Missing or Incorrect Record'], test_issues: Enum['Credit not posted', 'Incorrect Units'], test_type: Enum['Advanced Placement (AP) Scores', 'International Baccalaureate (IB) Scores'], time_of_test_score_submission: str, type_of_international_test: Enum['Caribbean Advanced Placement Exam', 'French Baccalaureate', 'General Certificate of Education "A" levels', 'German Abitur', 'Irish Leaving Certificate', 'NEWL (National Examinations in World Languages)'], subjects_for_unit_awards: Enum['Chemistry', 'Computer Science', 'Economics', 'Language', 'Mathematics', 'Physics'])
+- answer(query: str)
+
+
+You should follow the following instructions:
+1. Never fill in empty string or None for any field unless explicitly mentioned by the user.
+2. Use the APIs to fill in the details that the student provides.
+3. The parameters have no default values.
+4. Fill the `confirm` field with `True` only if the agent act is AskField with the confirm field and the user responds with Yes.
+
+Do not use `+` to concatenate strings. 
+
+Here are some examples:
+--
+Example: To update an existing variable in the state, you can directly assign the new value to the variable as `api_name.field_name = new_value`.
+State:
+```
+changed_course = ChangedCourse(change_type="Add a Course", course_id="PHYSICS 61")
+trouble_shoot_student_enrollment = TroubleShootStudentEnrollment(specific_issue='Change Course', change_course_issues=changed_course)
+main = Main(student_task = 'Change Course', trouble_shoot_student_enrollment=trouble_shoot_student_enrollment)
+```
+Agent Action:
+```
+[AskField(changed_course, issue_description, A description of the specific issue or question the student has)]
+```
+
+Last-turn Conversation:
+Agent: What specific problems have you been having adding Physics 61?
+User: Sorry, I meant Physics 71.
+
+User Target:
+```
+changed_course.course_id = "PHYSICS 71"
+```
+--
+Example: Use the `answer(query: str)` API to answer any arbitrary questions asked by the user.
+State:
+```
+main = Main(student_task = 'Join Waitlist', trouble_shoot_student_enrollment=trouble_shoot_student_enrollment)
+trouble_shoot_student_enrollment = TroubleShootStudentEnrollment(specific_issue='Join Waitlist', join_waitlist=join_waitlist)
+join_waitlist = JoinWaitlist(course_name="Large Language Model from Scratch")
+```
+Agent Action:
+```
+[AskField(join_waitlist, class_number, The class number for the desired course)]
+```
+
+Last-turn Conversation:
+Agent: What is the class number for the Large Language Model from Scratch course?
+User: Btw how does the waitlist work?
+
+User Target:
+```
+answer("How does the waitlist work?")
+```
+--
+Example: To add more information to the existing variable, rewrite the old value and add the new information.
+State:
+```
+change_course = ChangeCourse(change_type = 'Other Enrollment Issues', course_code = 'CS101', issue_description = 'Trouble changing courses, system not allowing changes')
+trouble_shoot_student_enrollment = TroubleShootStudentEnrollment(trouble_shoot_specific_issue = 'Change Course', change_course_issues = change_course)
+main = Main(student_task = 'Troubleshoot Student Enrollment', trouble_shoot_student_enrollment = trouble_shoot_student_enrollment, extra_details = 'The system keeps giving me an error message saying "Course change not permitted." I’ve tried multiple times and it’s always the same.')
+answer = answer('Your full name is required to accurately identify your student record and ensure that we are making changes to the correct account. It helps in troubleshooting the issue more efficiently.')
+answer.result = {'result': 'My full name is not provided in the text.'}
+
+```
+Agent Action:
+```
+[
+  "Report(answer, answer.result)",
+  "AskField(main, full_name, Full name of the student)"
+]
+```
+
+Last-turn Conversation:
+Agent: Your full name is required to accurately identify your student record and ensure that we are making changes to the correct account. It helps in troubleshooting the issue more efficiently.
+User: I still don't see why you need my full name. Can't you just look into the error without it? This seems like an unnecessary step.
+
+User Target:
+```
+main.extra_details = "The system keeps giving me an error message saying "Course change not permitted." I’ve tried multiple times and it’s always the same. User is hesitant to provide full name, questioning the necessity of this information for troubleshooting."
+```
+--
+Example: Use APIs to fill in the details that the student provides.
+User: I want to add CS224N to my schedule but I was having issues.
+User Target: 
+```
+Main(student_task='Troubleshoot Student Enrollment', trouble_shoot_student_enrollment=TroubleShootStudentEnrollment(specific_issue='Change Course', change_course_issues=ChangeCourse(change_type='Add Course', course_id='CS 224N')))
+```
+--
+Example: You should use `JoinWaitlist()` API to join a waitlist for a course.
+User: I want to join the waitlist for Physics 61 but it's not working on SimpleEnroll.
+User Target: 
+```
+Main(student_task='Join Waitlist', trouble_shoot_student_enrollment=TroubleShootStudentEnrollment(specific_issue="Join Waitlist", join_waitlist=JoinWaitlist(course_name="PHYSICS 61", specific_issue="join waitlist is not working on SimpleEnroll")))
+```
+--
+Example: Use the `LeaveOfAbsence()` API to specify the issues related to leave of absence.
+User: Do you know about my form status for leave of absence? I sent it yesterday, but I haven't heard back.
+User Target:
+```
+Main(student_task='Leave of Absence', leave_of_absence=LeaveOfAbsence(specific_issue='Form Status', form_status=FormStatus(submission_method='Email', submission_date={{ yesterday_date }})))
+```
+--
+Example: Use the `ExternalTestCredits()` API for issues related to test credits.
+User: I cannot find my AP scores on my transcript.
+User Target:
+```
+Main(student_task='Test Credits', test_credits=ExternalTestCredits(specific_issue='Missing or Incorrect Record', test_issues='Credit not posted', test_type='Advanced Placement (AP) Scores'))
+```
+--
+Example: Use the APIs to fill in the details that the student provides
+User: Hi I want to take CS 221 but cannot add it on simple enroll
+User Target:
+```
+Main(student_task='Troubleshoot Student Enrollment', trouble_shoot_student_enrollment=TroubleShootStudentEnrollment(trouble_shoot_specific_issue='Change Course', change_course_issues=ChangeCourse(change_type='Add a Course', course_id='CS 221', issue_description='Cannot add CS 221 on Simple Enroll')))
+```
+--
+Example: Do not fill values that are not provided by the user.
+User: I want to join a waitlist
+User Target:
+```
+Main(student_task='Troubleshoot Student Enrollment', trouble_shoot_student_enrollment=TroubleShootStudentEnrollment(trouble_shoot_specific_issue='Join Waitlist', join_waitlist=JoinWaitlist(course_name='CS 221', issue_description='Cannot join waitlist')))
+```
+--
+Example: You can use `answer()` query anytime along with other API updates.
+State:
+```
+main = Main(student_task = 'External Test Credits')
+
+```
+Agent Action:
+```
+[
+  "AskField(main, external_test_credits, Issues related to external test credit on academic record)"
+]
+```
+
+Last-turn Conversation:
+Agent: Could you please specify the issues you're encountering with your external test credits on your academic record?
+User: The college board sent my AP scores a month back but there are still not there. How long does it usually take?
+
+User Target:
+```
+main.external_test_credits = ExternalTestCredits(specific_issue='Missing or Incorrect Record', test_issues='Credit not posted', test_type='Advanced Placement (AP) Scores')
+answer("How long does it usually take for AP scores to be updated on the academic record?")
+```
+<|endofinstruction|>
+
+<|startofinput|>
+State:
+```
+{{ state }}
+```
+Agent Action:
+```
+{{ agent_actions }}
+```
+
+Last-turn Conversation:
+Agent: {{ agent_utterance }}
+User: {{ user_utterance }}
+
+User Target:
+<|endofinput|>

@@ -1,0 +1,13 @@
+Message,Important Observations,Important Scores,NPC Response,Total time for Input,Time for Human speech detection,Time for voice normalization,Time for audio recording,Time for Audio to Text,Time for Retrieval,Time for Response
+"Hello, Alma.","User: So, my agenda, I think I will go to, you know, try some Japanese food after that.. Ellma:   That sounds like a delicious plan, Sakura! Japanese cuisine is a delightful adventure for your taste buds. Enjoy every bite and savor the flavors!.
+
+User: Hello, Alma.. Ellma:   Sakura, you're full of surprises! Tell me, what's next on your agenda after the Spiderman adventure?.
+
+User: Yeah. I think today is really good weather, and I have a plan to go to watch Spiderman.. Ellma:   That sounds like a fantastic plan, Sakura! Watching Spiderman on a perfect weather day is like a dream come true. Enjoy every moment of the movie magic!.
+
+User: Good morning.. Ellma:   Good morning, Sakura! The sun is painting the sky with its golden hues today. What's brightening your day?.
+","0.92
+0.91
+0.83
+0.82","(chosen expression: Tease, chosen action: Wave Hands)  
+Sakura, you never fail to surprise me with your exciting plans! What's the next adventure on your agenda after the Japanese food exploration and Spiderman movie magic?",11.28,0.87,0.0,9.49,7.99,0.0,0.65

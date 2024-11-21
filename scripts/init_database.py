@@ -3,9 +3,9 @@ import psycopg2
 from loguru import logger
 
 DB_CONFIG = {
-    "host": "localhost",
+    "host": "host.docker.internal",
     "port": "5432",
-    "dbname": "vr_event_hub",
+    "dbname": "vrchat_events",
     "user": "creator_role",    
     "password": "creator_role"
 }
@@ -19,7 +19,7 @@ def setup_database():
         with conn.cursor() as cur:
             # Create the events table
             logger.info("Creating events table...")
-            cur.execute("""
+            cur.execute(""" 
                 CREATE TABLE IF NOT EXISTS events (
                     _id TEXT PRIMARY KEY,
                     summary TEXT NOT NULL,

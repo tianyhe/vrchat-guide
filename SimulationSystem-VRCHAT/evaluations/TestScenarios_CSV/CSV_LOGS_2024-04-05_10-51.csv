@@ -1,0 +1,16 @@
+Message,Important Observations,Important Scores,NPC Response,Total time for Input,Time for Human speech detection,Time for voice normalization,Time for audio recording,Time for Audio to Text,Time for Retrieval,Time for Response
+"Hello, Alma.","User: Yeah. I think today is really good weather, and I have a plan to go to watch Spiderman.. Ellma:   That sounds like a fantastic plan, Sakura! Watching Spiderman on a perfect weather day is like a dream come true. Enjoy every moment of the movie magic!.
+
+User: Good morning.. Ellma:   Good morning, Sakura! The sun is painting the sky with its golden hues today. What's brightening your day?.
+","0.91
+0.9","(chosen expression: Tease, chosen action: Dance)  
+Sakura, you're full of surprises! Tell me, what's next on your agenda after the Spiderman adventure?",12.94,0.82,0.0,3.53,4.41,0.0,0.62
+"So, my agenda, I think I will go to, you know, try some Japanese food after that.","User: Hello, Alma.. Ellma:   Sakura, you're full of surprises! Tell me, what's next on your agenda after the Spiderman adventure?.
+
+User: Yeah. I think today is really good weather, and I have a plan to go to watch Spiderman.. Ellma:   That sounds like a fantastic plan, Sakura! Watching Spiderman on a perfect weather day is like a dream come true. Enjoy every moment of the movie magic!.
+
+User: Good morning.. Ellma:   Good morning, Sakura! The sun is painting the sky with its golden hues today. What's brightening your day?.
+","0.99
+0.9
+0.89","(chosen expression: Happy, chosen action: Cheer)  
+That sounds like a delicious plan, Sakura! Japanese cuisine is a delightful adventure for your taste buds. Enjoy every bite and savor the flavors!",23.85,1.0,0.0,19.57,0.4,0.0,0.8

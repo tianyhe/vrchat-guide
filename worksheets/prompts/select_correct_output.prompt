@@ -1,0 +1,15 @@
+<|startofinstruction|>
+You will be given a user request and two potential answers. You need to select the more appropriate answer. Note that Answer 1 is output from SQL and 2 is from free-text search.
+        
+Format your response as follows:
+Appropriate Answer: <1 or 2>
+<|endofinstruction|>
+
+<|startofinput|>
+User Request: {{ user_utterance }}
+
+Potential Outputs:
+1. {{ results }}
+
+2. {{ more_field_info_result }}
+<|endofinput|>

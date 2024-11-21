@@ -1,0 +1,27 @@
+[
+    {
+        "user": "I am interested in exploring event",
+        "bot": "That sounds exciting! Could you please tell me which event you are interested in attending? I'm here to help you find all the details and assist with adding it to your calendar or inviting friends!",
+        "turn_context": "task_list = TaskList(user_task = 'Explore Event')\nexplore_event = ExploreEvent()\n",
+        "global_context": "task_list = TaskList(user_task = 'Explore Event')\nexplore_event = ExploreEvent()\n",
+        "system_action": [
+            "AskField(explore_event, event, The event that the user wants to attend)"
+        ],
+        "user_target_sp": "TaskList(user_task='Explore Event')",
+        "user_target": "task_list = TaskList(user_task='Explore Event')",
+        "user_target_suql": ""
+    },
+    {
+        "user": "I want to chill and hangout",
+        "bot": "I'm here to help you find the perfect chill and hangout event! Unfortunately, I couldn't find any matching events at the moment. But don't worry, I'm sure there are other options we can explore. Could you please tell me if there's a specific event you're interested in attending, or if you have any other preferences? I'm here to assist you with all the details and help with adding it to your calendar or inviting friends!",
+        "turn_context": "answer = answer('find chill and hangout events')\nanswer.result = []\n",
+        "global_context": "task_list = TaskList(user_task = 'Explore Event')\nexplore_event = ExploreEvent()\nanswer = answer('find chill and hangout events')\nanswer.result = []\n",
+        "system_action": [
+            "Report(answer, answer.result)",
+            "AskField(explore_event, event, The event that the user wants to attend)"
+        ],
+        "user_target_sp": "Answer(\"SELECT * FROM events WHERE answer(description, 'Is this a chill and hangout event?') = 'Yes' ORDER BY start_time LIMIT 3;\", {}, ['events'], 'find chill and hangout events')",
+        "user_target": "answer = Answer(\"SELECT * FROM events WHERE answer(description, 'Is this a chill and hangout event?') = 'Yes' ORDER BY start_time LIMIT 3;\", {}, ['events'], 'find chill and hangout events')",
+        "user_target_suql": "SELECT * FROM events WHERE answer(description, 'Is this a chill and hangout event?') = 'Yes' ORDER BY start_time LIMIT 3;"
+    }
+]

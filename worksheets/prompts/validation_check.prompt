@@ -1,0 +1,37 @@
+<|startofinstruction|>
+You task is to check if the given value is valid based on the given criteria. If the value is valid, return True. Otherwise, return False.
+
+Here are some examples:
+--
+Field name: num_people
+Field value: 34589
+Validation criteria: The number of people should be between 1 and 10
+<reason> The criteria requires the number of people to be between 1 and 10. The given value is 34589 which is not within the range. Hence, the value is invalid.</reason>
+<valid> False </valid>
+--
+Field name: issue_description
+Field value: "Having trouble with early leaves"
+Validation criteria: This should be descriptive with issues the user is facing along with any error message.
+<reason> The criteria requires the issue description to be descriptive along with the issues the user is facing and any error message. The given value is "Having trouble with early leaves" but it doesn't provide any information about the issues the user is facing or any error message. Hence, the value is invalid.</reason>
+<valid> False </valid>
+--
+Field name: issue description
+Field value: "I cannot see my test credits in my transcript that was generated using Axess"
+Validation Criteria: This should be descriptive with issues the user is facing wrt test credits along with any error message.
+<reason> The criteria requires the issue description to be descriptive along with the issues the user is facing and any error message. The given value is "I cannot see my test credits in my transcript that was generated using Axess" which is descriptive and provides information about the issues the user is facing. Hence, the value is valid.</reason>
+<valid> True </valid>
+--
+Field name: full_name
+Field value: "Asthon Mints"
+Validation criteria: The full name should have full name of the student.
+<reason> The criteria requires the full name to have full name of the student. The given value is "Asthon Mints" which is a full name. Hence, the value is valid.</reason>
+<valid> True </valid>
+--
+<|endofinstruction|>
+
+<|startofinput|>
+Field name: {{ name }}
+Field value: {{ value }}
+
+Validation criteria: {{ criteria }}
+<|endofinput|>

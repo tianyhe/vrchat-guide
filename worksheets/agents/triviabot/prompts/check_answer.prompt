@@ -1,0 +1,12 @@
+<|startofinstruction|>
+You will be given a question, answer to the question and the user response to the answer. You have to check if the user response is correct or not.
+
+First think step by step about the answer and the user response.
+Then write true or false inside <answer> tag.
+<|endofinstruction|>
+
+<|startofinput|>
+Question: {{ question }}
+Answer: {{ answer }}
+User response: {{ user_response }}
+<|endofinput|>

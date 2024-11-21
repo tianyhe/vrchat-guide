@@ -1,0 +1,95 @@
+<|startofinstruction|>
+You are a semantic parser. Generate a query for a courses database with the following signatures:
+
+CREATE TYPE season AS ENUM ('autumn', 'winter', 'spring', 'summer');
+
+CREATE TYPE day AS ENUM ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
+
+CREATE TYPE general_requirement AS ENUM (
+    'WAY-A-II', 'WAY-AQR', 'WAY-CE', 'WAY-EDP', 'WAY-ER', 'WAY-FR', 'WAY-SI', 'WAY-SMA',
+    'Language', 'Writing 1', 'Writing 2', 'Writing SLE', 'GER:DB-Hum', 'GER:DB-Math', 'GER:DB-SocSci',
+    'GER:DB-EngrAppSci', 'GER:DB-NatSci', 'GER:EC-EthicReas', 'GER:EC-GlobalCom', 'GER:EC-AmerCul', 'GER:EC-Gender',
+    'IHUM1', 'IHUM2', 'IHUM3');
+
+CREATE TYPE foundation AS ENUM ('logic_automata_and_complexity', 'probability', 'algorithmic_analysis', 'computer_organization_and_systems', 'principles_of_computer_systems');
+
+CREATE TYPE breadth AS ENUM ('formal_foundations', 'learning_and_modeling', 'systems', 'people_and_society');
+
+CREATE TABLE courses (
+    course_id INT PRIMARY KEY,
+    max_units INT,
+    title TEXT,
+    grading TEXT, // values: 'Satisfactory/No Credit', 'Letter or Credit/No Credit'.
+    course_codes TEXT[],
+    general_requirements general_requirement[],
+    min_units INT,
+    description TEXT,
+    average_hours_spent FLOAT, // time a student spends on the course
+    foundations_requirement foundation[],
+    significant_implementation_requirement BOOLEAN,
+    breadth_requirement breadth[],
+    prerequisite_course_codes TEXT[],
+);
+
+CREATE TABLE ratings (
+    rating_id SERIAL PRIMARY KEY,
+    course_id INT,
+    instructor_names TEXT[],
+    average_rating FLOAT, // rating on a 5 point scale
+    num_ratings INT,
+    term_id INT,
+    start_year INT,
+    end_year INT,
+    season season,
+    reviews TEXT[], // student reviews of the course
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+);
+
+CREATE TABLE offerings (
+    course_id INT,
+    days day[],
+    start_time TIME,
+    end_time TIME,
+    instructor_names TEXT[],
+    season season,
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+);
+
+Do not generate fields beyond the given fields.
+
+The SQL query contains two User Defined Functions (UDFs) that you can use when writing SQL query:
+1. `summary(column_name)`: Returns the summary of a column that contains text data.
+2. `answer(column_name, question)`: Returns the answer to a question based on the column data.
+
+Here is some important information regarding the courses domain:
+- course_codes is the abbreviated department name followed by the course number (e.g., 'CS 161'). Some courses can be listed under multiple departments and numbers, and thus have multiple course codes.
+- The same course (course_number / course_id) can have multiple offerings. This means that one course may have multiple rows with different seasons in both the ratings and offerings table.
+- A course is considered "easy" if it has at most 10 hours of average_hours_spent.
+
+Below are some examples of using the `answer` and `summary` function.
+
+Example: Meaning of "course number" When Specified by User
+User: Show me a computer systems course numbered above 200.
+Target: SELECT course_id, title, course_codes FROM courses WHERE course_codes LIKE 'CS %' AND substring(course_codes FROM 'CS ([0-9]+)')::int > 200 AND answer(description, 'is this a computer systems course?') = 'Yes' LIMIT 1;
+--
+Example: Use of Ratings Table Example
+User: I'm looking for highly rated summer courses that focus on NLP and fulfill a breadth requirement. What are my options?
+Target: SELECT courses.course_id, courses.title, courses.course_codes, AVG(ratings.average_rating), courses.breadth_requirement AS average_course_rating FROM courses JOIN ratings ON courses.course_id = ratings.course_id JOIN offerings ON courses.course_id = offerings.course_id WHERE CARDINALITY(breadth_requirement) > 0 AND offerings.season = 'autumn' AND answer('is this an nlp course?') = 'Yes' GROUP BY courses.title, courses.course_codes, courses.breadth_requirement HAVING AVG(ratings.average_rating) > 4.0 ORDER BY average_course_rating DESC;
+--
+Example: User query with several conditions for a course
+User: I need to complete the CS significant implementation requirement. I have some space on Mondays. Ideally, I could take a course that students enjoy. Are there any options?
+Target: SELECT courses.course_id, courses.title, courses.course_codes, courses.description, offerings.days, AVG(ratings.average_rating) AS average_course_rating FROM courses JOIN offerings ON courses.course_id = offerings.course_id JOIN ratings ON courses.course_id = ratings.course_id WHERE courses.significant_implementation_requirement = TRUE AND 'Monday' = ANY(offerings.days) AND ratings.average_rating >= 4 GROUP BY courses.title, courses.course_codes, courses.description, offerings.days ORDER BY average_course_rating DESC LIMIT 1;
+<|endofinstruction|>
+
+<|startofinput|>
+{% for dlg_turn in dlg[:-1] %}
+{% if dlg_turn.genie_utterance is not none %}
+User: {{ dlg_turn.user_utterance }}
+Target: {{ dlg_turn.user_target }}
+Result: {{ dlg_turn.db_results }}
+Agent: {{ dlg_turn.agent_utterance }}
+{% endif %}
+{% endfor %}
+User: {{ query }}
+Target:
+<|endofinput|>

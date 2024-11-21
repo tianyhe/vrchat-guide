@@ -1,0 +1,294 @@
+# Title: Enrollment Troubleshooting
+
+URL Source: http://studentservices.stanford.edu/my-academics/enroll-classes/enrollment-troubleshooting
+
+Markdown Content:
+If you can’t enroll _at all..._
+-------------------------------
+
+*   Is enrollment open for your program? Double-check the [Academic Calendar](https://studentservices.stanford.edu/calendar/academic-dates "Academic Dates") for date and time of enrollment open.
+*   Do you have an enrollment hold? If you do, it will be displayed on your Axess home page in the **Holds, To Do's and Notifications** section. Click on the hold for additional details. There’s typically an action you’ll need to take to remove the enrollment hold.
+*   Are you on a Leave of Absence? Is your student status discontinued? If so, you won’t be able to enroll. You can find [pertinent resources here](https://studentservices.stanford.edu/my-academics/time-away-stanford-leave-withdraw-return "Time Away from Stanford: Leave, Withdraw, Return"). 
+
+If the enrollment tool isn’t working as expected...
+---------------------------------------------------
+
+Here are the basic troubleshooting steps:
+
+Step 1: CRITICAL: Remove any remaining "planned" classes. Sometimes these class picks can interfere with new enrollment.
+
+Step 2: CRITICAL: Axess is notoriously cache-sensitive. After clearing your planned classes, clear your browser cache, close your browser completely, and retry Axess.
+
+Step 3: Try the other enrollment tool. If steps 1 and 2 didn’t help, remember that you have two enrollment tools: **SimpleEnroll** and **Enroll (Alternate)**. If [SimpleEnroll (link is external)](https://simpleenroll.stanford.edu/) isn’t working as expected, try Enroll (Alternate) (or vice versa). See below for how-to links:
+
+*   [How to Use SimpleEnroll](https://studentservices.stanford.edu/my-academics/enroll-classes/how-do-i-enroll-through-simpleenroll "How Do I Enroll through SimpleEnroll?")
+*   [How to use Enroll (Alternate)](https://studentservices.stanford.edu/my-academics/enroll-classes/how-do-i-enroll-through-enroll-alternate "How Do I Enroll through Enroll (Alternate)?") 
+
+If you can’t enroll in a specific class...
+------------------------------------------
+
+### It looks like there should be space in the class. Why won’t the system allow me to enroll?
+
+In a “combined section” class, the overall enrollment cap is fed by multiple sections. When you review the real-time enrollment data for a single section, it may look as if there are spaces available. However, if you try to enroll and the system indicates that the course is full, it’s because those spaces are actually filled by students enrolling in the course’s other “combined section(s).” You may need to add yourself to the waitlist, or choose another class.
+
+### How does the waitlist process work? 
+
+The waitlist can't enroll you if you have a time conflict, or if adding the class would exceed the maximum allowable units (i.e., 20 units for undergraduates).
+
+When you're initially enrolling onto a waitlist, you can _avoid_ these problems by designating your existing class as a "**drop if enrolled**" class at the time when you enroll onto the waitlist. With the "drop if enrolled" class designation, you will be eligible to be enrolled off the waitlist into your desired class and simultaneously dropped from your conflicting class.
+
+The waitlist process is typically run twice a day, and the system will send an email letting you know whether it was able to enroll you. If there was no spot for you, the system will alert you that you have not been enrolled.
+
+Please note that when the waitlist is _between processes_, if other students drop the course, it can appear as if there are spaces in the class. However, you may not be able to add to the class roster because the system is waiting to run the waitlist. If there is space available on the waitlist, you may instead add yourself to the waitlist.
+
+### What if I’m on the waitlist but have a time conflict? 
+
+The waitlist process is typically run twice a day, and the system will send an email letting you know whether it was able to enroll you. If there was no spot for you, the system will alert you that you have not been enrolled.
+
+_Even if a spot opens up, the system cannot enroll you from the waitlist if you have a time conflict with another course. Despite the auto messaging, there is no way to “override the time conflict.”_
+
+If you have a time conflict, you may drop the time-conflict course, wait to be enrolled from the waitlist if a spot opens up, and then re-enroll in the course you dropped.
+
+Please note, in the future you can avoid this issue by designating your existing class as a "**drop if enrolled**" class at the time when you enroll onto the waitlist. With the "drop if enrolled" class designation, you will be eligible to be enrolled off the waitlist into your desired class and simultaneously dropped from your conflicting class.
+
+### What if I’m on the waitlist but at the max unit limit?
+
+The waitlist process is typically run twice a day, and the system will send an email letting you know whether it was able to enroll you. If there was no spot for you, the system will alert you that you have not been enrolled.
+
+_Even if a spot opens up, the system cannot enroll you from the waitlist if this would put you over the max unit limit._
+
+You may drop another class to reduce your overall credit load, then wait to be enrolled from the waitlist if a spot opens up.
+
+Please note, in the future you can avoid this issue by designating your existing class as a "**drop if enrolled**" class at the time when you enroll onto the waitlist. With the "drop if enrolled" class designation, you will be eligible to be enrolled off the waitlist into your desired class and simultaneously dropped from your conflicting class.
+
+### Why doesn’t my permission number work? 
+
+Each permission number pertains to a specific class in a specific quarter, and is valid for only one use. For example, if you enrolled in the course using a valid permission number but then dropped the class, you won’t be able to use that same number to re-enroll. Or, if the permission number pertains to that specific class – but for a prior quarter – it won’t allow you to enroll. Or, if the permission number pertains to another section of a "combined section" class – but not to the section you’re trying to enroll – it won’t work.
+
+If your permission number is not working, you’ll need to contact the professor/department who gave it to you in order to request a new permission number that is linked to the specific course and valid for this specific term.
+
+### I’m an undergraduate student, is there any troubleshooting help specific to my program?
+
+Undergraduate students can reference these [troubleshooting tips (link is external)](https://advising.stanford.edu/current-students/advising-student-handbook/enrollment-problems) from Academic Advising.
+
+### I’m a dual-degree graduate student, and Axess won’t let me drop a class. Why not?
+
+Axess does not allow dual-degree students to drop below the unit minimum in either career, even when enrollment across both careers would still be considered full-time. In order to drop a course, you will need to complete the Multiple Career Enrollment Change request, located in the Student eForms portal. This will tell the Registrar's office which course you'd like to drop and they will manually make the change.
+
+To access the form, log into Axess, then navigate to **Student eForms** (My Academics > Petitions & Forms).  In the eForms portal, search for "Multiple Career Enrollment Change." The Registrar’s Office quotes 3-5 business days for processing ([more information](https://studentservices.stanford.edu/more-resources/forms-processes "Forms & Processes")).
+
+Title: Enrollment Overview
+
+URL Source: http://studentservices.stanford.edu/my-academics/enroll-classes/enrollment-overview
+
+Markdown Content:
+On this page:
+
+*   ​​​​​​[Open Enrollment](#open)  
+*   [Waitlists](#Waitlists)
+*   [Permission Numbers](#Permission) 
+*   [Unit Shaving](#unitshaving)
+
+Open Enrollment
+---------------
+
+The Open Enrollment period for each quarter begins when enrollment opens, and lasts through the Final Study List deadline. Please see the [Academic Calendar](https://studentservices.stanford.edu/calendar/academic-dates "Academic Dates") for academic and enrollment deadlines.
+
+View the course catalog and schedule of classes on the [ExploreCourses (link is external)](http://explorecourses.stanford.edu/) website. Information on degree requirements is available on the [Stanford Bulletin (link is external)](http://bulletin.stanford.edu/) website.
+
+Prior to enrollment each quarter, please keep in mind the following important considerations:
+
+*   Clear any holds blocking your registration; holds on registration may be viewed in Axess.
+*   Pay your tuition and fees; payment in full is due on the date indicated on the [University Bill (link is external)](https://mystudentbill.stanford.edu/). See the [Student Bill & Payment System](https://studentservices.stanford.edu/my-finances/understand-your-student-bill-and-payment-system "Understand Your Student Bill and Payment System") page for more information on payments.
+*   See your academic, departmental, or faculty advisers to discuss academic plans.
+
+Enrolling in courses is done in [Axess (link is external)](http://axess.sahr.stanford.edu/). Learn more about using Axess to enroll in courses by reviewing [Enrollment resources](https://studentservices.stanford.edu/my-academics/enroll-classes/enrollment-troubleshooting "Enrollment Troubleshooting").
+
+Waitlists 
+----------
+
+If a class shows as full in Axess, you may be able to join a waitlist. If and when a spot opens up in the class, the first eligible student on the waitlist will automatically be added into the class.
+
+Waitlist eligibility (i.e., your eligibility to be added to the class) is based upon time conflicts, holds, and maximum units:
+
+*   If you have a time conflict (i.e., you are enrolled in another class that wholly or partially overlaps with the class for which you are on the waitlist), you will be bypassed and the next eligible student will be added.
+    *   You can avoid this issue by designating your existing class as a "drop if enrolled" class at the time when you enroll on the waitlist. With the "drop if enrolled" designation, you are eligible to  enroll into your desired class from the waitlist while simultaneously being dropped from your conflicting class.
+    *   If you are bypassed from the waitlist due to a time conflict with another enrolled class and did not select the ‘drop if’ option when enrolling, the only way to be selected from the waitlist is to drop the conflicting class until you have been successfully enrolled off of the waitlist. Once complete, you will maintain your placement on the waitlist.
+*   If enrolling in the class will take you above the maximum allowable units (i.e., 20 units for undergraduates), you will be bypassed and the next eligible student will be added.
+*   If you have an enrollment hold, you will be bypassed and the next eligible student will be added. You can review your hold details in [Axess (link is external)](https://axess.sahr.stanford.edu/). If needed, contact the [Student Services Center](https://studentservices.stanford.edu/get-help "Get Help") for more information about a hold on your enrollment.
+
+Permission Numbers
+------------------
+
+Instructors may choose to limit enrollment in their courses with permission numbers. There are two methods by which an instructor or a designated administrator can give you permission to enroll in a class with restricted enrollment: by number or by student.
+
+*   **By number**: Axess generates permission numbers which are given to you by a department administrator or instructor. You enter the permission number in Axess in order to be enrolled. Please see [How to Use SimpleEnroll](https://studentservices.stanford.edu/my-academics/enroll-classes/how-do-i-enroll-through-simpleenroll "How Do I Enroll through SimpleEnroll?") to learn more.
+*   **By student**: A department administrator enters your student ID to grant permission allowing you to enroll.
+
+Unit Shaving
+------------
+
+Occasionally, a student may request permission to enroll in fewer units than the number associated with a course. This practice of “unit shaving” or unit adjustment is not permitted. Courses may be taken only for the number of units that are listed in Axess or [ExploreCourses (link is external)](https://explorecourses.stanford.edu/). For example, a course offered for 5 units may only be taken for 5 units. Courses offered for variable units (e.g., 3-5 units) may be taken for the number of units chosen by the student with the stated range. Students should complete and be evaluated on the amount of work associated with the number of units they enrolled in. See the university policy, [Amount of Work](https://studentservices.stanford.edu/more-resources/student-policies/enrollment/registration-and-study-lists#amount-work), in the Student Policies section concerning university expectations for the relationship between work and units of credit.
+
+[For faculty and staff information on enrollment, visit Inside Student Services. (link is external)](https://inside-studentservices.stanford.edu/publications/enrollment)
+
+
+# Inquire about Leave of Absence
+
+Title: Taking a Leave of Absence
+
+URL Source: http://advising.stanford.edu/current-students/advising-student-handbook/taking-leave
+
+Markdown Content:
+Whatever your reasons for taking a break, Stanford encourages you to take the time you need. The university will still be here for you when you return.
+
+There are many reasons you may want to take a Leave of Absence. Perhaps there’s a professional opportunity you want to pursue. Or maybe you’ve been given the chance to volunteer for a cause that matters to you. In other cases you may need time to deal with a family situation, or attend to your health. And still other times you may be feeling burned out and need to recharge. Whatever your reason, Stanford has a simple process for taking a Leave and returning to your studies at a later date.
+
+Your Academic Advisors understand that taking a Leave can sometimes be a confusing and difficult decision, so read on for our explanation of the process and some considerations to keep in mind.
+
+**For official information on Stanford’s Leave of Absence policy and procedure, consult the Student Services Policy pages and the Registrar's pages linked below.** In case of any accidental discrepancies between this page and those resources, the Student Services and Registrar's sites take precedence.
+
+_A note on terminology:_ Stanford uses the term "Leave of Absence" to refer to time off from the university. If you are looking for more information on any of Stanford's websites, be sure to search using the keyword "Leave of Absence," and not unofficial terms like "gap year."
+
+[Stanford Bulletin: Voluntary Leaves of Absence for Undergraduate Students (link is external)](https://bulletin.stanford.edu/academic-polices/leaves-returns/undergraduate-students)  
+[Stanford Bulletin: Voluntary Leaves of Absence for Coterminal Students (link is external)](https://bulletin.stanford.edu/academic-polices/leaves-returns/coterminal-students)  
+[Student Services: Leaves of Absence (link is external)](https://studentservices.stanford.edu/my-academics/time-away-stanford-leave-withdraw-return/leaves-absence)  
+[Student Services: Military Leaves of Absence (link is external)](https://studentservices.stanford.edu/my-academics/time-away-stanford-leave-withdraw-return/leaves-absence/military-leaves-absence)
+
+Leaving, and Returning to Stanford
+----------------------------------
+
+Not sure where to begin?  Academic Advising has published a booklet to help you prepare for your time away.  In these pages you will find information about the University's leave and reinstatement policy, commonly asked questions, a checklist of things to address as you prepare for your time away, and resources available to you during that time as well as during your transition back to the University. Remember that life takes many different paths and that you are not alone.
+
+Click on the full screen icon to see a larger view, or [read the Leaving, and Returning to Stanford booklet here. (link is external)](https://view.publitas.com/stanford-undergrad/leaving-stanford)
+
+Leave of Absence Facts
+----------------------
+
+*   Generally, for first-year students, a Leave of Absence lasts the rest of the current academic year. You can return to Stanford in Autumn of the following academic year. 
+*   After your first year, you can take a Leave of Absence for just one or two quarters, or up to one year at a time, which can then be extended to a second year if you desire.
+*   You’re normally allowed 8 quarters of Leave total during your Stanford career. These can either be taken continuously or spread out over a period of time. 
+*   Are you a student on active duty taking a [Leave of Absence for military reasons? (link is external)](https://studentservices.stanford.edu/my-academics/time-away-stanford-leave-withdraw-return/leaves-absence/military-leaves-absence)  In this case, your Leave can exceed one year, and any Leave quarters related to your military service will not subtract from your 8 total allowed quarters of Leave.  
+*   If you currently have Cardinal Care for your health insurance, you can use your insurance while on Leave. You will be covered through August 31 of the current academic year; see [Vaden's Cardinal Care website (link is external)](https://vaden.stanford.edu/insurance/cardinal-care-overview-and-benefits) for more details.
+*   Your Stanford email will keep working during the duration of your Leave of Absence, [as reported on this Stanford IT site (link is external)](https://uit.stanford.edu/service/accounts/closing-students).
+*   So long as you return on the date indicated on your Leave of Absence form, there's no special process you have to go through to register for courses. Once Axess opens for enrollment for your return quarter, you should be able to enroll as normal. But keep in mind that you'll still have to [apply for housing (link is external)](https://rde.stanford.edu/studenthousing/assignments-contracts) and for [financial aid (link is external)](https://financialaid.stanford.edu/undergrad/apply/index.html) (if applicable), and that these processes have their own deadlines.
+*   Need to take more time? If you are away from Stanford for more than 8 total quarters, technically your student status becomes Discontinued. But don’t be intimidated! Discontinued students are still welcome to return to the university after submitting a [Request to Return and Register](https://advising.stanford.edu/current-students/advising-student-handbook/returning-after-leave#requesttoreturn).
+
+The Process
+-----------
+
+_The Leave of Absence form is now an online Stanford eForm!_ To find it, [log in to Axess, (link is external)](https://axess.sahr.stanford.edu/) go to the "My Academics" dropdown menu, and navigate to “Student eForms.” Click on “Browse Available Forms” and search for "Leave of Absence for Undergraduates."
+
+**Note that submitting the form online is not enough!** You will still need to [meet with your Academic Advisor](https://advising.stanford.edu/appointments "Make an Appointment") to discuss your situation before they can endorse your eForm. The eForm also requires other electronic signatures, so make sure to leave yourself enough time to connect with each office and for each relevant office to review your situation.
+
+As you consider your Leave of Absence, you may want to consult the following people and offices:
+
+*   [Meet with your Academic Advisor](https://advising.stanford.edu/appointments "Make an Appointment") to discuss your situation and any relevant academic ramifications.
+*   If you are requesting a [military Leave of Absence, (link is external)](https://studentservices.stanford.edu/my-academics/time-away-stanford-leave-withdraw-return/leaves-absence/military-leaves-absence) contact the VA Certification Officer at [vabenefits@stanford.edu (link sends email)](mailto:vabenefits@stanford.edu) to provide documentation confirming your service requirement, including the start and end dates. (For international military service, your documentation must be in English.) The VA Certification Officer will provide you with a certification letter, which you will need to attach to your LOA eForm. 
+*   Connect with your [Resident Director (link is external)](https://resed.stanford.edu/neighborhoods/neighborhood-staff) to seek guidance through the process and determine if there are any residential impacts.
+*   If you would like to talk through your plan but you aren’t sure where to start, you can reach out to the Dean of Students office at [deanofstudents@stanford.edu (link sends email)](mailto:deanofstudents@stanford.edu).
+
+Once you have decided to take a Leave of Absence you should:
+
+*   Review the terms of a Leave of Absence and submit the eForm through Axess.
+*   [Meet with your Academic Advisor](https://advising.stanford.edu/appointments "Make an Appointment") to discuss your situation and get their endorsement on the Leave of Absence eForm.
+*   The Dean of Students office will also review your situation and may reach out to you regarding any support that may be helpful to your specific circumstances.
+*   If you are requesting a [military Leave of Absence, (link is external)](https://studentservices.stanford.edu/my-academics/time-away-stanford-leave-withdraw-return/leaves-absence/military-leaves-absence) be sure to attach the certification letter you receive from the VA Certification Officer to your eForm.
+*   If you are an international student, you must also contact a [Bechtel International Center (link is external)](https://bechtel.stanford.edu/) advisor and get their endorsement on the eForm.  This signature must be received before your Academic Advisor can sign off on your Leave of Absence request.
+*   If you are a Coterm student with your undergraduate career still open, you must also contact your graduate major department and obtain a departmental endorsement on the eForm. If you have closed your undergraduate career, any leaves will be processed by your graduate department.
+*   Follow up with [Student Housing (link is external)](https://rde.stanford.edu/studenthousing) and [Financial Aid (link is external)](https://financialaid.stanford.edu/) and clear any related obligations.
+
+The Leave of Absence eForm is just one page, and does not require you to write lengthy personal statement. We strongly encourage you to talk with your Academic Advisor about your personal situation and how a Leave of Absence might fit into your Stanford career.
+
+Keep in mind that even after you submit your Leave of Absence form, you must cancel your housing contract through a separate process. If you are on Financial Aid, you should also inform the Financial Aid Office of your intent to leave. Consult with them about any potential considerations, especially if you are leaving mid-quarter or have student loans to repay.
+
+[Cancelling Your Student Housing (link is external)](https://rde.stanford.edu/studenthousing/cancelling-your-housing)  
+[Financial Aid and Leaves of Absence (link is external)](https://financialaid.stanford.edu/aid/special/leaving.html)
+
+Timing Your Leave of Absence
+----------------------------
+
+Depending on when you take your Leave of Absence, different things happen with your tuition and with the classes recorded on your transcript. Here are some scenarios depending on when you submit the completed Leave of Absence form:
+
+#### On or before the first day of classes
+
+You receive a full tuition refund for the quarter. No classes appear on your transcript for that quarter.
+
+#### After the first day of classes, but before the Add/Drop Deadline (end of week 3)
+
+You receive a pro-rated tuition refund. All courses you may have enrolled in are dropped, and no classes appear on your transcript that quarter.
+
+#### After the Add/Drop deadline (end of week 3) but before the Term Withdrawal deadline (usually end of week 6)\*
+
+_\*Please check the_ [_Academic Calendar_ (link is external)](https://studentservices.stanford.edu/calendar/academic-dates) _for this quarter's Term Withdrawal deadline_  
+You receive a pro-rated refund. You will be Withdrawn from any classes you are enrolled in, and these courses will appear on your transcript with a “W” notation.
+
+#### After the Term Withdrawal deadline (usually end of week 6)\*
+
+_\*Please check the_ [_Academic Calendar_ (link is external)](https://studentservices.stanford.edu/calendar/academic-dates) _for this quarter's Term Withdrawal deadline_  
+Leaves of Absence can sometimes be taken after the Term Withdrawal deadline in exceptional circumstances. Be sure to check in with your Academic Advisor to discuss your situation. If your Leave is approved, no tuition refund can be given. You will be Withdrawn from any classes you are enrolled in, and these courses will appear on your transcript with a “W” notation.
+
+While this list may make it seem like filing for a Leave of Absence early in the quarter is the “best” scenario, we understand that life takes unexpected twists and turns. If you need to take a Leave late in the quarter, your Academic Advisors are here to help you. We can talk you through these options, and explain what certain consequences (like W’s on your transcript) really mean or don’t mean.
+
+Extending Your Leave of Absence
+-------------------------------
+
+What if you need more time after your original Leave of Absence? To extend your Leave, just submit another Leave of Absence eForm.
+
+Remember that you will still need to get the required signatures on your form, and the same timeline outlined above applies to your tuition refund. If you are away from campus, you can sign up for a [phone or video meeting with your Academic Advisor](https://advising.stanford.edu/appointments "Make an Appointment").
+
+Keep in mind that you are allowed to take up to 8 quarters of Leave before becoming Discontinued. This should not necessarily stop you from taking more time if you need it, but we strongly recommend you contact an Academic Advisor to talk through all potential considerations.
+
+Help, I've Been Discontinued!
+-----------------------------
+
+If your Leave of Absence has expired, or you left the university without ever filing for a Leave of Absence, your student status becomes Discontinued.  If you just became Discontinued this quarter, you may still request a [Leave of Absence for Discontinued Students (link is external)](https://registrar.stanford.edu/leave-absence-discontinued-students) before the current quarter ends.  This will change your student status from Discontinued to an active Leave of Absence.  The form and process are very similar to the standard LOA process described above, and will require a meeting with your [Academic Advisor](https://advising.stanford.edu/appointments) and other relevant offices.
+
+Please note that if you became Discontinued in a previous quarter, you can no longer request a Leave of Absence.  When you wish to re-enroll in the university, you must instead go through a special return process called the [Request to Return and Register](https://advising.stanford.edu/current-students/advising-student-handbook/returning-after-leave#requesttoreturn).
+
+Special exceptions for Academic Year 2020-21
+--------------------------------------------
+
+_Special exceptions to Leave of Absence policy that were in place for the past Academic Year 2020-2021 are no longer active. If you took a leave in 2020-2021 and have questions, reach out to your_ [_Academic Advisor_](https://advising.stanford.edu/appointments)_._
+
+**For the Academic Year 2020-21 only,** a Leave of Absence taken in Autumn, Winter, Spring or Summer quarter did not count towards the eight-quarter maximum for undergraduates.
+
+**For the Academic Year 2020-2021 only,** first-year students were allowed to take Leaves just like continuing students, and were not required to delay their return until the following Autumn.
+
+**For the Academic Year 2020-21 only**, the university announced a new policy about "Flex Terms," which were a different category of time away from Stanford only available during that year.
+
+For more details on these past special exceptions, please refer to the 2020-21 Bulletin:
+
+*   [Bulletin: COVID-19 and Academic Continuity (link is external)](https://archived-bulletin.stanford.mobi/covid-19-policy-changes/)
+
+Returning to Stanford
+---------------------
+
+Ready to return to the university, or looking ahead and curious about what you’ll need to do? Head on over to our [Returning After a Leave of Absence](https://advising.stanford.edu/current-students/advising-student-handbook/returning-after-leave "Returning After a Leave of Absence") page to get our breakdown of the process!
+
+See Also
+--------
+
+*   [Returning to Stanford](https://advising.stanford.edu/current-students/academic-policy/returning-stanford)
+*   [Resources for Returning Students](https://advising.stanford.edu/current-students/returning-students)
+
+[Return to the Advising Student Handbook](https://advising.stanford.edu/current-students/advising-student-handbook)
+
+
+If you are an undergraduate student considering a leave or break, please schedule an appointment with your Advisor in Academic Advising for guidance on this issue. If you are a graduate student, contact your department or student services specialist.
+
+For information about a discontinuation or Leave of Absence, please first review:
+
+If you are an undergraduate student:
+- Planning your Leave of Absence [Call the Student Services Center]
+- Extend your Leave of Absence [Call the Student Services Center]
+- What to do if you are "discontinued" student [Call the Student Services Center]
+- Planning to return from an Academic Suspension [Call the Student Services Center]
+- Note: If you are planning on returning after a planned Leave of Absence, there is nothing you need to do except Apply for Housing.
+
+If you are a graduate student:
+- Graduate Leave of Absence & Reinstatement Policy [Call the Student Services Center]
+
+If you are a coterm student (both your UG and GR careers are open):
+- Coterm Leave of Absence & Reinstatement Policy [Call the Student Services Center]
+- Note: If you have questions or concerns regarding the Coterminal Leave of Absence policy for Academic Year 2020-2021 please select “other issue related to a leave, break or return” option. [Call the Student Services Center]

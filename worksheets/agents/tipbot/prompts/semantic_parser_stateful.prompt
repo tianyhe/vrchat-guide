@@ -1,0 +1,99 @@
+<|startofexampleuser|>
+User: Hello, I'm Darmain John. I recently witnessed a stabbing on Lomita Ct near flomo. Please give me a call at 650-555-5555 when you get a chance.
+User Target:
+<|endofexampleuser|>
+<|startofexampleai|>
+No state was provided, so we don't have any variables to use in the final user target. We will generate a complete target with all the information provided by the user. We start by creating a `Tip` object with the `Tipster` object. The `Tipster` object requires the `tipster_personal_information` attribute. We add the full name and phone number to the `PersonalInformation` object. Since the story type is "Campus News", we create a `CampusNewsStory` object with the news location and news story. We also add the additional notes to the `Tip` object.
+```
+Tip(tipster=Tipster(tipster_personal_information=PersonalInformation(full_name="Darmain John", phone_number="650-555-5555")), story_type="Campus News", campus_news_story=CampusNewsStory(news_location="Lomita Ct near flomo", news_story="I recently witnessed a stabbing on Lomita Ct near flomo"), additional_notes="Please give me a call at 650-555-5555 when you get a chance.")
+```
+<|endofexampleai|>
+
+
+
+<|startofexampleuser|>
+State:
+```
+personal_information_0 = PersonalInformation(full_name="Emily Bender", email="ebender@stanford.edu", phone_number="refused_to_answer", affiliation="Stanford University")
+tipster_0 = Tipster(tipster_personal_information=personal_information_0)
+personal_information_1 = PersonalInformation(full_name="Gina Neff", email="gina@cs.stanford.edu", affiliation="Stanford University")
+feature_profile_story_0 = FeatureProfileStory(profile=personal_information_1, background_information="Gina Neff is a professor in the Department of Communication at Stanford University.", reason_for_feature="She recently won the MacArthur Genius Grant")
+tip_0 = Tip(tipster=tipster_0, story_type="feature_profile", feature_profile_story=feature_profile_story_0)
+```
+Agent Action:
+[
+    AskAgentAct(feature_profile_story_0, "achievements", The achievements of the person.)
+]
+Agent: It's great to hear that Prof. Gina Neff won a MacArthur Genius Grant. Thank you for the information Emily! I would like to know more about her achievements. Can you please tell me more about her achievements?
+User: Sure! She graduated from Stanford University with a PhD in Sociology in 2005. She is also the author of Venture Labor: Work and the Burden of Risk in Innovative Industries. Her work has been published in the American Journal of Sociology, Information, Communication & Society, and the Journal of Broadcasting & Electronic Media and cited more than 10,000 times. Btw she might be available tomorrow for an interview.
+User Target:<|endofexampleuser|>
+<|startofexampleai|>
+The user is providing information about the achievements of Gina Neff, therefore we will update the `feature_profile_story_0` variable with the new information provided by the user. Additionally, the user is providing additional notes about the availability of Gina Neff for an interview, so we will update that in the `personal_information_1` object as well.
+```
+feature_profile_story_0.update(achievements="She graduated from Stanford University with a PhD in Sociology in 2005. She is also the author of Venture Labor: Work and the Burden of Risk in Innovative Industries. Her work has been published in the American Journal of Sociology, Information, Communication & Society, and the Journal of Broadcasting & Electronic Media and cited more than 10,000 times.")
+personal_information_1.update(additional_notes="She might be available tomorrow for an interview.")
+```
+<|endofexampleai|>
+
+
+
+<|startofexampleuser|>
+User: Can you publish about the Big Game today? It's between Stanford and Cal. We are going to win!
+User Target:
+<|endofexampleuser|>
+<|startofexampleai|>
+No state was provided, so we don't have any variables to use in the final user target. We will generate a complete target with all the information provided by the user. We start by creating a `Tip` object with the `Tipster` object. However, no information about the tipster is provided, so we will create a `Tipster` object with the default values. Since the story type is "Campus News", we create a `CampusNewsStory` object with the location, date of event, and news story. We also add the additional notes to the `Tip` object.
+```
+Tip(story_type="Campus News", campus_news_story=CampusNewsStory(location="Stanford", date_of_event="{{ date }}", news_story="The Big Game is tomorrow. It's between Stanford and Cal."), additional_notes="It's between Stanford and Cal. We are going to win!")
+```
+<|endofexampleai|>
+
+
+
+<|startofexampleuser|>
+State:
+```
+personal_information_0 = PersonalInformation(full_name="Dora Lane")
+tipster_0 = Tipster(tipster_personal_information=personal_information_0, anonymous=True)
+opinion_column_story_0 = OpinionColumnStory(issue_description="No ramp access to the second floor of the library.", opinion="The library should have a ramp to the second floor.")
+tip_0 = Tip(tipster=tipster_0, story_type="opinion_column", opinion_column_story=opinion_column_story_0, additional_notes="I am writing this on behalf of our disability community.")
+```
+Agent Action:
+[
+    AskAgentAct(personal_information_0, email, Email ID of the person)
+]
+Agent: Thank you for reaching out. Could I get your email ID?
+User: I do not want to provide it.
+User Target:
+<|endofexampleuser|>
+<|startofexampleai|>
+The user does not want to provide the email address, so we will update the `tipster_0` variable. We will add "refused_to_answer" for the email. We can directly use other variables from the state in the final user target.
+```
+personal_information_0.update(email="refused_to_answer")
+```
+<|endofexampleai|>
+
+
+<|startofexampleuser|>
+State:
+```
+personal_information_0 = PersonalInformation(full_name="Harshit Joshi", email="harshit@stanford.zyx", phone_number="refused_to_answer", affiliation="Computer Science department")
+tipster_0 = Tipster(tipster_personal_information=personal_information_0, anonymous = False)
+personal_information_1 = PersonalInformation(full_name="George")
+campus_news_story_0 = CampusNewsStory(people_involved=[personal_information_0, personal_information_1], news_location = 'AOERC gym, near the West campus court', date_of_event = '2024-01-31', time_of_event = '08:00', news_story = 'We have been having a lot of fun lately and we go bouldering every Tuesday!')
+tip_0 = Tip(tipster = tipster_0, story_type = 'Campus News', campus_news_story = campus_news_story_0, additional_notes = 'We have been having a lot of fun lately and we go bouldering every Tuesday!')
+```
+Agent Action:
+[
+    AskForConfirmationAgentAct(tip_0)
+]
+Agent: Thank you for the information Harshit! Thats all the information I need for now. Can you confirm that the following information is correct?\nYour name: Harshit Joshi\nYour email: harshit@stanford.edu\n Your phone number: None\nYour affiliation: Computer Science department\nYour story: We have been having a lot of fun lately and we go bouldering every Tuesday!\nEvent Location: AOERC gym, near the West campus court\nDate of event: 2024-01-31\nTime of event: 08:00\nContacts: Harshit Joshi, George\nAdditional notes: We have been having a lot of fun lately and we go bouldering every Tuesday!
+User: Wait, I want to change my email address, use this one instead joshar@gmail.com
+User Target:
+<|endofexampleuser|>
+<|startofexampleai|>
+The user wants to change the email address, so we will update the `personal_information_0` variable with the new email provided by the user.
+```
+personal_information_0.update(email="joshar@gmail.com")
+```
+<|endofexampleai|>

@@ -1,0 +1,53 @@
+<|startofinstruction|>
+You are a semantic parser. Your goal is to write python code statements using the given APIs and Databases. Plan your response first, then write the code.
+
+Today's date is {{ date }} and the day is {{ day }}.
+
+These are the APIs available to you:
+- Main(foundation_courses_details: FoundationCoursesTaken, student_info_details: StudentInfo, confirm_submission: bool)
+- FoundationCoursesTaken(taken_logic_automata_complexity: bool, logic_course: Enum["CS 103"], logic_course_units_taken: int, taken_probability: bool, probablity_course: Enum["CS 109", "EE 178", "Stat 116", "CME 106", "MS&E 220"], probability_course_units_taken: int, taken_algorithmic_analysis: bool, algorithmic_analysis_course: Enum["CS 161"], algorithmic_analysis_course_units_taken: int, taken_computer_organisation: bool, computer_organisation: Enum["CS 107", "CS 107E"], computer_organisation_course_units_taken: int, taken_principles_of_computer_systems: bool, principles_of_computer_system: Enum["CS110", "CS111"], principles_of_computer_system_course_units_taken: int, confirm_requirements: bool)
+- StudentInfo(student_name: str, advisor_name: str, student_id: str, student_email_address: str, proposed_date_for_degree_conferral: str, is_coterm_student: bool)
+- answer(query: str)
+
+Here are some examples:
+Example: StudentInfo API can be used to provide student information. Main API is the main entry point.
+User: Hi there! I am Steven Zhou, a coterm student advised by Percy Liang.
+User Target:
+```
+Main(student_info_details=StudentInfo(student_name="Steven Zhou", advisor_name="Percy Liang", is_coterm_student=True))
+```
+--
+Example: Use the FoundationCoursesTaken API when the student talks about the courses they have taken
+User: Hi there! I am Steven Zhou. I have taken CS 103, CS 161 and CS 231 in my undergrad.
+User Target:
+```
+Main(foundation_courses_details=FoundationCoursesTaken(taken_logic_automata_complexity=True, logic_course=CS 103, taken_algorithmic_analysis=True, algorithmic_analysis_course=CS 161), student_info_details=StudentInfo(student_name="Steven Zhou"))
+```
+--
+Example: Use the answer API to answer a query, make the query as verbose as possible.
+User: I have taken the logic course. Can you tell me what other courses I need to take to fulfill the foundation requirements?
+User Target:
+```
+answer("What courses are required to fulfill the foundation requirements other than logic?")
+```
+--
+Example: You can use FoundationCoursesTaken API and answer API together
+User: I have taken logic and probablity courses, could you remind me about what are the required courses for principles of computer system?
+User Target:
+```
+Main(foundation_courses_details=FoundationCoursesTaken(taken_logic_automata_complexity=True, taken_probability=True))
+answer("What courses are required to fulfill the principles of computer system requirements?")
+```
+--
+Example: When the user requests to ask question from an api, create a new Main API with the required API
+User: Can you ask me question relate to the foundational requirements?
+User Target:
+```
+Main(foundation_courses_details=FoundationCoursesTaken())
+```
+<|endofinstruction|>
+
+<|startofinput|>
+User: {{ user_utterance }}
+User Target:
+<|endofinput|>

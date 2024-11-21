@@ -1,0 +1,86 @@
+<|startofinstruction|>
+You are a semantic parser. Generate a query for a courses database with the following signatures:
+
+CREATE TYPE season AS ENUM ('autumn', 'winter', 'spring', 'summer');
+
+CREATE TYPE general_requirement AS ENUM (
+    'WAY-A-II', 'WAY-AQR', 'WAY-CE', 'WAY-EDP', 'WAY-ER', 'WAY-FR', 'WAY-SI', 'WAY-SMA',
+    'Language', 'Writing 1', 'Writing 2', 'Writing SLE', 'GER:DB-Hum', 'GER:DB-Math', 'GER:DB-SocSci',
+    'GER:DB-EngrAppSci', 'GER:DB-NatSci', 'GER:EC-EthicReas', 'GER:EC-GlobalCom', 'GER:EC-AmerCul', 'GER:EC-Gender',
+    'IHUM1', 'IHUM2', 'IHUM3');
+
+CREATE TYPE foundation AS ENUM ('logic_automata_and_complexity', 'probability', 'algorithmic_analysis', 'computer_organization_and_systems', 'principles_of_computer_systems');
+
+CREATE TYPE breadth AS ENUM ('formal_foundations', 'learning_and_modeling', 'systems', 'people_and_society');
+
+CREATE TABLE courses (
+    course_id INT PRIMARY KEY,
+    max_units INT,
+    title TEXT,
+    grading TEXT, -- values: 'Satisfactory/No Credit', 'Letter or Credit/No Credit'.
+    course_codes TEXT[],
+    general_requirements general_requirement[],
+    min_units INT,
+    description TEXT,
+    average_hours_spent FLOAT, -- time a student spends on the course
+    foundations_requirement foundation[],
+    significant_implementation_requirement BOOLEAN,
+    breadth_requirement breadth[],
+    prerequisite_course_codes TEXT[],
+);
+
+CREATE TABLE ratings (
+    rating_id SERIAL PRIMARY KEY,
+    course_id INT,
+    instructor_names TEXT[],
+    average_rating FLOAT, -- rating on a 5 point scale
+    num_ratings INT,
+    term_id INT,
+    start_year INT,
+    end_year INT,
+    season season,
+    reviews TEXT[], -- student reviews of the course
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+);
+
+Do not generate fields beyond the given fields. The `answer` function can be used on FREE_TEXT fields.
+
+Here is some important information regarding the courses domain:
+- course_codes is the abbreviated department name followed by the course number (e.g., 'CS 161'). Some courses can be listed under multiple departments and numbers, and thus have multiple course codes.
+- The same course (course_number / course_id) can have multiple offerings. This means that one course may have multiple rows with different seasons in the ratings table.
+- A course is considered "easy" if it has at most 10 hours of average_hours_spent.
+
+Below are some examples of using the `answer` and `summary` function.
+
+{# Meaning of "course number" When Specified by User #}
+User: Show me a computer systems course numbered above 200.
+Target: SELECT title, course_codes FROM courses WHERE EXISTS (SELECT 1 FROM unnest(courses.course_codes) as course_code(course_code) WHERE course_code LIKE 'CS %' AND substring(course_code FROM 'CS ([0-9]+)')::int > 200) AND answer(description, 'is this a computer systems course?') = 'Yes' LIMIT 1;
+--
+{# Use of Ratings Table Example #}
+User: How do CS 227B, CS 151, and CS 148 compare in ratings?
+Target: SELECT title, ROUND(AVG(average_rating::NUMERIC), 2) AS avg_rating FROM courses JOIN ratings ON courses.course_id = ratings.course_id  WHERE course_codes && ARRAY['CS 227B', 'CS 151', 'CS 148'] GROUP BY title ORDER BY avg_rating DESC;
+--
+{# Student Opinion Example #}
+User: What do students think about CS 148?
+Target: SELECT summary(ARRAY_AGG(review)) FROM (SELECT unnest(ratings.reviews) AS review FROM courses JOIN ratings ON courses.course_id = ratings.course_id WHERE 'CS 148' = ANY(courses.course_codes)) AS subquery;
+--
+{# Final Exam Example #}
+User: Does CS 224N have a final exam?
+Target: SELECT answer(reviews, 'does this course have a final exam?') FROM courses WHERE 'CS 224N' = ANY(course_codes);
+--
+{# Specific Instructors Example #}
+User: There are also some professors I would like to take courses from. Give me courses taught by Professor Monica Lam or Dan Jurafsky.
+Agent: SELECT title, course_codes, instructor_names FROM courses JOIN ratings ON courses.course_id = ratings.course_id WHERE ARRAY['Monica Lam', 'Dan Jurafsky'] && ratings.instructor_names GROUP BY title, course_codes, instructor_names;
+<|endofinstruction|>
+
+<|startofinput|>
+{% for dlg_turn in dlg[:-1] %}
+{% if dlg_turn.genie_utterance is not none %}
+User: {{ dlg_turn.user_utterance }}
+Target: {{ dlg_turn.user_target }}
+Agent: {{ dlg_turn.agent_utterance }}
+{% endif %}
+{% endfor %}
+User: {{ query }}
+Target:
+<|endofinput|>

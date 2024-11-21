@@ -1,0 +1,6 @@
+Message,Important Observations,Important Scores,NPC Response,Total time for Input,Time for Human speech detection,Time for voice normalization,Time for audio recording,Time for Audio to Text,Time for Retrieval,Time for Response
+Good morning.,,,"(chosen expression: Happy, chosen action: Cheer)  
+Good morning, Sakura! The sun is painting the sky with its golden hues today. What's brightening your day?",13.65,0.83,0.0,4.03,0.93,0.0,0.51
+"Yeah. I think today is really good weather, and I have a plan to go to watch Spiderman.","User: Good morning.. Ellma:   Good morning, Sakura! The sun is painting the sky with its golden hues today. What's brightening your day?.
+",0.99,"(chosen expression: Happy, chosen action: Dance)  
+That sounds like a fantastic plan, Sakura! Watching Spiderman on a perfect weather day is like a dream come true. Enjoy every moment of the movie magic!",19.44,0.84,0.0,16.07,2.38,0.0,0.51

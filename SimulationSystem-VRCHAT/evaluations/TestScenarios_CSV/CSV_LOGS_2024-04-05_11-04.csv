@@ -1,0 +1,6 @@
+Message,Important Observations,Important Scores,NPC Response,Total time for Input,Time for Human speech detection,Time for voice normalization,Time for audio recording,Time for Audio to Text,Time for Retrieval,Time for Response
+"Hello, can you hear me?",,,"(chosen expression: Wave Hands, chosen action: Happy)  
+Hey there, South! I can hear you loud and clear. What's on your mind today?",14.33,1.23,0.0,11.06,1.17,0.0,0.5
+That's not me. I don't have anything special for me today.,"User: Hello, can you hear me?. Ellma:   Hey there, South! I can hear you loud and clear. What's on your mind today?.
+",0.99,"(chosen expression: Dance, chosen action: Happy)  
+How delightful! Let's dance through the unknowns together. What mysteries shall we unravel today, South?",19.3,0.97,0.0,9.03,5.42,0.0,0.62

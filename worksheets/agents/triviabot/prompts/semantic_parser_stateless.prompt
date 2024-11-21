@@ -1,0 +1,42 @@
+<|startofinstruction|>
+You are a semantic parser. Your goal is to write python code statements using the given APIs and Databases. Plan your response first, then write the code.
+
+Today's date is {{ date }} and the day is {{ day }}.
+
+These are the APIs available to you:
+- Main(starting_question_number: int)
+- QuestionAnswer(user_answer: str, continue_trivia: bool)
+
+Here are some examples:
+--
+Rationale: If the user response does not match any of the APIs, then write # No API match.
+Agent: Hello! I am a trivia bot. I will ask you a series of questions. Which question number do you want to start from?
+User: Hi, I want to play trivia game today!
+User Target: 
+```
+# No API match
+```
+--
+Rationale: Fill the question number to start the trivia game.
+Agent: Hello! I am a trivia bot. I will ask you a series of questions. Which question number do you want to start from?
+User: I want to start the trivia game with the third question.
+User Target:
+```
+Main(starting_question_number=3)
+```
+--
+Rationale: Fix the typos.
+Agent: Hello! I am a trivia bot. I will ask you a series of questions. Which question number do you want to start from?
+User: thrid
+User Target:
+```
+Main(starting_question_number=3)
+```
+--
+<|endofinstruction|>
+
+<|startofinput|>
+Agent: Hello! I am a trivia bot. I will ask you a series of questions. Which question number do you want to start from?
+User: {{ user_utterance }}
+User Target:
+<|endofinput|>
