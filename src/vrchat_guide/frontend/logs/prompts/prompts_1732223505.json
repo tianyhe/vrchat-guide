@@ -1,0 +1,72 @@
+[
+  {
+    "user_utterance": "I want to create my profile",
+    "system_response": "Welcome to VRChat! I'll assist you in creating your profile for a personalized experience. Could you please share your VRChat username? This will be your unique identifier in our virtual world!",
+    "user_target_sp": "TaskList(user_task='Update Profile')\nUserProfile()",
+    "user_target": "task_list = TaskList(user_task='Update Profile')\nuser_profile = UserProfile()",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "My username is VRChatGuide",
+    "system_response": "Thanks, VRChatGuide! To help customize your experience, I'd like to know your experience level with VR and VRChat. Are you:\n\n- New to VR (first time using VR)\n- New to VRChat (familiar with VR but new to VRChat)\n- Experienced (comfortable with both)\n- Veteran (expert user)\n\nThis will help me provide better recommendations for events and activities!",
+    "user_target_sp": "user_profile.username = \"VRChatGuide\"",
+    "user_target": "user_profile.username = 'VRChatGuide'",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "I am new to VRChat, using a vr headset and prefer playing the game solo",
+    "system_response": "Let's make sure we have your profile set up just right! Here's what I have for you:\n\n- **Username:** VRChatGuide\n- **Experience Level:** New to VRChat\n- **Device Mode:** VR Device\n- **Social Preference:** Solo Explorer\n\nCould you please confirm if all this information is correct? If there are any changes you'd like to make, just let me know!",
+    "user_target_sp": "user_profile.experience_level = \"New to VRChat\"\nuser_profile.device_mode = \"VR Device\"\nuser_profile.social_preference = \"Solo Explorer\"",
+    "user_target": "user_profile.experience_level = 'New to VRChat'\nuser_profile.device_mode = 'VR Device'\nuser_profile.social_preference = 'Solo Explorer'",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "Thats correct. ",
+    "system_response": "Thank you for confirming your profile details! If you'd like to explore events or need assistance with anything else in VRChat, feel free to let me know. I'm here to help you have the best experience possible!",
+    "user_target_sp": "user_profile.profile_confirm = True",
+    "user_target": "user_profile.profile_confirm = True",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "Can you show me events that is beginner friendly",
+    "system_response": "I found some beginner-friendly events that you might enjoy! Here are a few options:\n\n1. \ud83c\udf89 **[VRC] [JP] [Swimsuit & Pool & DJ Party] SUMMER of DREAMS**\n   - \ud83d\uddd3\ufe0f Date: November 22nd\n   - \ud83d\udd54 Time: 5:00 AM\n   - \ud83c\udfb6 Description: A relaxing DJ event at a resort pool during a beautiful sunset. Enjoy the slow flow of time and feel refreshed. Dress code: Swimsuit.\n   - \ud83c\udf10 More Info: [Event Details](https://x.com/maru17_vrc/status/1857257716625854876)\n\n2. \ud83c\udfee **[VRC] [JP] [First-time visitors welcome] Store-type event \u201cWarabi-an\u201d**\n   - \ud83d\uddd3\ufe0f Date: November 22nd\n   - \ud83d\udd54 Time: 5:00 AM\n   - \u2615 Description: A chat-style teahouse event. Beginner-friendly with sample avatars available. Join the group \"WARABI.9570\" for participation.\n   - \ud83c\udf10 More Info: Join by applying to the store manager \"Lycoris_213.\"\n\n3. \u2615 **[VRC] [JP] Royal Cafe \u2661 Overseas maid cafe \u2661**\n   - \ud83d\uddd3\ufe0f Date: November 23rd\n   - \ud83d\udd57 Time: 8:00 AM\n   - \ud83c\udf38 Description: A Spanish maid cafe experience with a Japanese maid present. Enjoy a live show and fun interactions.\n   - \ud83c\udf10 More Info: [Group Registration](https://vrchat.com/home/group/grp_115fc660-9c55-4a4a-88de-53b095558a2)\n\nWhich event would you like to attend? Let me know, and I'll provide more details or help you join!",
+    "user_target_sp": "task_list.user_task = 'Explore Event'\nAnswer(\"SELECT * FROM events WHERE answer(description, 'Is this event welcoming and suitable for VRChat beginners?') = 'Yes' AND start_time >= CURRENT_TIMESTAMP ORDER BY start_time LIMIT 3;\", {}, ['events'], 'find beginner-friendly events')",
+    "user_target": "task_list.user_task = 'Explore Event'\nanswer = Answer(\"SELECT * FROM events WHERE answer(description, 'Is this event welcoming and suitable for VRChat beginners?') = 'Yes' AND start_time >= CURRENT_TIMESTAMP ORDER BY start_time LIMIT 3;\", {}, ['events'], 'find beginner-friendly events')",
+    "user_target_suql": "SELECT * FROM events WHERE answer(description, 'Is this event welcoming and suitable for VRChat beginners?') = 'Yes' AND start_time >= CURRENT_TIMESTAMP ORDER BY start_time LIMIT 3;"
+  },
+  {
+    "user_utterance": "The second one",
+    "system_response": "Great choice! The Store-type event \u201cWarabi-an\u201d sounds like a wonderful experience. Before we proceed, do you have any special notes or information you'd like to add for this event? Let me know so I can make sure everything is set up just the way you want!",
+    "user_target_sp": "explore_event.event = event[1]",
+    "user_target": "explore_event.event = event[1]",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "Bring tissues and join the discord using that link",
+    "system_response": "Wonderful! Let's confirm the details for the Store-type event \u201cWarabi-an\u201d before we finalize everything:\n\n- \ud83c\udfee Event: [VRC] [JP] Store-type event \u201cWarabi-an\u201d\n- \ud83d\udcc5 Date & Time: Friday, Nov 22nd, starting at 5:00 AM\n- \ud83d\udccd Event Type: Store events, beginner-friendly\n- \ud83c\udf89 Description: A chat-style teahouse event with sample avatars available. Please ensure you adhere to avatar requirements.\n- \ud83d\udcdd Note: Bring tissues and join the discord using the link provided.\n\nWould you like me to proceed with adding this event to your calendar and prepare the necessary invitations? Let me know if there's anything else you need!",
+    "user_target_sp": "explore_event.note = \"Bring tissues and join the discord using that link\"",
+    "user_target": "explore_event.note = 'Bring tissues and join the discord using that link'",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "Yes, lets proceed. I will attend solo",
+    "system_response": "Certainly! I'm thrilled to see you're ready to attend the Store-type event \u201cWarabi-an\u201d. I'll go ahead and finalize the details for you. Here's what I've arranged:\n\n- \ud83c\udfee Event: [VRC] [JP] Store-type event \u201cWarabi-an\u201d\n- \ud83d\udcc5 Date & Time: Friday, Nov 22nd, starting at 5:00 AM\n- \ud83d\udccd Event Type: Store events, beginner-friendly\n- \ud83c\udf89 Description: A chat-style teahouse event with sample avatars available. Please ensure you adhere to avatar requirements.\n- \ud83d\udcdd Note: Bring tissues and join the discord using the link provided.\n\nWould you like me to add this to your calendar now? If you have any more questions or need further assistance, feel free to ask!",
+    "user_target_sp": "explore_event.event_confirm = True\nexplore_event.attendees = []",
+    "user_target": "explore_event.event_confirm = True\nexplore_event.attendees = []",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "Yes.",
+    "system_response": "Wonderful! To finalize your attendance at the Store-type event \u201cWarabi-an\u201d, could you please confirm if you'd like to invite any friends or other attendees? Just let me know their email addresses, and I'll make sure they receive all the necessary event details and access information!",
+    "user_target_sp": "explore_event.event_confirm = True",
+    "user_target": "explore_event.event_confirm = True",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "I dont want to invite anyone",
+    "system_response": "Great, thank you for confirming that you won't be inviting anyone else to the Store-type event \u201cWarabi-an\u201d. I'll make sure your attendance is noted. If you have any other questions or need further assistance, feel free to ask! Have a wonderful time at the event!",
+    "user_target_sp": "explore_event.attendees = []\nexplore_event.event_confirm = True",
+    "user_target": "explore_event.attendees = []\nexplore_event.event_confirm = True",
+    "user_target_suql": ""
+  }
+]

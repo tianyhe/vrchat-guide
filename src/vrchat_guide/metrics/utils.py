@@ -1,13 +1,20 @@
 import time
+import json
 from typing import Optional, Dict
 from vrchat_guide.metrics.logger import MetricsLogger
 from worksheets.modules import CurrentDialogueTurn
+from vrchat_guide.metrics.log_config import LogConfig
 
 class MetricsManager:
     """Manager class to handle metrics logging for the VRChat Guide."""
     
-    def __init__(self, metrics_dir: str = "logs/vrchat_metrics"):
-        self.logger = MetricsLogger(output_dir=metrics_dir)
+    def __init__(self, metrics_dir: str, session_timestamp: str):
+        self.logger = MetricsLogger(
+            output_dir=metrics_dir,
+            session_timestamp=session_timestamp
+        )
+        self.log_config = LogConfig()
+        self.prompts_file = self.log_config.get_session_path(session_timestamp, "prompts")
         self.current_task: Optional[str] = None
         self.task_start_time: Optional[float] = None
     
@@ -61,15 +68,64 @@ class MetricsManager:
                 notes=f"Completed task: {self.current_task}"
             )
             self.current_task = None
+        
+        # Log the prompt details
+        self.log_prompt(dialogue_turn)
+    
+    def log_prompt(self, dialogue_turn: CurrentDialogueTurn):
+        """Log the prompt details."""
+        prompt_data = {
+            "user_utterance": dialogue_turn.user_utterance,
+            "system_response": dialogue_turn.system_response,
+            "user_target_sp": dialogue_turn.user_target_sp,
+            "user_target": dialogue_turn.user_target,
+            "user_target_suql": dialogue_turn.user_target_suql,
+        }
+        
+        # Read existing prompts or initialize empty array
+        try:
+            with open(self.prompts_file, 'r') as f:
+                prompts = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            prompts = []
+        
+        # Append new prompt
+        prompts.append(prompt_data)
+        
+        # Write back entire array with proper formatting
+        with open(self.prompts_file, 'w') as f:
+            json.dump(prompts, f, indent=2)
     
     def _is_task_complete(self, dialogue_turn: CurrentDialogueTurn) -> bool:
-        """Detect if the current task is complete."""
+        """Detect if the current task is complete based on common response patterns."""
         if not self.current_task:
             return False
             
         response = dialogue_turn.system_response.lower()
-        if "completed" in response or "done" in response:
-            return True
-        if "anything else" in response:
-            return True
-        return False
+        
+        # Calendar task completion indicators
+        calendar_markers = [
+            "added to your calendar",
+            "you'll receive a reminder",
+            "i've added the"
+        ]
+        
+        # General completion indicators 
+        general_markers = [
+            "all set",
+            "completed",
+            "done",
+            "I've confirmed",
+            "anything else",
+            "let me know if",
+            "feel free to",
+            "need any more help",
+            "would you like me to"
+        ]
+        
+        # Check calendar-specific completions
+        if self.current_task == "calendar_add":
+            return any(marker in response for marker in calendar_markers)
+        
+        # Check general task completions
+        return any(marker in response for marker in general_markers)

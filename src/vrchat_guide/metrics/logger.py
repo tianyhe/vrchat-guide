@@ -4,12 +4,20 @@ import json
 from pathlib import Path
 import pandas as pd
 from loguru import logger
+from json import JSONEncoder
+
+class DateTimeEncoder(JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime):
+            return obj.isoformat()  # Convert datetime to ISO format string
+        return super().default(obj)
 
 class MetricsLogger:
     """Logger for tracking conversation metrics and system performance."""
     
-    def __init__(self, output_dir: str = "logs/metrics"):
+    def __init__(self, output_dir: str, session_timestamp: str):
         self.output_dir = Path(output_dir)
+        self.session_timestamp = session_timestamp
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.current_session: Optional[Dict] = None
         self.sessions: List[Dict] = []
@@ -113,36 +121,36 @@ class MetricsLogger:
     def _save_session(self):
         """Save the current session data to file."""
         if self.current_session:
-            session_file = self.output_dir / f"session_{self.current_session['session_id']}.json"
-            with open(session_file, 'w') as f:
-                json.dump(self.current_session, f, default=str, indent=2)
+            session_file = self.output_dir / f"metrics_{self.session_timestamp}.json"
+            with session_file.open('w') as f:
+                json.dump(self.current_session, f, cls=DateTimeEncoder, indent=4)
     
-    def export_metrics(self, format: str = 'csv') -> str:
-        """Export all sessions metrics to CSV or JSON."""
-        if not self.sessions:
-            return "No sessions to export"
+    # def export_metrics(self, format: str = 'csv') -> str:
+    #     """Export all sessions metrics to CSV or JSON."""
+    #     if not self.sessions:
+    #         return "No sessions to export"
             
-        metrics_data = []
-        for session in self.sessions:
-            metrics_data.append({
-                "session_id": session["session_id"],
-                "user_id": session["user_id"],
-                "duration": session["duration"],
-                "tasks_completed": len([t for t in session["tasks"] if t["completed"]]),
-                "total_tasks": len(session["tasks"]),
-                "clarification_questions": session["clarification_questions"],
-                "query_success_rate": session["metrics"]["query_success_rate"],
-                "avg_response_time": session["metrics"]["avg_response_time"],
-                "context_switches": session["metrics"]["context_switches"]
-            })
+    #     metrics_data = []
+    #     for session in self.sessions:
+    #         metrics_data.append({
+    #             "session_id": session["session_id"],
+    #             "user_id": session["user_id"],
+    #             "duration": session["duration"],
+    #             "tasks_completed": len([t for t in session["tasks"] if t["completed"]]),
+    #             "total_tasks": len(session["tasks"]),
+    #             "clarification_questions": session["clarification_questions"],
+    #             "query_success_rate": session["metrics"]["query_success_rate"],
+    #             "avg_response_time": session["metrics"]["avg_response_time"],
+    #             "context_switches": session["metrics"]["context_switches"]
+    #         })
         
-        if format == 'csv':
-            df = pd.DataFrame(metrics_data)
-            output_file = self.output_dir / "metrics_export.csv"
-            df.to_csv(output_file, index=False)
-            return str(output_file)
-        else:
-            output_file = self.output_dir / "metrics_export.json"
-            with open(output_file, 'w') as f:
-                json.dump(metrics_data, f, indent=2)
-            return str(output_file)
+    #     if format == 'csv':
+    #         df = pd.DataFrame(metrics_data)
+    #         output_file = self.output_dir / "metrics_export.csv"
+    #         df.to_csv(output_file, index=False)
+    #         return str(output_file)
+    #     else:
+    #         output_file = self.output_dir / "metrics_export.json"
+    #         with open(output_file, 'w') as f:
+    #             json.dump(metrics_data, f, indent=2)
+    #         return str(output_file)

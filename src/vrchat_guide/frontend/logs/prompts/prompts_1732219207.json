@@ -1,0 +1,37 @@
+[
+  {
+    "user_utterance": "Can you recommend some events happens in the evening?",
+    "system_response": "I found some exciting events happening in the evening that you might enjoy:\n\n1. \ud83c\udf0c **[VRC] [JP] The meeting ends at midnight.**\n   - \ud83d\udcc5 Date & Time: November 19th, starting at 6:45 PM\n   - \ud83d\udccd World: Jiho Jiho Community Center\n   - Note: This is a unique event where the world explodes and falls with the time signal at midnight. It's a regular event with specific participation requirements.\n\n2. \ud83c\udf75 **[VRC] [JP] #VRC Tea Ceremony Club Practice Session (Tea Ceremony Practice)**\n   - \ud83d\udcc5 Date & Time: November 20th, 9:00 PM - 11:00 PM\n   - Note: Join this practice session for those interested in tea ceremony practices. It's a social gathering perfect for beginners and regular attendees.\n\n3. \u2615 **[VRC] [JP] [First-time visitors welcome] Store-type event \"cafe & bar \"outsider\"\"**\n   - \ud83d\udcc5 Date & Time: November 20th, starting at 10:00 PM\n   - Note: A chat cafe/bar event featuring avatars and costumes. Ideal for newcomers and regulars alike.\n\nCould you let me know which event you'd like to attend? I'll make sure to provide you with all the necessary details and assistance to join the event!",
+    "user_target_sp": "TaskList(user_task='Explore Event')\nAnswer(\"SELECT * FROM events WHERE answer(description, 'Is this event happening in the evening?') = 'Yes' ORDER BY start_time LIMIT 5;\", {}, ['events'], 'find events happening in the evening')",
+    "user_target": "task_list = TaskList(user_task='Explore Event')\nanswer = Answer(\"SELECT * FROM events WHERE answer(description, 'Is this event happening in the evening?') = 'Yes' ORDER BY start_time LIMIT 5;\", {}, ['events'], 'find events happening in the evening')",
+    "user_target_suql": "SELECT * FROM events WHERE answer(description, 'Is this event happening in the evening?') = 'Yes' ORDER BY start_time LIMIT 5;"
+  },
+  {
+    "user_utterance": "The last two events are too late in the evening. Can you provide other selections?",
+    "system_response": "I totally understand! Let's explore some more events that might fit better with your schedule. Here are a few other exciting happenings you might consider:\n\n1. \ud83c\udf06 **[VRC] Saturday Squats**\n   - \ud83d\udcc5 Date & Time: November 30th, starting at 5:00 PM\n   - Note: Get ready for a high-energy workout at the VRChat Fitness Center. It's a fun way to get active with virtual fitness gurus and enjoy some retro dance tunes!\n\n2. \ud83c\udf89 **[VRC 18+] [\ud83d\ude3c] JUST DANCE - with Mondo!**\n   - \ud83d\udcc5 Date & Time: December 2nd, starting at 5:00 PM\n   - Note: This is a vibrant dance event where you can groove to your favorite tunes. Just bring your energy and be ready to have a blast!\n\n3. \ud83c\udfb6 **[VRC 18+] Lights Out Night Club Grand Opening**\n   - \ud83d\udcc5 Date & Time: December 6th, starting at 3:00 PM\n   - Note: Join the grand opening of this exciting night club. Perfect for those looking to enjoy music and community in a custom VR world!\n\nLet me know if any of these events catch your interest, and I'll assist you with joining and getting all set up!",
+    "user_target_sp": "Answer(\"SELECT * FROM events WHERE answer(description, 'Is this event happening earlier in the evening?') = 'Yes' ORDER BY start_time LIMIT 5;\", {}, ['events'], 'find events happening earlier in the evening')",
+    "user_target": "answer = Answer(\"SELECT * FROM events WHERE answer(description, 'Is this event happening earlier in the evening?') = 'Yes' ORDER BY start_time LIMIT 5;\", {}, ['events'], 'find events happening earlier in the evening')",
+    "user_target_suql": "SELECT * FROM events WHERE answer(description, 'Is this event happening earlier in the evening?') = 'Yes' ORDER BY start_time LIMIT 5;"
+  },
+  {
+    "user_utterance": "Better, but I prefer more relax events",
+    "system_response": "I have some more relaxed events that might suit your preference. Let's take a look:\n\n1. \ud83c\udf19 **[VRC] [JP] The meeting ends at midnight**\n   - \ud83d\udd52 When: November 19th, starting at 6:45 AM\n   - Description: Join the Jiho Jiho Community Center for a relaxed gathering that concludes at midnight. It's a social event perfect for beginners and those looking to unwind.\n\n2. \ud83c\udf75 **[VRC] [JP] #VRC Tea Ceremony Club Practice Session**\n   - \ud83d\udd52 When: November 20th, starting at 4:00 AM\n   - Description: Engage in a serene tea ceremony practice session. A calm and cultural experience ideal for those interested in traditional practices.\n\n3. \u2615 **[VRC] [JP] Store-type event \"cafe & bar \"outsider\"\"**\n   - \ud83d\udd52 When: November 20th, starting at 5:00 AM\n   - Description: Enjoy a chat in a cozy cafe/bar setting, perfect for relaxing with avatars and costumes in a friendly environment.\n\nWould you like to attend any of these events? Let me know your choice, and I'll help you get started!",
+    "user_target_sp": "Answer(\"SELECT * FROM events WHERE answer(description, 'Is this a relaxed event happening earlier in the evening?') = 'Yes' ORDER BY start_time LIMIT 5;\", {}, ['events'], 'find more relaxed VRChat events happening earlier in the evening')",
+    "user_target": "answer = Answer(\"SELECT * FROM events WHERE answer(description, 'Is this a relaxed event happening earlier in the evening?') = 'Yes' ORDER BY start_time LIMIT 5;\", {}, ['events'], 'find more relaxed VRChat events happening earlier in the evening')",
+    "user_target_suql": "SELECT * FROM events WHERE answer(description, 'Is this a relaxed event happening earlier in the evening?') = 'Yes' ORDER BY start_time LIMIT 5;"
+  },
+  {
+    "user_utterance": "The second one looks awesome, remind me to brew my tea before it starts.",
+    "system_response": "Sure thing! I'm glad you're interested in the Tea Ceremony Club Practice Session. Here's a quick reminder of the event details:\n\n\ud83c\udf75 **Event:** [VRC] [JP] #VRC Tea Ceremony Club Practice Session  \n\ud83d\udd52 **When:** November 20th, starting at 4:00 AM  \n\ud83d\udccd **Description:** Engage in a serene tea ceremony practice session. A calm and cultural experience ideal for those interested in traditional practices.\n\nBefore the event starts, don't forget to brew your tea to fully enjoy the experience! Would you like me to confirm your attendance for this event with these details?",
+    "user_target_sp": "explore_event.event = event[7]\nexplore_event.note = \"Remind user to brew tea before the event starts.\"",
+    "user_target": "explore_event.event = event[7]\nexplore_event.note = 'Remind user to brew tea before the event starts.'",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "Yes. Please confirm.",
+    "system_response": "Wonderful! Let's confirm your attendance for the Tea Ceremony Club Practice Session:\n\n- \ud83c\udf75 **Event:** [VRC] [JP] #VRC Tea Ceremony Club Practice Session\n- \ud83d\udd52 **Date & Time:** November 20th, starting at 4:00 AM\n- \ud83d\udcdd **Note:** Remind yourself to brew tea before the event starts for a full immersive experience.\n\nIf you have any questions or need further assistance, feel free to let me know. Enjoy your serene tea ceremony practice session!",
+    "user_target_sp": "explore_event.event_confirm = True",
+    "user_target": "explore_event.event_confirm = True",
+    "user_target_suql": ""
+  }
+]

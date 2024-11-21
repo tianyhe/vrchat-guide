@@ -1,0 +1,49 @@
+{
+    "session_id": "1732217675_20241121_113442",
+    "user_id": "1732217675",
+    "start_time": "2024-11-21T11:34:42.893798",
+    "tasks": [
+        {
+            "task_type": "profile_update",
+            "description": "Hi, I use a Quest 2 and want to set up my profile",
+            "start_time": "2024-11-21T11:34:59.641975",
+            "steps": [],
+            "clarification_questions": 5,
+            "completed": true,
+            "end_time": "2024-11-21T11:36:19.295064",
+            "duration": 79.653089,
+            "notes": "Completed task: profile_update"
+        }
+    ],
+    "current_task": {
+        "task_type": "general_query",
+        "description": "Yes, that's better",
+        "start_time": "2024-11-21T11:36:34.550304",
+        "steps": [],
+        "clarification_questions": 0,
+        "completed": false
+    },
+    "clarification_questions": 5,
+    "total_queries": 6,
+    "successful_queries": 6,
+    "knowledge_retrievals": [],
+    "response_times": [
+        0.1545093059539795,
+        0.07034516334533691,
+        3.211395263671875,
+        3.263322114944458,
+        2.585984468460083,
+        1.9755423069000244
+    ],
+    "context_switches": 1,
+    "end_time": "2024-11-21T11:38:36.650853",
+    "duration": 233.757055,
+    "metrics": {
+        "total_duration": 233.757055,
+        "avg_response_time": 1.8768497705459595,
+        "task_completion_rate": 1.0,
+        "query_success_rate": 1.0,
+        "context_switches": 1,
+        "total_clarifications": 5
+    }
+}

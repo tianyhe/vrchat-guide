@@ -1,0 +1,51 @@
+{
+    "session_id": "1732221443_20241121_123727",
+    "user_id": "1732221443",
+    "start_time": "2024-11-21T12:37:27.714147",
+    "tasks": [
+        {
+            "task_type": "event_search",
+            "description": "Show me beginner friendly meditation events",
+            "start_time": "2024-11-21T12:37:54.445528",
+            "steps": [],
+            "clarification_questions": 3,
+            "completed": true,
+            "end_time": "2024-11-21T12:38:23.723484",
+            "duration": 29.277956,
+            "notes": "Completed task: event_search"
+        },
+        {
+            "task_type": "general_query",
+            "description": "Yes. Thats correct",
+            "start_time": "2024-11-21T12:38:36.985868",
+            "steps": [],
+            "clarification_questions": 0,
+            "completed": true,
+            "end_time": "2024-11-21T12:38:36.985880",
+            "duration": 1.2e-05,
+            "notes": "Completed task: general_query"
+        }
+    ],
+    "current_task": null,
+    "clarification_questions": 3,
+    "total_queries": 4,
+    "successful_queries": 4,
+    "knowledge_retrievals": [],
+    "response_times": [
+        17.884603261947632,
+        3.601388454437256,
+        5.016312599182129,
+        5.4560558795928955
+    ],
+    "context_switches": 1,
+    "end_time": "2024-11-21T12:38:51.029336",
+    "duration": 83.315189,
+    "metrics": {
+        "total_duration": 83.315189,
+        "avg_response_time": 7.989590048789978,
+        "task_completion_rate": 1.0,
+        "query_success_rate": 1.0,
+        "context_switches": 1,
+        "total_clarifications": 3
+    }
+}

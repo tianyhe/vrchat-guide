@@ -1,0 +1,30 @@
+[
+  {
+    "user_utterance": "Show me beginner friendly meditation events",
+    "system_response": "I found some beginner-friendly meditation events that might interest you:\n\n1. **[VRC] [JP] The meeting ends at midnight**\n   - **What**: A regular event at the Jiho Jiho Community Center, with activities that culminate at midnight.\n   - **When**: November 22, 2024, starting at 6:45 AM (VR Time).\n   - **Details**: This event focuses on social gatherings and is beginner-friendly. Join by connecting to the Jiho Jiho Parking Lot group.\n\n2. **[VRC] [JP] [First-time visitors welcome] Store-type event \"cafe & bar \"outsider\"\"**\n   - **What**: A chat cafe/bar event where you can try on avatars and meet others in a relaxed setting.\n   - **When**: November 28, 2024, starting at 5:00 AM (VR Time).\n   - **Details**: This event is beginner-friendly and takes place in a store environment. Join the group \"BGAVCY.1622\" to participate.\n\n3. **[VRC] Group meditation lesson & practice @ VR Mystery School**\n   - **What**: A group meditation session focusing on 'Mindfulness of Breathing', perfect for beginners.\n   - **When**: December 2, 2024, starting at 9:00 AM (VR Time).\n   - **Details**: Join this event to learn meditation from a guide and participate in a group session. Connect through the VRChat World link provided.\n\nWhich event would you like to attend? Please let me know your choice, and I'll assist you with joining the event!",
+    "user_target_sp": "TaskList(user_task='Explore Event')\nAnswer(\"SELECT * FROM events WHERE answer(description, 'Is this event beginner-friendly and related to meditation?') = 'Yes' AND start_time >= CURRENT_TIMESTAMP ORDER BY start_time LIMIT 3;\", {}, ['events'], 'find beginner-friendly meditation events')",
+    "user_target": "task_list = TaskList(user_task='Explore Event')\nanswer = Answer(\"SELECT * FROM events WHERE answer(description, 'Is this event beginner-friendly and related to meditation?') = 'Yes' AND start_time >= CURRENT_TIMESTAMP ORDER BY start_time LIMIT 3;\", {}, ['events'], 'find beginner-friendly meditation events')",
+    "user_target_suql": "SELECT * FROM events WHERE answer(description, 'Is this event beginner-friendly and related to meditation?') = 'Yes' AND start_time >= CURRENT_TIMESTAMP ORDER BY start_time LIMIT 3;"
+  },
+  {
+    "user_utterance": "The second one look goods to me",
+    "system_response": "Great choice! The **[VRC] [JP] [First-time visitors welcome] Store-type event \"cafe & bar \"outsider\"** sounds like a wonderful opportunity to relax and meet new people in a welcoming environment. \n\nBefore we proceed, do you have any special notes or information you'd like to add for the event? This could be anything specific you'd like to keep in mind or share with the event organizers. Let me know!",
+    "user_target_sp": "explore_event.event = event[1]",
+    "user_target": "explore_event.event = event[1]",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "Bring tissues",
+    "system_response": "It sounds like you're all set for a cozy time at the **[VRC] [JP] [First-time visitors welcome] Store-type event \"cafe & bar \"outsider\"**! Here's what we've got lined up for you:\n\n- **Event:** Store-type event \"cafe & bar \"outsider\"\"\n- **Date & Time:** Thursday, Nov 28th, starting at 5:00 AM\n- **Details:** Chat cafe/bar event with avatars and costumes available for trial. Perfect for first-time visitors and beginners!\n- **Special Note:** Bring tissues\n\nWould you like to confirm your attendance at this event? Let me know, and I'll make sure everything is prepared for your visit!",
+    "user_target_sp": "explore_event.note = \"Bring tissues\"",
+    "user_target": "explore_event.note = 'Bring tissues'",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "Yes. Thats correct",
+    "system_response": "Great! Your attendance at the **[VRC] [JP] [First-time visitors welcome] Store-type event \"cafe & bar \"outsider\"** is confirmed. Here's a quick summary for you:\n\n- \ud83c\udf89 **Event:** Store-type event \"cafe & bar \"outsider\"\"\n- \ud83d\udcc5 **Date & Time:** Thursday, Nov 28th, starting at 5:00 AM\n- \ud83d\udcdc **Details:** This is a chat cafe/bar event featuring avatars and costumes, perfect for first-time visitors and beginners!\n- \ud83d\udcdd **Special Note:** Bring tissues\n\nIf you have any questions or need further assistance, feel free to ask. Enjoy your time at the event!",
+    "user_target_sp": "explore_event.event_confirm = True",
+    "user_target": "explore_event.event_confirm = True",
+    "user_target_suql": ""
+  }
+]

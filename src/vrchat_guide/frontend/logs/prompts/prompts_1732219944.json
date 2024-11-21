@@ -1,0 +1,44 @@
+[
+  {
+    "user_utterance": "I want to join big social events on vrchat",
+    "system_response": "Here are some exciting big social events happening on VRChat that you might be interested in:\n\n1. \ud83c\udf89 **VRChat High-Energy Dance Party**\n   - \ud83d\udccd Location: Neon Club World\n   - \ud83d\udd52 Date & Time: Wednesday, Nov 20th, 1:09 AM\n   - \ud83c\udfb6 Description: Get ready to dance and party in VRChat with live DJ sets and custom avatars! Perfect for those who want to let loose and have fun in a high-energy environment.\n\n2. \ud83c\udf79 **[VRC] [JP] Doki Doki Girls Bar**\n   - \ud83d\udccd Location: Event details and joining instructions are available through the VRChat group instance.\n   - \ud83d\udd52 Date & Time: Wednesday, Nov 20th, 4:00 AM\n   - \ud83c\udf38 Description: A VR drinking party and roleplay event for beginners. Enjoy a fun atmosphere with light appearances.\n\n3. \ud83c\udf78 **[VRC] [JP] [Cyberpunk Bar] BAR Cyber Cat**\n   - \ud83d\udccd Location: Join through our official group and enjoy a cyberpunk-themed experience.\n   - \ud83d\udd52 Date & Time: Wednesday, Nov 20th, 6:00 AM\n   - \ud83c\udfa4 Description: A unique bar event with a cyberpunk concept. Enjoy cocktails while experiencing live performances.\n\nWhich event would you like to join? Let me know, and I can help you with the next steps!",
+    "user_target_sp": "TaskList(user_task='Explore Event')\nAnswer(\"SELECT * FROM events WHERE answer(description, 'Is this a large social event on VRChat?') = 'Yes' ORDER BY start_time LIMIT 3;\", {}, ['events'], 'find big social events on VRChat')",
+    "user_target": "task_list = TaskList(user_task='Explore Event')\nanswer = Answer(\"SELECT * FROM events WHERE answer(description, 'Is this a large social event on VRChat?') = 'Yes' ORDER BY start_time LIMIT 3;\", {}, ['events'], 'find big social events on VRChat')",
+    "user_target_suql": "SELECT * FROM events WHERE answer(description, 'Is this a large social event on VRChat?') = 'Yes' ORDER BY start_time LIMIT 3;"
+  },
+  {
+    "user_utterance": "But i get uncomfortable with too many people",
+    "system_response": "It sounds like you might prefer a more intimate setting. The [VRC] [JP] Doki Doki Girls Bar offers a relaxing VR drinking party and roleplay event, which might be a good fit. Before we proceed, do you have any special notes or information you'd like to add for this event? It could be preferences, things you're looking forward to, or any personal reminders. Let me know so I can help make your experience more enjoyable!",
+    "user_target_sp": "explore_event.event = event[1]",
+    "user_target": "explore_event.event = event[1]",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "Actually no. I guess i could start with small groups events?",
+    "system_response": "Great choice! Let's start by exploring some small group events perfect for you. For the [VRC] [JP] Doki Doki Girls Bar, do you have any special notes or information you'd like to add? It could be preferences, things you're looking forward to, or any personal reminders. Sharing this helps enhance your experience!",
+    "user_target_sp": "explore_event.note = \"\"\nexplore_event.event_confirm = False\ntask_list.user_task = 'Explore Event'\nAnswer(\"SELECT * FROM events WHERE answer(description, 'Is this a small group event on VRChat?') = 'Yes' ORDER BY start_time LIMIT 3;\", {}, ['events'], 'find small group events on VRChat')",
+    "user_target": "explore_event.note = ''\nexplore_event.event_confirm = False\ntask_list.user_task = 'Explore Event'\nanswer = Answer(\"SELECT * FROM events WHERE answer(description, 'Is this a small group event on VRChat?') = 'Yes' ORDER BY start_time LIMIT 3;\", {}, ['events'], 'find small group events on VRChat')",
+    "user_target_suql": "SELECT * FROM events WHERE answer(description, 'Is this a small group event on VRChat?') = 'Yes' ORDER BY start_time LIMIT 3;"
+  },
+  {
+    "user_utterance": "Forget about the Doki Girls Bar. I want to attend the first event here.",
+    "system_response": "Sure thing! Let's focus on the VRChat High-Energy Dance Party at Neon Club World. Do you have any special notes or information you'd like to add for this event? It could include preferences, things you're looking forward to, or any personal reminders. Sharing this helps enhance your experience!",
+    "user_target_sp": "explore_event.event = event[0]",
+    "user_target": "explore_event.event = event[0]",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "Brings water",
+    "system_response": "Great choice! Let's confirm the details for the VRChat High-Energy Dance Party:\n\n\ud83c\udf89 **Event**: High-Energy Dance Party  \n\ud83d\udcc5 **Date**: Wednesday, Nov 20th  \n\ud83d\udd52 **Time**: Starts at 1:09 AM  \n\ud83c\udf0d **Location**: Neon Club World  \n\ud83c\udfb6 **Description**: Get ready to dance and party in VRChat with live DJ sets and custom avatars! Perfect for those who want to let loose and have fun in a high-energy environment.  \n\ud83d\udca7 **Note**: Don't forget to bring water!\n\nWould you like to confirm your attendance for this event? Let me know if there's anything else you'd like to add!",
+    "user_target_sp": "explore_event.note = \"Brings water\"",
+    "user_target": "explore_event.note = 'Brings water'",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "Yes.",
+    "system_response": "Wonderful! Your attendance for the VRChat High-Energy Dance Party is confirmed. Remember to bring some water and get ready for an energetic night filled with music and fun at Neon Club World! If you have any other questions or need further assistance, feel free to let me know. Enjoy the party!",
+    "user_target_sp": "explore_event.event_confirm = True",
+    "user_target": "explore_event.event_confirm = True",
+    "user_target_suql": ""
+  }
+]

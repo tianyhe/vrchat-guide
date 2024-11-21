@@ -1,0 +1,44 @@
+[
+  {
+    "user_utterance": "I want to set up my vrchat profile",
+    "system_response": "Welcome to VRChat! Let's get started on setting up your profile for the best experience possible. Could you please share your VRChat username? This will help personalize your interactions and recommendations.",
+    "user_target_sp": "TaskList(user_task='Update Profile')\nUserProfile()",
+    "user_target": "task_list = TaskList(user_task='Update Profile')\nuser_profile = UserProfile()",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "My username is neucs7980",
+    "system_response": "Thanks, neucs7980! To tailor your VRChat experience more closely to your needs, could you please let me know your experience level with VR and VRChat? Here are the options you can choose from:\n- New to VR (first time using VR)\n- New to VRChat (familiar with VR but new to VRChat)\n- Experienced (comfortable with both)\n- Veteran (expert user)\n\nYour input will help me provide the best event recommendations and tips just for you!",
+    "user_target_sp": "user_profile.username = \"neucs7980\"",
+    "user_target": "user_profile.username = 'neucs7980'",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "I am new to VR",
+    "system_response": "Great! Everyone has to start somewhere with VR, and I'm here to help make your experience as smooth as possible. Could you please let me know what type of device you are using for VRChat? Your options are:\n- Mobile\n- Desktop\n- VR Device\n\nThis will help me customize the recommendations and settings for you!",
+    "user_target_sp": "user_profile.experience_level = \"New to VR\"",
+    "user_target": "user_profile.experience_level = 'New to VR'",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "I am using Oculus Quest 2",
+    "system_response": "Thanks for sharing that you're using an Oculus Quest 2! Now, to further personalize your experience, could you tell me your preferred style of social interaction in VRChat? Here are your options:\n- Solo Explorer (mostly exploring on your own)\n- Small Groups (intimate gatherings of 2-5 people)\n- Large Groups (bigger social events and parties)\n- Any (flexible with different group sizes)\n\nThis will help me suggest the best events and activities for you!",
+    "user_target_sp": "user_profile.device_mode = \"VR Device\"",
+    "user_target": "user_profile.device_mode = 'VR Device'",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "I prefer small groups",
+    "system_response": "To make sure everything is set up correctly, let's confirm the details of your profile:\n\n- Username: neucs7980\n- Experience Level: New to VR\n- Device: VR Device\n- Social Preference: Small Groups (2-5 people)\n\nIs everything correct? Please confirm if you would like me to save these preferences. We can update them anytime as you get more comfortable!",
+    "user_target_sp": "user_profile.social_preference = \"Small Groups\"",
+    "user_target": "user_profile.social_preference = 'Small Groups'",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "yes, That's correct.",
+    "system_response": "Fantastic! Your profile is now all set. If you ever want to make any changes or explore more about VRChat, feel free to let me know. Would you like to explore some events or need help with anything else?",
+    "user_target_sp": "user_profile.profile_confirm = True",
+    "user_target": "user_profile.profile_confirm = True",
+    "user_target_suql": ""
+  }
+]

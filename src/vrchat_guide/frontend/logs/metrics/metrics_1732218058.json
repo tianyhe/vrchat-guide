@@ -1,0 +1,52 @@
+{
+    "session_id": "1732218058_20241121_114102",
+    "user_id": "1732218058",
+    "start_time": "2024-11-21T11:41:02.455542",
+    "tasks": [
+        {
+            "task_type": "event_search",
+            "description": "Hi I am looking for VRChat events, preferably in the evening",
+            "start_time": "2024-11-21T11:44:02.911076",
+            "steps": [],
+            "clarification_questions": 4,
+            "completed": true,
+            "end_time": "2024-11-21T11:46:22.674680",
+            "duration": 139.763604,
+            "notes": "Completed task: event_search"
+        },
+        {
+            "task_type": "general_query",
+            "description": "That's correct.",
+            "start_time": "2024-11-21T11:46:33.135120",
+            "steps": [],
+            "clarification_questions": 0,
+            "completed": true,
+            "end_time": "2024-11-21T11:46:33.135130",
+            "duration": 1e-05,
+            "notes": "Completed task: general_query"
+        }
+    ],
+    "current_task": null,
+    "clarification_questions": 4,
+    "total_queries": 5,
+    "successful_queries": 5,
+    "knowledge_retrievals": [],
+    "response_times": [
+        18.591395139694214,
+        13.621425867080688,
+        2.604199171066284,
+        4.2792487144470215,
+        3.066206216812134
+    ],
+    "context_switches": 1,
+    "end_time": "2024-11-21T11:49:10.241418",
+    "duration": 487.785876,
+    "metrics": {
+        "total_duration": 487.785876,
+        "avg_response_time": 8.432495021820069,
+        "task_completion_rate": 1.0,
+        "query_success_rate": 1.0,
+        "context_switches": 1,
+        "total_clarifications": 4
+    }
+}

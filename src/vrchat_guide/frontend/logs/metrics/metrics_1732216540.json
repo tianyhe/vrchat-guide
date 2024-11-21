@@ -1,0 +1,38 @@
+{
+  "session_id": "1732216540_20241121_111548",
+  "user_id": "1732216540",
+  "start_time": "2024-11-21T11:15:48.699959",
+  "tasks": [
+    {
+      "task_type": "profile_update",
+      "description": "I want to set up my vrchat profile",
+      "start_time": "2024-11-21T11:16:00.371382",
+      "steps": [],
+      "clarification_questions": 5,
+      "completed": true,
+      "end_time": "2024-11-21T11:16:59.700055",
+      "duration": 59.328673,
+      "notes": "Completed task: profile_update"
+    }
+  ],
+  "current_task": null,
+  "clarification_questions": 5,
+  "total_queries": 6,
+  "successful_queries": 6,
+  "knowledge_retrievals": [],
+  "response_times": [
+    1.8767204284667969, 4.2630345821380615, 2.757816791534424,
+    3.6751043796539307, 7.378542423248291, 2.492649555206299
+  ],
+  "context_switches": 0,
+  "end_time": "2024-11-21T11:18:01.784190",
+  "duration": 133.084231,
+  "metrics": {
+    "total_duration": 133.084231,
+    "avg_response_time": 3.740644693374634,
+    "task_completion_rate": 1.0,
+    "query_success_rate": 1.0,
+    "context_switches": 0,
+    "total_clarifications": 5
+  }
+}

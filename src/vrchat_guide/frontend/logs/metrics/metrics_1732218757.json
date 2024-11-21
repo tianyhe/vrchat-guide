@@ -1,0 +1,64 @@
+{
+    "session_id": "1732218757_20241121_115244",
+    "user_id": "1732218757",
+    "start_time": "2024-11-21T11:52:44.572233",
+    "tasks": [
+        {
+            "task_type": "event_search",
+            "description": "I want to explore vrchat events",
+            "start_time": "2024-11-21T11:52:59.786685",
+            "steps": [],
+            "clarification_questions": 3,
+            "completed": true,
+            "end_time": "2024-11-21T11:55:17.610530",
+            "duration": 137.823845,
+            "notes": "Completed task: event_search"
+        },
+        {
+            "task_type": "general_query",
+            "description": "I like the Friday one.",
+            "start_time": "2024-11-21T11:55:46.336253",
+            "steps": [],
+            "clarification_questions": 2,
+            "completed": true,
+            "end_time": "2024-11-21T11:55:58.439745",
+            "duration": 12.103492,
+            "notes": "Completed task: general_query"
+        },
+        {
+            "task_type": "general_query",
+            "description": "Yes, thats correct!",
+            "start_time": "2024-11-21T11:56:17.168433",
+            "steps": [],
+            "clarification_questions": 0,
+            "completed": true,
+            "end_time": "2024-11-21T11:56:17.168445",
+            "duration": 1.2e-05,
+            "notes": "Completed task: general_query"
+        }
+    ],
+    "current_task": null,
+    "clarification_questions": 5,
+    "total_queries": 6,
+    "successful_queries": 6,
+    "knowledge_retrievals": [],
+    "response_times": [
+        2.155865430831909,
+        17.273316144943237,
+        7.762814044952393,
+        3.530102491378784,
+        3.8528716564178467,
+        4.769407749176025
+    ],
+    "context_switches": 3,
+    "end_time": "2024-11-21T11:56:53.692313",
+    "duration": 249.12008,
+    "metrics": {
+        "total_duration": 249.12008,
+        "avg_response_time": 6.557396252950032,
+        "task_completion_rate": 1.0,
+        "query_success_rate": 1.0,
+        "context_switches": 3,
+        "total_clarifications": 5
+    }
+}

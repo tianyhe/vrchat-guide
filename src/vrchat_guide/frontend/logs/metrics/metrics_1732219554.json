@@ -1,0 +1,86 @@
+{
+    "session_id": "1732219554_20241121_120602",
+    "user_id": "1732219554",
+    "start_time": "2024-11-21T12:06:02.574654",
+    "tasks": [
+        {
+            "task_type": "event_search",
+            "description": "Hey i want to find some vrchat events",
+            "start_time": "2024-11-21T12:06:21.712792",
+            "steps": [],
+            "clarification_questions": 2,
+            "completed": true,
+            "end_time": "2024-11-21T12:06:44.047653",
+            "duration": 22.334861,
+            "notes": "Completed task: event_search"
+        },
+        {
+            "task_type": "general_query",
+            "description": "I prefer more physical",
+            "start_time": "2024-11-21T12:07:25.096818",
+            "steps": [],
+            "clarification_questions": 1,
+            "completed": true,
+            "end_time": "2024-11-21T12:07:25.096832",
+            "duration": 1.4e-05,
+            "notes": "Completed task: general_query"
+        },
+        {
+            "task_type": "general_query",
+            "description": "I want to attend the first one.",
+            "start_time": "2024-11-21T12:08:40.565947",
+            "steps": [],
+            "clarification_questions": 1,
+            "completed": true,
+            "end_time": "2024-11-21T12:08:40.565961",
+            "duration": 1.4e-05,
+            "notes": "Completed task: general_query"
+        },
+        {
+            "task_type": "general_query",
+            "description": "first time attending",
+            "start_time": "2024-11-21T12:08:59.142796",
+            "steps": [],
+            "clarification_questions": 1,
+            "completed": true,
+            "end_time": "2024-11-21T12:08:59.142810",
+            "duration": 1.4e-05,
+            "notes": "Completed task: general_query"
+        },
+        {
+            "task_type": "general_query",
+            "description": "Yes.",
+            "start_time": "2024-11-21T12:09:04.922753",
+            "steps": [],
+            "clarification_questions": 0,
+            "completed": true,
+            "end_time": "2024-11-21T12:09:04.922762",
+            "duration": 9e-06,
+            "notes": "Completed task: general_query"
+        }
+    ],
+    "current_task": null,
+    "clarification_questions": 5,
+    "total_queries": 6,
+    "successful_queries": 6,
+    "knowledge_retrievals": [],
+    "response_times": [
+        2.237429618835449,
+        14.885341167449951,
+        10.363272905349731,
+        3.152545690536499,
+        3.8651602268218994,
+        2.9831840991973877
+    ],
+    "context_switches": 4,
+    "end_time": "2024-11-21T12:11:34.115126",
+    "duration": 331.540472,
+    "metrics": {
+        "total_duration": 331.540472,
+        "avg_response_time": 6.247822284698486,
+        "task_completion_rate": 1.0,
+        "query_success_rate": 1.0,
+        "context_switches": 4,
+        "total_clarifications": 5
+    }
+}

@@ -141,6 +141,27 @@ User Target:
 user_profile.social_preference = "Small Groups"
 ```
 --
+Example: Profile confirmation rejection with new social_preference.
+State:
+```
+user_profile = UserProfile(username="VRExplorer123", experience_level="New to VR", device_mode="VR Device", social_preference="Solo Explorer")
+```
+Agent Action:
+```
+[
+    "AskForFieldConfirmation(user_profile, profile_confirm)"
+]
+
+Last-turn Conversation:
+Agent: I have your profile details. Would you like to confirm?
+User: No, I'd like to change my social preference to Small Groups
+
+User Target:
+```
+user_profile.profile_confirm = False
+user_profile.social_preference = "Small Groups"
+```
+--
 Example: Event search without location.
 State:
 ```
@@ -283,6 +304,28 @@ User: What are the rules for joining events?
 User Target:
 ```
 answer("what are the general rules for joining VRChat events?")
+```
+--
+Example: Event rejection with new preference.
+State:
+```
+explore_event = ExploreEvent(event=events[0])
+```
+Agent Action:
+```
+[
+    "AskForFieldConfirmation(explore_event, event_confirm)"
+]
+```
+
+Last-turn Conversation:
+Agent: I found an Anime Movie Night this Saturday at 8 PM in Movie Theater World. Would you like to join?
+User: No, I'm not interested in Anime. I'd prefer something more active like a dance party.
+
+User Target:
+```
+explore_event.event_confirm = False
+answer("find dance or party events")
 ```
 --
 <|endofinstruction|>

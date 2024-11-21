@@ -1,0 +1,44 @@
+[
+  {
+    "user_utterance": "I want to explore vrchat events",
+    "system_response": "Great choice! Let's dive into the exciting world of VRChat events. Could you please let me know which type of event or specific event you are interested in attending? This will help me find the best matches for you!",
+    "user_target_sp": "TaskList(user_task='Explore Event')",
+    "user_target": "task_list = TaskList(user_task='Explore Event')",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "I want evening events that are relaxing, beginner-friendly, but also involves some kind of physical activities.",
+    "system_response": "I found a few evening events that match your preferences for relaxing, beginner-friendly activities with some physical engagement. Here they are:\n\n1. \ud83e\uddd8\u200d\u2640\ufe0f **[VRC 18+] VR Yoga**\n   - **When:** Monday, Dec 2nd, 6:00 PM\n   - **Description:** Yoga sessions in VR focusing on 'Yin' style yoga, modified for VR, along with mobility exercises. Free of charge, no full-body tracking required. Age restriction: 18+ for health and safety.\n   - **Platform:** VRChat\n   - **Instructions:** Join the official VR Yoga group in VRChat and read the rules. A post will be made about 15 minutes before class time.\n\n2. \ud83e\uddd8\u200d\u2640\ufe0f **[VRC 18+] VR Yoga**\n   - **When:** Wednesday, Dec 4th, 6:00 PM\n   - **Details:** Similar to the first session, offering relaxing yoga practices in VR, designed for ease and comfort. Age restriction: 18+.\n   - **Platform:** VRChat\n\n3. \ud83e\uddd8\u200d\u2640\ufe0f **[VRC 18+] VR Yoga**\n   - **When:** Friday, Dec 6th, 6:00 PM\n   - **Details:** Another session focusing on relaxation and mobility in a VR environment. Age restriction: 18+.\n   - **Platform:** VRChat\n\nPlease let me know which event you'd like to attend, or if you have any specific questions about them!",
+    "user_target_sp": "Answer(\"SELECT * FROM events WHERE answer(description, 'Is this event relaxing, beginner-friendly, and involves physical activities?') = 'Yes' AND start_time::time >= '18:00:00' ORDER BY start_time LIMIT 3;\", {}, ['events'], 'find evening events that are relaxing, beginner-friendly, and involve physical activities')",
+    "user_target": "answer = Answer(\"SELECT * FROM events WHERE answer(description, 'Is this event relaxing, beginner-friendly, and involves physical activities?') = 'Yes' AND start_time::time >= '18:00:00' ORDER BY start_time LIMIT 3;\", {}, ['events'], 'find evening events that are relaxing, beginner-friendly, and involve physical activities')",
+    "user_target_suql": "SELECT * FROM events WHERE answer(description, 'Is this event relaxing, beginner-friendly, and involves physical activities?') = 'Yes' AND start_time::time >= '18:00:00' ORDER BY start_time LIMIT 3;"
+  },
+  {
+    "user_utterance": "Are these all accessible with my oculus headsets?",
+    "system_response": "It seems like the VR Yoga events are accessible with Oculus headsets, as they are held on the VRChat platform, which supports a range of VR devices including Oculus. If you have any specific concerns or need more information on how to join these events using your Oculus headset, feel free to ask! Now, could you let me know which VR Yoga event you'd like to attend? Here are your options:\n\n1. **Monday, Dec 2nd, 6:00 PM**\n2. **Wednesday, Dec 4th, 6:00 PM**\n3. **Friday, Dec 6th, 6:00 PM**\n\nJust let me know your preference, and I'll help you with the next steps!",
+    "user_target_sp": "Answer(\"answer(vrchat_general_info, 'Are VR Yoga events accessible with Oculus headsets?');\", {}, [], 'Are the VR Yoga events accessible with Oculus headsets?')",
+    "user_target": "answer = Answer(\"answer(vrchat_general_info, 'Are VR Yoga events accessible with Oculus headsets?');\", {}, [], 'Are the VR Yoga events accessible with Oculus headsets?')",
+    "user_target_suql": "answer(vrchat_general_info, 'Are VR Yoga events accessible with Oculus headsets?');"
+  },
+  {
+    "user_utterance": "I like the Friday one.",
+    "system_response": "Great choice! Before we proceed, do you have any special notes or additional information you'd like to include for the VR Yoga event on Friday, December 6th, at 6:00 PM? This could be anything specific you'd like to remember or any particular instructions you want to follow during the event. Let me know, and I'll make sure everything is set up perfectly for you!",
+    "user_target_sp": "explore_event.event = event[2]",
+    "user_target": "explore_event.event = event[2]",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "Brings water for sure",
+    "system_response": "\ud83c\udf1f Wonderful! Let's make sure you're all set for the VR Yoga event on Friday, December 6th, at 6:00 PM. Here's what we have:\n\n- \ud83e\uddd8 **Event:** [VRC 18+] VR Yoga\n- \ud83d\udcc5 **Date & Time:** Friday, December 6th, at 6:00 PM\n- \ud83d\udcdd **Note:** Bring water for sure!\n\nThis session is designed to be accessible and enjoyable, focusing on 'Yin' style yoga and mobility exercises, perfect for VR performance. Please confirm if you'd like to attend this event with these details. Let me know if everything looks good or if there's anything else you'd like to adjust!",
+    "user_target_sp": "explore_event.note = \"Brings water for sure\"",
+    "user_target": "explore_event.note = 'Brings water for sure'",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "Yes, thats correct!",
+    "system_response": "Great! You're all set for the VR Yoga event on Friday, December 6th, at 6:00 PM. Remember to bring water and enjoy the session focusing on 'Yin' style yoga and mobility exercises. If you have any questions or need further assistance, feel free to reach out. Have a fantastic experience! \ud83c\udf1f",
+    "user_target_sp": "explore_event.event_confirm = True",
+    "user_target": "explore_event.event_confirm = True",
+    "user_target_suql": ""
+  }
+]

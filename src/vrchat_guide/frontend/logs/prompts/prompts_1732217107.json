@@ -1,0 +1,30 @@
+[
+  {
+    "user_utterance": "Hi, I use a Quest 2 and want to set up my profile",
+    "system_response": "Welcome aboard! Let's get started with setting up your profile for the best VRChat experience. Could you please provide your VRChat username? This will help us personalize your experience in the VR world.",
+    "user_target_sp": "TaskList(user_task='Update Profile')\nUserProfile(device_mode='VR Device')",
+    "user_target": "task_list = TaskList(user_task='Update Profile')\nuser_profile = UserProfile(device_mode='VR Device')",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "I mainly like small groups by the way. My username is VRNewbie456",
+    "system_response": "Fantastic, VRNewbie456! To further tailor your VRChat experience, could you let me know your experience level with VR and VRChat? Here are your options:\n\n- New to VR (first time using VR)\n- New to VRChat (familiar with VR but new to VRChat)\n- Experienced (comfortable with both)\n- Veteran (expert user)\n\nThis will help me provide better recommendations for events and activities!",
+    "user_target_sp": "user_profile.username = \"VRNewbie456\"\nuser_profile.social_preference = \"Small Groups\"",
+    "user_target": "user_profile.username = 'VRNewbie456'\nuser_profile.social_preference = 'Small Groups'",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "Oh yeah, totally new to VR",
+    "system_response": "It looks like we've captured your profile details. Let's make sure everything is set up just right:\n\n- Username: VRNewbie456\n- Experience Level: New to VR\n- Device Mode: VR Device\n- Social Preference: Small Groups (2-5 people)\n\nCould you confirm that all this information is correct? Let me know if you'd like to make any changes, and I'll update it for you!",
+    "user_target_sp": "user_profile.experience_level = \"New to VR\"",
+    "user_target": "user_profile.experience_level = 'New to VR'",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "That's right",
+    "system_response": "Wonderful! I'm glad everything looks good. You're all set with your profile, VRNewbie456. If you need help exploring events or have any questions about using VRChat, feel free to ask. Enjoy your VR experience, and don't hesitate to reach out for assistance any time!",
+    "user_target_sp": "user_profile.profile_confirm = True",
+    "user_target": "user_profile.profile_confirm = True",
+    "user_target_suql": ""
+  }
+]

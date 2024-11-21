@@ -1,0 +1,63 @@
+{
+    "session_id": "1732219207_20241121_120030",
+    "user_id": "1732219207",
+    "start_time": "2024-11-21T12:00:30.061490",
+    "tasks": [
+        {
+            "task_type": "event_search",
+            "description": "Can you recommend some events happens in the evening?",
+            "start_time": "2024-11-21T12:01:07.839564",
+            "steps": [],
+            "clarification_questions": 2,
+            "completed": true,
+            "end_time": "2024-11-21T12:02:11.599418",
+            "duration": 63.759854,
+            "notes": "Completed task: event_search"
+        },
+        {
+            "task_type": "event_search",
+            "description": "Better, but I prefer more relax events",
+            "start_time": "2024-11-21T12:02:48.240324",
+            "steps": [],
+            "clarification_questions": 2,
+            "completed": true,
+            "end_time": "2024-11-21T12:03:33.288755",
+            "duration": 45.048431,
+            "notes": "Completed task: event_search"
+        },
+        {
+            "task_type": "general_query",
+            "description": "Yes. Please confirm.",
+            "start_time": "2024-11-21T12:03:59.620270",
+            "steps": [],
+            "clarification_questions": 0,
+            "completed": true,
+            "end_time": "2024-11-21T12:03:59.620282",
+            "duration": 1.2e-05,
+            "notes": "Completed task: general_query"
+        }
+    ],
+    "current_task": null,
+    "clarification_questions": 4,
+    "total_queries": 5,
+    "successful_queries": 5,
+    "knowledge_retrievals": [],
+    "response_times": [
+        15.176506280899048,
+        17.170891284942627,
+        14.710418939590454,
+        10.353190898895264,
+        4.365596532821655
+    ],
+    "context_switches": 3,
+    "end_time": "2024-11-21T12:04:28.876076",
+    "duration": 238.814586,
+    "metrics": {
+        "total_duration": 238.814586,
+        "avg_response_time": 12.35532078742981,
+        "task_completion_rate": 1.0,
+        "query_success_rate": 1.0,
+        "context_switches": 3,
+        "total_clarifications": 4
+    }
+}

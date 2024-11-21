@@ -12,12 +12,15 @@ from worksheets.annotation_utils import get_agent_action_schemas, get_context_sc
 from worksheets.chat_chainlit import generate_next_turn_cl
 from worksheets.modules import CurrentDialogueTurn
 from vrchat_guide.metrics.utils import MetricsManager
+from vrchat_guide.metrics.log_config import LogConfig
 
 load_dotenv()
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(current_dir, "..", ".."))
 
+# Set session ID to current timestamp
+session_timestamp = str(int(time.time()))
 
 from vrchat_guide.vrchatbot import (
         update_profile,
@@ -27,8 +30,19 @@ from vrchat_guide.vrchatbot import (
         suql_parser,
 )
 
+# Initialize logging
+log_config = LogConfig()
+logger.add(log_config.debug_dir / f"debug_{session_timestamp}.log")
+
 # Initialize metrics manager
-metrics_manager = MetricsManager(metrics_dir="logs/vrchat_metrics")
+metrics_manager = MetricsManager(
+    metrics_dir=str(log_config.metrics_dir),
+    session_timestamp=session_timestamp
+)
+
+# Update conversation save location
+conversation_file = log_config.get_session_path(session_timestamp, "conversation")
+prompts_file = log_config.get_session_path(session_timestamp, "prompts")
 
 # Unhappy paths
 unhappy_paths = [
@@ -37,7 +51,7 @@ unhappy_paths = [
     "**- Change your mind about the device mode you want to set**",
     "**- Change your mind about the social preferences you want to set**",
     "**- Change your mind about event you would to attend in the middle of conversation**",
-    "**- Change your mind about the event details in the middle of the conversation (eg. change the event name, change the event location, change the event description, change the event attendees)**",
+    "**- Change your mind about your preference for the event you would like to attend in the middle of conversation**",
 ]
 
 unhappy_paths = "\n" + "\n".join(unhappy_paths)
@@ -64,105 +78,88 @@ def convert_to_json(dialogue: list[CurrentDialogueTurn]):
 
 @cl.on_chat_start
 async def initialize():
-    cl.user_session.set(
-        "bot",
-        Agent(
-            botname="VRChatBot",
-            description="You an assistant at VRChat and help users with all their queries related to finding events and adding them to their calendar. You can search for events, ask me anything about the event and add the interested one to calendar",
-            prompt_dir=prompt_dir,
-            starting_prompt="""Hello! I'm your VRChat Guide. I can help you with:
+    try:
+        cl.user_session.set(
+            "bot",
+            Agent(
+                botname="VRChatBot",
+                description="You are an assistant at VRChat and help users with all their queries related to finding events, adding them to their calendar, and providing general information about VRChat. You can search for events, answer any questions about the event, add the interested ones to the calendar, and provide general information stored in your knowledge base.",
+                prompt_dir=prompt_dir,
+                starting_prompt="""Hello! I'm your VRChat Guide. I can help you with:
 - Create / Update your VRChat profile with your preferences
 - Explore / Learn about upcoming VRChat events and add them to your calendar
-- Asking me any question related to the details of the VRChat events I purposed
+- Answer any general queries, provide onboarding tips, and FAQs
 
 How can I help you today?""",
-            args={},
-            api=[update_profile, add_event],
-            knowledge_base=suql_knowledge,
-            knowledge_parser=suql_parser,
-        ).load_from_gsheet(
-            gsheet_id="1aLyf6kkOpKYTrnvI92kHdLVip1ENCEW5aTuoSZWy2fU",
-        ),
-    )
+                args={},
+                api=[update_profile, add_event],
+                knowledge_base=suql_knowledge,
+                knowledge_parser=suql_parser,
+            ).load_from_gsheet(
+                gsheet_id="1aLyf6kkOpKYTrnvI92kHdLVip1ENCEW5aTuoSZWy2fU",
+            ),
+        )
 
-    # Initialize metrics for this session
-    user_id = cl.user_session.get("id")
-    metrics_manager.logger.start_session(user_id)
-    logger.info(f"Chat started for user {user_id}")    
+        # Initialize metrics for this session
+        metrics_manager.logger.start_session(session_timestamp)
 
-    # Initialize conversation directory
-    if not os.path.exists(os.path.join(current_dir, "user_conversation")):
-        os.mkdir(os.path.join(current_dir, "user_conversation"))
-    user_id = cl.user_session.get("id")
-    logger.info(f"Chat started for user {user_id}")
-    if not os.path.exists(os.path.join(current_dir, "user_conversation", user_id)):
-        os.mkdir(os.path.join(current_dir, "user_conversation", user_id))
-    await cl.Message(
-        f"Here is your user id: **{user_id}**\n"
-        + cl.user_session.get("bot").starting_prompt
-        + f"\n\nPlease be a difficult user who asks several questions, here are some examples: {unhappy_paths}"
-    ).send()
+        # Initialize conversation directory
+        # if not os.path.exists(os.path.join(current_dir, "user_conversation")):
+        #     os.mkdir(os.path.join(current_dir, "user_conversation"))
+        # user_id = cl.user_session.get("id")
+        # logger.info(f"Chat started for user - {session_timestamp}")
+        # if not os.path.exists(os.path.join(current_dir, "user_conversation", session_timestamp)):
+        #     os.mkdir(os.path.join(current_dir, "user_conversation", session_timestamp))
+        await cl.Message(
+            f"Here is your session id: **{session_timestamp}**\n"
+            + cl.user_session.get("bot").starting_prompt
+            + f"\n\nPlease be a difficult user who asks several questions, here are some examples: {unhappy_paths}"
+        ).send()
+    except Exception as e:
+        logger.error(f"An error occurred: {e}")
+        raise
 
 
 @cl.on_message
 async def get_user_message(message):
-    start_time = time.time()
-    bot = cl.user_session.get("bot")
-    
-    await generate_next_turn_cl(message.content, bot)
-    
-    # Calculate response time
-    response_time = time.time() - start_time
-    
-    # Log metrics for this turn
-    metrics_manager.handle_dialogue_turn(bot.dlg_history[-1], response_time)
-    
-    cl.user_session.set("bot", bot)
-    
-    response = bot.dlg_history[-1].system_response
-    await cl.Message(response).send()
+    try:
+        start_time = time.time()
+        bot = cl.user_session.get("bot")
+        
+        await generate_next_turn_cl(message.content, bot)
+        
+        # Calculate response time
+        response_time = time.time() - start_time
+        
+        # Log metrics for this turn
+        metrics_manager.handle_dialogue_turn(bot.dlg_history[-1], response_time)
+        
+        cl.user_session.set("bot", bot)
+        
+        response = bot.dlg_history[-1].system_response
+        await cl.Message(response).send()
+    except Exception as e:
+        logger.error(f"An error occurred: {e}")
+        raise
 
 
 @cl.on_chat_end
-def on_chat_end():
-    user_id = cl.user_session.get("id")
+async def on_chat_end():
+    try:
+        # End metrics session
+        metrics_manager.logger.end_session()
 
-    # End metrics session
-    metrics_manager.logger.end_session()
+        # Log conversation history
+        bot = cl.user_session.get("bot")
+        if len(bot.dlg_history):
+            with open(conversation_file, "w") as f:
+                json.dump(convert_to_json(bot.dlg_history), f, indent=4)
+        else:
+            # If there's no conversation history, create an empty JSON file
+            with open(conversation_file, "w") as f:
+                json.dump([], f)
 
-    # Export metrics
-    metrics_file = metrics_manager.logger.export_metrics(format='json')
-    logger.info(f"Metrics saved to: {metrics_file}") 
-
-    # Log conversation history
-    if not os.path.exists(
-        os.path.join(
-            current_dir,
-            "user_conversation",
-            user_id,
-        )
-    ):
-        os.mkdir(
-            os.path.join(
-                current_dir,
-                "user_conversation",
-                user_id,
-            )
-        )
-
-    bot = cl.user_session.get("bot")
-    if len(bot.dlg_history):
-        with open(
-            os.path.join(
-                current_dir,
-                "user_conversation",
-                user_id,
-                "conversation.json",
-            ),
-            "w",
-        ) as f:
-            json.dump(convert_to_json(bot.dlg_history), f)
-    else:
-        os.rmdir(os.path.join(current_dir, "user_conversation", user_id))
-
-    logger.info(f"Chat ended for user {user_id}")
+        logger.info(f"Chat ended for user - {session_timestamp}")
+    except Exception as e:
+        logger.error(f"An error occurred: {e}")
+        raise

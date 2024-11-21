@@ -1,0 +1,23 @@
+{
+    "session_id": "1732222603_20241121_125650",
+    "user_id": "1732222603",
+    "start_time": "2024-11-21T12:56:50.535236",
+    "tasks": [],
+    "current_task": null,
+    "clarification_questions": 0,
+    "total_queries": 0,
+    "successful_queries": 0,
+    "knowledge_retrievals": [],
+    "response_times": [],
+    "context_switches": 0,
+    "end_time": "2024-11-21T12:57:44.608453",
+    "duration": 54.073217,
+    "metrics": {
+        "total_duration": 54.073217,
+        "avg_response_time": 0,
+        "task_completion_rate": 0,
+        "query_success_rate": 0,
+        "context_switches": 0,
+        "total_clarifications": 0
+    }
+}

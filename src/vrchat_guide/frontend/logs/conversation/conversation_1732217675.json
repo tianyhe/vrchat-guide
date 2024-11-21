@@ -1,0 +1,72 @@
+[
+  {
+    "user": "Hi, I use a Quest 2 and want to set up my profile",
+    "bot": "Welcome aboard! Let's get started with setting up your profile for the best VRChat experience. Could you please provide your VRChat username? This will help us personalize your experience in the VR world.",
+    "turn_context": "task_list = TaskList(user_task = 'Update Profile')\nuser_profile = UserProfile(device_mode = 'VR Device')\n",
+    "global_context": "task_list = TaskList(user_task = 'Update Profile')\nuser_profile = UserProfile(device_mode = 'VR Device')\n",
+    "system_action": [
+      "AskField(user_profile, username, VRChat username of the user)"
+    ],
+    "user_target_sp": "TaskList(user_task='Update Profile')\nUserProfile(device_mode='VR Device')",
+    "user_target": "task_list = TaskList(user_task='Update Profile')\nuser_profile = UserProfile(device_mode='VR Device')",
+    "user_target_suql": ""
+  },
+  {
+    "user": "I mainly like small groups by the way. My username is VRNewbie456",
+    "bot": "Fantastic, VRNewbie456! To further tailor your VRChat experience, could you let me know your experience level with VR and VRChat? Here are your options:\n\n- New to VR (first time using VR)\n- New to VRChat (familiar with VR but new to VRChat)\n- Experienced (comfortable with both)\n- Veteran (expert user)\n\nThis will help me provide better recommendations for events and activities!",
+    "turn_context": "user_profile = UserProfile(username = 'VRNewbie456', device_mode = 'VR Device', social_preference = 'Small Groups')\n",
+    "global_context": "task_list = TaskList(user_task = 'Update Profile')\nuser_profile = UserProfile(username = 'VRNewbie456', device_mode = 'VR Device', social_preference = 'Small Groups')\n",
+    "system_action": [
+      "AskField(user_profile, experience_level, User's experience level with VR and VRChat Options are: New to VR, New to VRChat, Experienced, Veteran)"
+    ],
+    "user_target_sp": "user_profile.username = \"VRNewbie456\"\nuser_profile.social_preference = \"Small Groups\"",
+    "user_target": "user_profile.username = 'VRNewbie456'\nuser_profile.social_preference = 'Small Groups'",
+    "user_target_suql": ""
+  },
+  {
+    "user": "Oh yeah, totally new to VRChat",
+    "bot": "Thank you for sharing your experience level! Here's a summary of your profile settings:\n\n- Username: VRNewbie456\n- Experience Level: New to VRChat\n- Device: VR Device\n- Social Preference: Small Groups (2-5 people)\n\nCould you confirm if all this information is correct? Once confirmed, I'll make sure your VRChat experience is tailored just for you!",
+    "turn_context": "user_profile = UserProfile(username = 'VRNewbie456', experience_level = 'New to VRChat', device_mode = 'VR Device', social_preference = 'Small Groups')\n",
+    "global_context": "task_list = TaskList(user_task = 'Update Profile')\nuser_profile = UserProfile(username = 'VRNewbie456', experience_level = 'New to VRChat', device_mode = 'VR Device', social_preference = 'Small Groups')\n",
+    "system_action": [
+      "AskField(user_profile, profile_confirm, Confirm that all information is correct with the currently set parameters.)"
+    ],
+    "user_target_sp": "user_profile.experience_level = \"New to VRChat\"",
+    "user_target": "user_profile.experience_level = 'New to VRChat'",
+    "user_target_suql": ""
+  },
+  {
+    "user": "Actually, I need to change my social preference",
+    "bot": "No problem at all! Let's update your social preference to better fit your style. Could you please let me know your preferred way of socializing in VRChat? The options are:\n\n- Solo Explorer (mostly exploring on your own)\n- Small Groups (intimate gatherings of 2-5 people)\n- Large Groups (bigger social events and parties)\n- Any (flexible with different group sizes)\n\nThis will help us provide the best recommendations for events and activities that match your preference!",
+    "turn_context": "user_profile = UserProfile(username = 'VRNewbie456', experience_level = 'New to VRChat', device_mode = 'VR Device')\n",
+    "global_context": "task_list = TaskList(user_task = 'Update Profile')\nuser_profile = UserProfile(username = 'VRNewbie456', experience_level = 'New to VRChat', device_mode = 'VR Device')\n",
+    "system_action": [
+      "AskField(user_profile, social_preference, User's preferred social interaction style Options are: Solo Explorer, Small Groups, Large Groups, Any)"
+    ],
+    "user_target_sp": "user_profile.social_preference = None",
+    "user_target": "user_profile.social_preference = None",
+    "user_target_suql": ""
+  },
+  {
+    "user": "I think I'm more comfortable with solo exploration first",
+    "bot": "Just to confirm, here's the information we have for your profile:\n\n- Username: VRNewbie456\n- Experience Level: New to VRChat\n- Device Mode: VR Device\n- Social Preference: Solo Explorer (mostly exploring on your own)\n\nWould you like to confirm that all this information is correct? Let me know if there's anything you'd like to change!",
+    "turn_context": "user_profile = UserProfile(username = 'VRNewbie456', experience_level = 'New to VRChat', device_mode = 'VR Device', social_preference = 'Solo Explorer')\n",
+    "global_context": "task_list = TaskList(user_task = 'Update Profile')\nuser_profile = UserProfile(username = 'VRNewbie456', experience_level = 'New to VRChat', device_mode = 'VR Device', social_preference = 'Solo Explorer')\n",
+    "system_action": [
+      "AskField(user_profile, profile_confirm, Confirm that all information is correct with the currently set parameters.)"
+    ],
+    "user_target_sp": "user_profile.social_preference = \"Solo Explorer\"",
+    "user_target": "user_profile.social_preference = 'Solo Explorer'",
+    "user_target_suql": ""
+  },
+  {
+    "user": "Yes, that's better",
+    "bot": "Fantastic! I'm glad everything looks good. If you ever want to update your profile or explore exciting VRChat events, just let me know. I'm here to help make your VR experience amazing!",
+    "turn_context": "user_profile = UserProfile(username = 'VRNewbie456', experience_level = 'New to VRChat', device_mode = 'VR Device', social_preference = 'Solo Explorer', profile_confirm = True)\n",
+    "global_context": "task_list = TaskList(user_task = 'Update Profile')\nuser_profile = UserProfile(username = 'VRNewbie456', experience_level = 'New to VRChat', device_mode = 'VR Device', social_preference = 'Solo Explorer', profile_confirm = True)\n",
+    "system_action": [],
+    "user_target_sp": "user_profile.profile_confirm = True",
+    "user_target": "user_profile.profile_confirm = True",
+    "user_target_suql": ""
+  }
+]

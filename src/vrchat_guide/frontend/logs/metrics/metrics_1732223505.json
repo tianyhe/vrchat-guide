@@ -1,0 +1,79 @@
+{
+    "session_id": "1732223505_20241121_131148",
+    "user_id": "1732223505",
+    "start_time": "2024-11-21T13:11:48.868239",
+    "tasks": [
+        {
+            "task_type": "profile_update",
+            "description": "I want to create my profile",
+            "start_time": "2024-11-21T13:11:57.276958",
+            "steps": [],
+            "clarification_questions": 3,
+            "completed": true,
+            "end_time": "2024-11-21T13:12:45.105249",
+            "duration": 47.828291,
+            "notes": "Completed task: profile_update"
+        },
+        {
+            "task_type": "event_search",
+            "description": "Can you show me events that is beginner friendly",
+            "start_time": "2024-11-21T13:13:09.800137",
+            "steps": [],
+            "clarification_questions": 3,
+            "completed": true,
+            "end_time": "2024-11-21T13:13:46.300412",
+            "duration": 36.500275,
+            "notes": "Completed task: event_search"
+        },
+        {
+            "task_type": "general_query",
+            "description": "Yes, lets proceed. I will attend solo",
+            "start_time": "2024-11-21T13:14:21.185786",
+            "steps": [],
+            "clarification_questions": 0,
+            "completed": true,
+            "end_time": "2024-11-21T13:14:21.185804",
+            "duration": 1.8e-05,
+            "notes": "Completed task: general_query"
+        },
+        {
+            "task_type": "general_query",
+            "description": "Yes.",
+            "start_time": "2024-11-21T13:14:45.938465",
+            "steps": [],
+            "clarification_questions": 2,
+            "completed": true,
+            "end_time": "2024-11-21T13:15:02.571958",
+            "duration": 16.633493,
+            "notes": "Completed task: general_query"
+        }
+    ],
+    "current_task": null,
+    "clarification_questions": 8,
+    "total_queries": 10,
+    "successful_queries": 10,
+    "knowledge_retrievals": [],
+    "response_times": [
+        2.3720948696136475,
+        2.9615488052368164,
+        3.422218084335327,
+        2.3811511993408203,
+        15.480328798294067,
+        6.373436689376831,
+        4.592837572097778,
+        4.955251455307007,
+        2.6591947078704834,
+        9.091903448104858
+    ],
+    "context_switches": 6,
+    "end_time": "2024-11-21T13:15:09.421550",
+    "duration": 200.553311,
+    "metrics": {
+        "total_duration": 200.553311,
+        "avg_response_time": 5.428996562957764,
+        "task_completion_rate": 1.0,
+        "query_success_rate": 1.0,
+        "context_switches": 6,
+        "total_clarifications": 8
+    }
+}

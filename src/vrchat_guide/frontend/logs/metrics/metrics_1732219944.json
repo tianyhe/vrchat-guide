@@ -1,0 +1,53 @@
+{
+    "session_id": "1732219944_20241121_121229",
+    "user_id": "1732219944",
+    "start_time": "2024-11-21T12:12:29.924447",
+    "tasks": [
+        {
+            "task_type": "event_search",
+            "description": "I want to join big social events on vrchat",
+            "start_time": "2024-11-21T12:12:57.391384",
+            "steps": [],
+            "clarification_questions": 5,
+            "completed": true,
+            "end_time": "2024-11-21T12:15:26.203273",
+            "duration": 148.811889,
+            "notes": "Completed task: event_search"
+        },
+        {
+            "task_type": "general_query",
+            "description": "Yes.",
+            "start_time": "2024-11-21T12:15:35.180351",
+            "steps": [],
+            "clarification_questions": 0,
+            "completed": true,
+            "end_time": "2024-11-21T12:15:35.180360",
+            "duration": 9e-06,
+            "notes": "Completed task: general_query"
+        }
+    ],
+    "current_task": null,
+    "clarification_questions": 5,
+    "total_queries": 6,
+    "successful_queries": 6,
+    "knowledge_retrievals": [],
+    "response_times": [
+        14.90422248840332,
+        3.1258902549743652,
+        8.06267237663269,
+        2.67578387260437,
+        5.094955682754517,
+        2.89286732673645
+    ],
+    "context_switches": 1,
+    "end_time": "2024-11-21T12:15:39.138631",
+    "duration": 189.214184,
+    "metrics": {
+        "total_duration": 189.214184,
+        "avg_response_time": 6.126065333684285,
+        "task_completion_rate": 1.0,
+        "query_success_rate": 1.0,
+        "context_switches": 1,
+        "total_clarifications": 5
+    }
+}

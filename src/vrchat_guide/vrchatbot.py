@@ -19,7 +19,7 @@ def update_profile(username: str, experience_level: str, device_mode: str, socia
     return {
         "status": "success",
         "params": {
-            "username": username.value,
+            "username": username,
             "experience_level": experience_level.value,
             "device_mode": device_mode.value,
             "social_preferences": social_preferences.value,
@@ -27,20 +27,15 @@ def update_profile(username: str, experience_level: str, device_mode: str, socia
         "response": {"session_id": uuid4()},
     }
 
-def add_event(iCalUID: str, summary: str, start: datetime.datetime, end: datetime.datetime,
-                location: str, description: str, attendees: list, **kwargs):
+def add_event(event: str, attendees: list = None, notes: str = None, **kwargs):
     return {
         "status": "success",
         "params": {
-            "iCalUID": iCalUID.value,
-            "summary": summary.value,
-            "start": start.value,
-            "end": end.value,
-            "location": location.value,
-            "description": description.value,
-            "attendees": attendees.value,
+            "iCalUID": event.value.id.value,
+            "attendees": attendees or [],  # Default to an empty list if None
+            "notes": notes or "",  # Default to an empty string if None
         },
-        "response": {"session_id": uuid4()},
+        "response": {"session_id": str(uuid4())},  # Ensure UUID is a string
     }
 
 

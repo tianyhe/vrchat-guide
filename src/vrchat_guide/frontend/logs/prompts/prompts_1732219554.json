@@ -1,0 +1,44 @@
+[
+  {
+    "user_utterance": "Hey i want to find some vrchat events",
+    "system_response": "Great! Let's find some exciting VRChat events for you to attend. Could you please tell me which specific event or type of event you're interested in? This will help me narrow down the options and find the perfect match for you!",
+    "user_target_sp": "TaskList(user_task='Explore Event')",
+    "user_target": "task_list = TaskList(user_task='Explore Event')",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "I get anxious in crowds and my VR sessions are usually after work",
+    "system_response": "I understand, and I've found some events that might suit your preference for smaller groups and are available after work hours. Here are three events you might be interested in:\n\n1. \ud83c\udfb6 **[VRC] [JP] Regular VR live every Friday \u201cclub VERSE\u201d**\n   - When: Friday, Nov 22nd, 9:00 PM\n   - What: A music event featuring VR live performances by regulars (VSinger / VTuber).\n   - Capacity: Up to 30 people, perfect for medium or smaller gatherings.\n   - Note: Join via group link.\n\n2. \ud83c\udfd6\ufe0f **[VRC] [JP] [Swimsuit & Pool & DJ Party] SUMMER of DREAMS**\n   - When: Friday, Nov 22nd, 10:00 PM\n   - What: Relaxing DJ party at a resort pool during sunset. \n   - Dress Code: Swimsuit\n   - How to Join: Send friend requests to performers before the event.\n\n3. \ud83c\udf75 **[VRC] [JP] [First-time visitors welcome] Store-type event \u201cWarabi-an\u201d**\n   - When: Friday, Nov 22nd, 10:00 PM\n   - What: A chat-style teahouse event perfect for beginners.\n   - Capacity: Up to 32 attendees, with more instances if needed.\n   - Note: Join group \"WARABI.9570\" in advance.\n\nWhich event would you like to attend, or do you need more details about any of these? Feel free to let me know!",
+    "user_target_sp": "Answer(\"SELECT * FROM events WHERE answer(description, 'Is this event suitable for small groups and available after work hours?') = 'Yes' AND start_time >= '2024-11-21 17:00:00' ORDER BY start_time LIMIT 3;\", {}, ['events'], 'find events suitable for small groups and available after work hours')",
+    "user_target": "answer = Answer(\"SELECT * FROM events WHERE answer(description, 'Is this event suitable for small groups and available after work hours?') = 'Yes' AND start_time >= '2024-11-21 17:00:00' ORDER BY start_time LIMIT 3;\", {}, ['events'], 'find events suitable for small groups and available after work hours')",
+    "user_target_suql": "SELECT * FROM events WHERE answer(description, 'Is this event suitable for small groups and available after work hours?') = 'Yes' AND start_time >= '2024-11-21 17:00:00' ORDER BY start_time LIMIT 3;"
+  },
+  {
+    "user_utterance": "I prefer more physical",
+    "system_response": "It sounds like you're interested in events with more physical activities! Let me help you find the perfect event for you. Could you please specify which event you'd like to attend from the list, or let me know if you need more information about any of them? I'll ensure you have all the details you need to make an informed choice!",
+    "user_target_sp": "Answer(\"SELECT * FROM events WHERE answer(description, 'Does this event include physical activities suitable for small groups and is available after work hours?') = 'Yes' AND start_time >= '2024-11-21 17:00:00' ORDER BY start_time LIMIT 3;\", {}, ['events'], 'find events with physical activities suitable for small groups and available after work hours')",
+    "user_target": "answer = Answer(\"SELECT * FROM events WHERE answer(description, 'Does this event include physical activities suitable for small groups and is available after work hours?') = 'Yes' AND start_time >= '2024-11-21 17:00:00' ORDER BY start_time LIMIT 3;\", {}, ['events'], 'find events with physical activities suitable for small groups and available after work hours')",
+    "user_target_suql": "SELECT * FROM events WHERE answer(description, 'Does this event include physical activities suitable for small groups and is available after work hours?') = 'Yes' AND start_time >= '2024-11-21 17:00:00' ORDER BY start_time LIMIT 3;"
+  },
+  {
+    "user_utterance": "I want to attend the first one.",
+    "system_response": "Great choice! The first event on the list is `[VRC] [JP] ~BoysBarConceptEvent~Bedlam`, scheduled for Wednesday, November 27th, starting at 5:45 AM. To help make your experience even better, do you have any special notes or additional information you'd like to consider for this event? Feel free to share anything specific, and I'll make sure you're fully prepared!",
+    "user_target_sp": "explore_event.event = event[3]",
+    "user_target": "explore_event.event = event[3]",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "first time attending",
+    "system_response": "Awesome! Let's confirm the details for your first visit to the event:\n\n- \ud83e\udd73 Event: [VRC] [JP] ~BoysBarConceptEvent~Bedlam\n- \ud83d\udcc5 Date: Wednesday, November 27th\n- \ud83d\udd53 Time: 5:45 AM\n- \ud83c\udf1f Note: First time attending\n\nAre you ready to attend this event? If so, I'll make sure you're all set up and provide any necessary instructions to make your experience enjoyable. Just let me know if everything looks good, or if there's anything else you'd like to add!",
+    "user_target_sp": "explore_event.note = \"First time attending\"",
+    "user_target": "explore_event.note = 'First time attending'",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "Yes.",
+    "system_response": "Great! You're all set for the [VRC] [JP] ~BoysBarConceptEvent~Bedlam. Enjoy your first visit and have a wonderful time experiencing the unique atmosphere. If you need any assistance or have questions, feel free to reach out. Have fun and see you there!",
+    "user_target_sp": "explore_event.event_confirm = True",
+    "user_target": "explore_event.event_confirm = True",
+    "user_target_suql": ""
+  }
+]

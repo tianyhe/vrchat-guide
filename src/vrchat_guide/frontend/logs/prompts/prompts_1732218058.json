@@ -1,0 +1,37 @@
+[
+  {
+    "user_utterance": "Hi I am looking for VRChat events, preferably in the evening",
+    "system_response": "I found some exciting VRChat events scheduled for the evening that you might be interested in:\n\n1. \ud83c\udf19 **[VRC] [JP] The meeting ends at midnight**\n   - **Date & Time:** November 19th, starting at 6:45 PM\n   - **Details:** A social gathering at Jiho Jiho Community Center, known for its unique closing session at midnight. This event is perfect for those who enjoy late-night activities and is held daily.\n   - **Join:** [Jihojiho Group](https://vrc.group/JIHOU0.1213)\n\n2. \ud83c\udf75 **[VRC] [JP] #VRC Tea Ceremony Club Practice Session**\n   - **Date & Time:** November 20th, from 9:00 PM to 11:00 PM\n   - **Details:** A practice session for those interested in the art of tea ceremony. It's a great fit for beginners and those curious about cultural experiences.\n   - **Join:** [VRC Group](https://vrc.group/VRCTC.3098)\n\n3. \ud83c\udf79 **[VRC] [JP] [First-time visitors welcome] Store-type event \"cafe & bar 'outsider'\"**\n   - **Date & Time:** November 20th, starting at 10:00 PM\n   - **Details:** A fun, interactive caf\u00e9/bar event featuring unique avatars. Perfect for socializing and trying out new VRChat experiences.\n   - **Join:** [BGAVCY Group](https://vrc.group/BGAVCY.1622)\n\nWhich event would you like to attend? Let me know, and I'll help you with the next steps!",
+    "user_target_sp": "TaskList(user_task='Explore Event')\nAnswer(\"SELECT * FROM events WHERE answer(description, 'Is this event scheduled in the evening?') = 'Yes' ORDER BY start_time LIMIT 5;\", {}, ['events'], 'find VRChat events in the evening')",
+    "user_target": "task_list = TaskList(user_task='Explore Event')\nanswer = Answer(\"SELECT * FROM events WHERE answer(description, 'Is this event scheduled in the evening?') = 'Yes' ORDER BY start_time LIMIT 5;\", {}, ['events'], 'find VRChat events in the evening')",
+    "user_target_suql": "SELECT * FROM events WHERE answer(description, 'Is this event scheduled in the evening?') = 'Yes' ORDER BY start_time LIMIT 5;"
+  },
+  {
+    "user_utterance": "Any events that is dance related also?",
+    "system_response": "I found some dance-related VRChat events in the evening that you might be interested in:\n\n1. \ud83c\udfb6 **[VRC] [JP] [Cyberpunk Bar] BAR Cyber Cat**\n   - **Date & Time:** November 20th, starting at 6:00 PM\n   - **Details:** A bar event with a cyberpunk theme, featuring DJs and dancers. Enjoy a vibrant atmosphere with expertly crafted cocktails.\n   - **Join:** [BAR Group](https://vrc.group/BAR.0355)\n\n2. \ud83c\udfa7 **[VRC] [JP] Jpop DJ Night that you want to listen to late at night**\n   - **Date & Time:** November 22nd, from 9:25 PM\n   - **Details:** A DJ event with a focus on stylish J-pop music, perfect for a late-night groove.\n   - **Join:** Search for \"DonK\" in the world search and join the \"Gen_Hello\" world.\n\n3. \ud83c\udf89 **[VRC] [JP] [Swimsuit & Pool & DJ Party] SUMMER of DREAMS**\n   - **Date & Time:** November 22nd, starting at 5:00 AM\n   - **Details:** A DJ party at a resort pool, bringing back the summer vibes with a relaxing sunset setting.\n   - **Join:** Send a friend request to the performers and join on the event day.\n\nWhich of these dance events would you like to attend? Let me know, and I'll help you with the next steps!",
+    "user_target_sp": "Answer(\"SELECT * FROM events WHERE answer(description, 'Is this a dance-related event scheduled in the evening?') = 'Yes' ORDER BY start_time LIMIT 5;\", {}, ['events'], 'find dance-related VRChat events in the evening')",
+    "user_target": "answer = Answer(\"SELECT * FROM events WHERE answer(description, 'Is this a dance-related event scheduled in the evening?') = 'Yes' ORDER BY start_time LIMIT 5;\", {}, ['events'], 'find dance-related VRChat events in the evening')",
+    "user_target_suql": "SELECT * FROM events WHERE answer(description, 'Is this a dance-related event scheduled in the evening?') = 'Yes' ORDER BY start_time LIMIT 5;"
+  },
+  {
+    "user_utterance": "The first one looks good",
+    "system_response": "Great choice! The Cyberpunk Bar event sounds exciting. Do you have any special notes or information you'd like me to include for the event? This could be anything specific you want to remember or prepare for. Let me know, and I'll make sure to take care of it for you!",
+    "user_target_sp": "explore_event.event = event[3]",
+    "user_target": "explore_event.event = event[3]",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "First time attending",
+    "system_response": "Wonderful! Let me confirm the details for the Cyberpunk Bar event you're interested in attending:\n\n- \ud83c\udf78 Event: BAR Cyber Cat\n- \ud83d\udcc5 Date & Time: Thursday, Nov 20th, starting at 6:00 AM\n- \ud83c\udf1f Theme: Cyberpunk Bar with a wide variety of cocktails\n- \ud83c\udfb6 Performances: DJ Monoday and Dancer Belchason in the Night instance\n- \ud83d\udccd Location: Group public event, join via the official group \"BAR.0355\"\n- \ud83d\udcdd Note: This is your first time attending!\n\nWould you like me to confirm your attendance and add this to your calendar? Feel free to let me know if there's anything else you'd like to include or prepare for!",
+    "user_target_sp": "explore_event.note = \"First time attending\"",
+    "user_target": "explore_event.note = 'First time attending'",
+    "user_target_suql": ""
+  },
+  {
+    "user_utterance": "That's correct.",
+    "system_response": "Great choice! I've confirmed your attendance for the Cyberpunk Bar event on Thursday, November 20th, at 6:00 AM. This cyberpunk-themed bar event will feature exciting performances by DJ Monoday and Dancer Belchason in the Night instance. \n\nRemember to join via the official group \"BAR.0355\" to participate. If you have any more questions or need further assistance, feel free to ask. Enjoy your first-time experience at this unique VR event!",
+    "user_target_sp": "explore_event.event_confirm = True",
+    "user_target": "explore_event.event_confirm = True",
+    "user_target_suql": ""
+  }
+]
