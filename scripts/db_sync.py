@@ -16,17 +16,22 @@ import psycopg2
 from psycopg2.extras import execute_batch
 
 
+# Path configuration
+BASE_DIR = Path(__file__).resolve().parent.parent
+CONFIG_DIR = BASE_DIR / "config"
+DB_SYNC_LOG = BASE_DIR / "logs/db_sync"
+
+# check if the directory exists
+if not os.path.exists(DB_SYNC_LOG):
+    os.makedirs(DB_SYNC_LOG)
+
 # Configure logging
 logger.add(
-    "vrchat_calendar_sync.log",
+    DB_SYNC_LOG / "db_sync.log",
     rotation="1 day",
     retention="7 days",
     level="INFO"
 )
-
-# Path configuration
-BASE_DIR = Path(__file__).resolve().parent.parent
-CONFIG_DIR = BASE_DIR / "config"
 
 # Database configuration
 DB_CONFIG = {
@@ -75,35 +80,6 @@ class GoogleCalendarClient:
             )
             
         self._credentials: Optional[Credentials] = None
-    
-#     def __init__(self, credentials_file: str, token_file: str = "../config/token.json"):
-#         self.credentials_path = credentials_file
-#         self.token_path = token_file
-#         self._credentials: Optional[Credentials] = None
-        
-    # def get_credentials(self) -> Credentials:
-    #     """Get or refresh Google Calendar credentials"""
-    #     if self._credentials and self._credentials.valid:
-    #         return self._credentials
-            
-    #     if os.path.exists(self.token_path):
-    #         self._credentials = Credentials.from_authorized_user_file(
-    #             self.token_path, self.SCOPES
-    #         )
-            
-    #     if not self._credentials or not self._credentials.valid:
-    #         if self._credentials and self._credentials.expired and self._credentials.refresh_token:
-    #             self._credentials.refresh(Request())
-    #         else:
-    #             flow = InstalledAppFlow.from_client_secrets_file(
-    #                 self.credentials_path, self.SCOPES
-    #             )
-    #             self._credentials = flow.run_local_server(port=0)
-                
-    #         with open(self.token_path, 'w') as token:
-    #             token.write(self._credentials.to_json())
-                
-    #     return self._credentials
     
     def get_credentials(self) -> Credentials:
         """Get valid credentials with proper scopes"""
