@@ -31,11 +31,15 @@ ENV/
 *.swo
 
 # Environment variables
+.env
+.env.*
 
 # Local configuration
+config/local_config.yaml
 
 # Database
-
+config/database.yaml
+*.sql
 
 # Logs
 *.log
@@ -45,3 +49,6 @@ logs/
 .pytest_cache/
 .coverage
 htmlcov/
+
+.service_account.json
+.llm_config.yaml
