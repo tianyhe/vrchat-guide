@@ -37,6 +37,12 @@ ENV/
 # Local configuration
 config/local_config.yaml
 
+
+worksheets/service_account.json
+llm_config.yaml
+.env
+SimulationSystem-VRCHAT/TTS/Polly.py
+
 # Database
 config/database.yaml
 *.sql
@@ -50,7 +56,4 @@ logs/
 .coverage
 htmlcov/
 
-worksheets/service_account.json
-llm_config.yaml
-.env
-SimulationSystem-VRCHAT/TTS/Polly.py:70
+
