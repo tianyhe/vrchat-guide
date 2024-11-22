@@ -1,2 +1,2 @@
 $env:PYTHONPATH += ";$PWD\packages\genie-worksheets;$PWD\packages\neu-llm-avatars;$PWD\packages\genie-worksheets\src;$PWD\packages\genie-worksheets\packages\knowledge-agent\src;$PWD\packages\suql\src;$PWD\packages;$PWD\packages\suql"
-$env:OPENAI_API_KEY = "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"
+$env:OPENAI_API_KEY = "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"
