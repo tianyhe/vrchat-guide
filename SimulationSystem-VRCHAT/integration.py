@@ -50,12 +50,12 @@ parser.add_argument("--use_cable_d", action="store_true",
                     help="Use CABLE-D as the input device")
 args = parser.parse_args()
 # At the top of the file, after argument parsing
-if args.use_cable_d:
-    print("Using CABLE-D as input device")
-    Virtual_MIC_Channel = audio_device.get_vbcable_devices_info().cable_d_input.id
-else:
-    print("Using CABLE-C as input device")
-    Virtual_MIC_Channel = audio_device.get_vbcable_devices_info().cable_c_input.id
+# if args.use_cable_d:
+#     print("Using CABLE-D as input device")
+#     Virtual_MIC_Channel = audio_device.get_vbcable_devices_info().cable_d_input.id
+# else:
+#     print("Using CABLE-C as input device")
+#     Virtual_MIC_Channel = audio_device.get_vbcable_devices_info().cable_c_input.id
 
    
 
@@ -89,6 +89,7 @@ def fillerShort():
     openaiTTS.read_audio_file("TTS/fillerWord/" + selected_filler_key + ".ogg", Virtual_MIC_Channel)
 
 def audio_conversation_input(CSV_LOGGER, FILENAME):
+    print("inside audio_conversation_input")
     print("Starting audio recording on CABLE-D...")
     start = time.perf_counter()
     listenAndRecordDirect(CSV_LOGGER, FILENAME)
@@ -117,6 +118,7 @@ def bot_speak(text, split=False):
         VRC_OSCLib.actionChatbox(VRCclient, text)
 
 def get_input():
+    print("inside get_input")
     current_text = audio_conversation_input(CSV_LOGGER, FILENAME)
     return current_text
 
@@ -172,7 +174,8 @@ async def main():
         print(f"User said: {user_input}")
 
         # Generate response
-        response = await generate_next_turn(user_input, bot)
+        await generate_next_turn(user_input, bot)
+        response = bot.dlg_history[-1].system_response
         print(f"Bot responding: {response}")
 
         # Send both voice and text response

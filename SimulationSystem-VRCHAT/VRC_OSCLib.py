@@ -422,6 +422,7 @@ def send_scrolling_chunks(text, chunk_size=144, delay=1., initial_delay=1., scro
 
 
 def actionChatbox(client, str):
+    print("in actionChatbox")
     # bundle
     bundle_builder = OscBundleBuilder(osc_bundle_builder.IMMEDIATELY)
     # Create a new message.

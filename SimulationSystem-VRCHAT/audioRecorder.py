@@ -109,6 +109,7 @@ def recordAudioToByteStream(silenceThreshold=-40, maxSilenceLength=10):
 
 
 def convertAndCheckAudio(byte_stream):
+    print("inside convertAndCheckAudio")
     # Convert audio to the desired format in memory
     audio_data = AudioSegment.from_raw(byte_stream, sample_width=2, frame_rate=16000, channels=1)
     normalized_audio_data = audio_data.normalize()
@@ -162,6 +163,7 @@ def isHumanSpeechByte(byte_stream):
 
 
 def listenAndRecordDirect(CSV_LOGGER, audio_file_name):
+    print("inside listenAndRecordDirect")
     global AUDIO_CSV_LOGGER
     global play
     AUDIO_CSV_LOGGER = CSV_LOGGER
