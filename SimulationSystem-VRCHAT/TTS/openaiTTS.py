@@ -9,6 +9,10 @@ from pydub import AudioSegment
 
 from . import audio_device
 
+import torch
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+
 event = threading.Event()
 
 
@@ -38,7 +42,8 @@ def read_audio_file(filepath: str, output_device_index: int):
         global CURRENT_FRAME
         if status:
             print("status: ", status)
-        chunk_size = min(len(data) - CURRENT_FRAME, frames)
+        data_tensor = torch.from_numpy(data).to(device)
+        chunk_size = min(len(data_tensor) - CURRENT_FRAME, frames)
         data_out[:chunk_size] = data[CURRENT_FRAME : CURRENT_FRAME + chunk_size]
         if chunk_size < frames:
             data_out[chunk_size:] = 0
@@ -80,15 +85,24 @@ def read_audio_file(filepath: str, output_device_index: int):
 
 def generateAudio(text, device_index):
     print("Generating audio for:", text)
+    text_tensor = torch.tensor([ord(c) for c in text], device=device)
     response = client.audio.speech.create(
         model="tts-1",
         voice="alloy",
         input=text,
         response_format="mp3",
     )
+    
     response.stream_to_file("speech/output.mp3")
+    audio = AudioSegment.from_file("speech/output.mp3")
+    audio_tensor = torch.tensor(audio.get_array_of_samples(), device=device)
+    processed_audio = audio_tensor.cpu().numpy()
+    
+    # Use direct export with format specification
     AudioSegment.from_file("speech/output.mp3").export("speech/example.ogg", format="ogg")
     read_audio_file("speech/example.ogg", device_index)
+
+
 
 
 

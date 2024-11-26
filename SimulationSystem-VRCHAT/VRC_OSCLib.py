@@ -422,7 +422,8 @@ def send_scrolling_chunks(text, chunk_size=144, delay=1., initial_delay=1., scro
 
 
 def actionChatbox(client, str):
-    print("in actionChatbox")
+    print("inside actionChatbox")
+    # client = udp_client.SimpleUDPClient(args.ip, args.port)
     # bundle
     bundle_builder = OscBundleBuilder(osc_bundle_builder.IMMEDIATELY)
     # Create a new message.
@@ -437,7 +438,11 @@ def actionChatbox(client, str):
 
     # Build and get the bundle.
     bundle = bundle_builder.build()
-    client.send_message("/chatbox/typing", True)
+    try:   
+        client.send_message("/chatbox/typing", True)
+    except Exception as e:
+        print(f"Error for client.send_message in VRC_OSCLib.py: {e}")
+
     time.sleep(1)
     client.send_message("/chatbox/typing", False)
     client.send(bundle)

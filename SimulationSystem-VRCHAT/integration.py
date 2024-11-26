@@ -35,6 +35,9 @@ from vrchat_guide.vrchatbot import (
     suql_parser,
 )
 # load_dotenv()
+import torch
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
 
 
 # CABLE-C Input
@@ -90,20 +93,20 @@ def fillerShort():
 
 def audio_conversation_input(CSV_LOGGER, FILENAME):
     print("inside audio_conversation_input")
-    print("Starting audio recording on CABLE-D...")
+    # print("Starting audio recording on CABLE-D...")
     start = time.perf_counter()
     listenAndRecordDirect(CSV_LOGGER, FILENAME)
     print("Audio recording complete, processing...")
     threading.Thread(target=fillerShort, args=()).start()
     end = time.perf_counter()
-    audio_record_time = round(end - start, 2)
-    CSV_LOGGER.set_enum(LogElements.TIME_FOR_INPUT, audio_record_time)
+    # audio_record_time = round(end - start, 2)
+    # CSV_LOGGER.set_enum(LogElements.TIME_FOR_INPUT, audio_record_time)
 
     start = time.perf_counter()
     currentConversation = getTextfromAudio_whisper_1(FILENAME)
     end = time.perf_counter()
-    audio_to_text_time = round(end - start, 2)
-    CSV_LOGGER.set_enum(LogElements.TIME_AUDIO_TO_TEXT, audio_to_text_time)
+    # audio_to_text_time = round(end - start, 2)
+    # CSV_LOGGER.set_enum(LogElements.TIME_AUDIO_TO_TEXT, audio_to_text_time)
     threading.Thread(target=filler, args=(currentConversation,)).start()
     deleteAudioFile(FILENAME)
     return currentConversation
@@ -150,18 +153,38 @@ def get_input():
 #         bot_speak(response)
 
 async def main():
+    # bot = Agent(
+    #     botname="VRChatBot",
+    #     description="VRChat assistant helping with events and calendar",
+    #     prompt_dir=prompt_dir,
+    #     starting_prompt="Hello! I'm your VRChat Guide. How can I help you today?",
+    #     args={},
+    #     api=[update_profile, add_event],
+    #     knowledge_base=suql_knowledge,
+    #     knowledge_parser=suql_parser,
+    # ).load_from_gsheet(
+    #     gsheet_id="1aLyf6kkOpKYTrnvI92kHdLVip1ENCEW5aTuoSZWy2fU"
+    # )
+
     bot = Agent(
-        botname="VRChatBot",
-        description="VRChat assistant helping with events and calendar",
-        prompt_dir=prompt_dir,
-        starting_prompt="Hello! I'm your VRChat Guide. How can I help you today?",
-        args={},
-        api=[update_profile, add_event],
-        knowledge_base=suql_knowledge,
-        knowledge_parser=suql_parser,
+    botname="VRChatBot",
+    description="VRChat assistant helping with events and calendar",
+    prompt_dir=prompt_dir,
+    starting_prompt="Hello! I'm your VRChat Guide. How can I help you today?",
+    args={"device": device},
+    api=[update_profile, add_event],
+    knowledge_base=suql_knowledge,
+    knowledge_parser=suql_parser,
+    llm_config={"device": "cuda:0"}
     ).load_from_gsheet(
         gsheet_id="1aLyf6kkOpKYTrnvI92kHdLVip1ENCEW5aTuoSZWy2fU"
     )
+
+
+    # In the main function, before the conversation loop
+    # openaiTTS = openaiTTS.to(device)
+    # deepgramSTT = deepgramSTT.to(device)
+
 
     # Initialize conversation with both text and voice
     print("Starting conversation...")
@@ -169,6 +192,7 @@ async def main():
     VRC_OSCLib.actionChatbox(VRCclient, bot.starting_prompt)
 
     while True:
+        print("inside while True loop")
         print("Listening for input...")
         user_input = get_input()
         print(f"User said: {user_input}")

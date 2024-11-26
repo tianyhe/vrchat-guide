@@ -50,7 +50,7 @@ def fillerShort():
 
 
 # print(listenAndRecord("text1.wav"))
-def recordAudioToByteStream(silenceThreshold=-40, maxSilenceLength=10):
+def recordAudioToByteStream(silenceThreshold=-40, maxSilenceLength=1):
 
     fs = 16000  # Sample rate
     CHUNK_SIZE = int(fs * 0.5)  # Record in chunks of 0.5 seconds
