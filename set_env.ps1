@@ -1,2 +1,4 @@
+$env:REDIS_ENABLED = "false"
+$env:DISABLE_REDIS = "true"
 $env:PYTHONPATH += ";$PWD\packages\genie-worksheets;$PWD\packages\neu-llm-avatars;$PWD\packages\genie-worksheets\src;$PWD\packages\genie-worksheets\packages\knowledge-agent\src;$PWD\packages\suql\src;$PWD\packages;$PWD\packages\suql"
-$env:OPENAI_API_KEY = "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"
+$env:OPENAI_API_KEY = "{OPENAI_API_KEY}"

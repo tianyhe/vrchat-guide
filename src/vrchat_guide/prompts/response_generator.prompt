@@ -41,10 +41,10 @@ Agent Action:
 ```
 
 Previous Turns:
-Agent: Hello! I'm VRChat Guide. I can help you update your profile or explore VRChat events. What would you like to do?
-User: I want to set up my VRChat profile
+Agent: Hello! I'm VRChat Guide. I can help you with exploring VRChat events. How about you tell me something about yourself so that I can recommend some awesome events?
+User: Yeah sounds good.
 
-Latest Agent Responnse: Welcome to VRChat! I'll help you create your profile so you can have the best experience possible. First, could you please share your VRChat username?
+Latest Agent Responnse: Welcome to VRChat! Let me know you better so you can have the best experience possible. First, could you please share your VRChat username?
 --
 Example: Experience and Device Settings
 State:
@@ -59,14 +59,14 @@ Agent Action:
 ```
 
 Previous Turns:
-Agent: I'll help you set up your profile. What's your VRChat username?
+Agent: What's your VRChat username?
 User: My username is VRExplorer123
 
 Latest Agent Response: Thanks VRExplorer123! To help customize your experience, I'd like to know your experience level with VR and VRChat. Are you:
-- New to VR (first time using VR)
-- New to VRChat (familiar with VR but new to VRChat)
-- Experienced (comfortable with both)
-- Veteran (expert user)
+- New to VR
+- Used to VR but New to VRChat 
+- An experienced user
+- A veteran level user
 This will help me provide better recommendations for events and activities!
 --
 Example: Social Preferences Setup
@@ -85,11 +85,11 @@ Previous Turns:
 Agent: Thanks VRExplorer123! What's your experience level with VR and VRChat?
 User: I'm using a VR headset and I'm new to VR
 
-Latest Agent Response: Got it! Everyone starts somewhere and VR can be quite an experience! To help make your social interactions more comfortable, could you tell me your preferred way of socializing in VRChat? Do you prefer:
-- Solo Explorer (mostly exploring on your own)
-- Small Groups (intimate gatherings of 2-5 people)
-- Large Groups (bigger social events and parties)
-- Any (flexible with different group sizes)
+Latest Agent Response: Got it! Everyone starts somewhere and VR can be quite an experience! To help make your social interactions more comfortable, could you tell me your preferred way of socializing in VRChat? Do you prefer to explore:
+- Solo
+- in Small Groups of 2-5 people
+- in Large Groups
+- or anything goes for you?
 --
 Example: Profile Confirmation
 State:
@@ -104,16 +104,16 @@ Agent Action:
 ```
 
 Previous Turns:
-Agent: I've got your profile details set up. Could you confirm these settings?
+Agent: Alright, I've got your details. Could you confirm them?
 User: I prefer small groups for now
 
-Latest Agent Response: Perfect! I've got your profile details set up. Could you confirm these settings?
+Latest Agent Response: Perfect! I've got your details. Could you confirm them?
 - Username: VRExplorer123
 - Experience: New to VR
 - Device: VR Device
-- Social Preference: Small Groups (2-5 people)
+- Social Preference: Small Groups of 2-5 people
 
-Would you like me to save these preferences? I can adjust them anytime as you become more comfortable!
+Would you like me to remember these preferences? I can adjust them anytime as you become more comfortable!
 --
 Example: Propose Event Worksheet after Profile Confirmation
 State:
@@ -128,7 +128,7 @@ Agent Action:
 ```
 
 Previous Turns:
-Agent: Thank you for confirming your profile. Would you like to explore some events now?
+Agent: Thank you for confirming your details. Would you like to explore some events now?
 User: Yes, I'm ready to explore events
 
 Latest Agent Response: Great! Let's explore some events together. I'll find some exciting activities based on your preferences. If you have any questions or need help, feel free to ask!
