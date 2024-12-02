@@ -116,3 +116,219 @@ Traceback (most recent call last):
     id_index = list(map(lambda x: x[0], column_info)).index(id_field_name)
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ValueError: '_id' is not in list
+==============
+
+SELECT * FROM events WHERE answer(description, 'Is this a dance event?') = 'Yes' ORDER BY start_time LIMIT 5;
+'_id' is not in list
+Traceback (most recent call last):
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1956, in _suql_execute_single
+    visitor(root)
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 236, in __call__
+    super().__call__(node)
+  File "C:\Users\mkhal\Downloads\vrchat-guide\.venv\Lib\site-packages\pglast\visitors.py", line 317, in __call__
+    result = method(ancestors, node)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 261, in visit_SelectStmt
+    results, column_info = _analyze_SelectStmt(
+                           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1624, in _analyze_SelectStmt
+    return _execute_and(
+           ^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1540, in _execute_and
+    return _execute_free_text_queries(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1405, in _execute_free_text_queries
+    _retrieve_and_verify(
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 618, in _retrieve_and_verify
+    id_index = list(map(lambda x: x[0], column_info)).index(id_field_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: '_id' is not in list
+==============
+
+SELECT * FROM events WHERE answer(description, 'Is this a chill or hangout event?') = 'Yes' ORDER BY start_time LIMIT 5;
+'_id' is not in list
+Traceback (most recent call last):
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1956, in _suql_execute_single
+    visitor(root)
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 236, in __call__
+    super().__call__(node)
+  File "C:\Users\mkhal\Downloads\vrchat-guide\.venv\Lib\site-packages\pglast\visitors.py", line 317, in __call__
+    result = method(ancestors, node)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 261, in visit_SelectStmt
+    results, column_info = _analyze_SelectStmt(
+                           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1624, in _analyze_SelectStmt
+    return _execute_and(
+           ^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1540, in _execute_and
+    return _execute_free_text_queries(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1405, in _execute_free_text_queries
+    _retrieve_and_verify(
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 618, in _retrieve_and_verify
+    id_index = list(map(lambda x: x[0], column_info)).index(id_field_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: '_id' is not in list
+==============
+
+SELECT * FROM events WHERE answer(description, 'Is this a laid-back gathering event?') = 'Yes' ORDER BY start_time LIMIT 5;
+'_id' is not in list
+Traceback (most recent call last):
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1956, in _suql_execute_single
+    visitor(root)
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 236, in __call__
+    super().__call__(node)
+  File "C:\Users\mkhal\Downloads\vrchat-guide\.venv\Lib\site-packages\pglast\visitors.py", line 317, in __call__
+    result = method(ancestors, node)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 261, in visit_SelectStmt
+    results, column_info = _analyze_SelectStmt(
+                           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1624, in _analyze_SelectStmt
+    return _execute_and(
+           ^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1540, in _execute_and
+    return _execute_free_text_queries(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1405, in _execute_free_text_queries
+    _retrieve_and_verify(
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 618, in _retrieve_and_verify
+    id_index = list(map(lambda x: x[0], column_info)).index(id_field_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: '_id' is not in list
+==============
+
+SELECT * FROM events WHERE answer(description, 'Is this an event for hanging out in VRChat?') = 'Yes' ORDER BY start_time LIMIT 5;
+'_id' is not in list
+Traceback (most recent call last):
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1956, in _suql_execute_single
+    visitor(root)
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 236, in __call__
+    super().__call__(node)
+  File "C:\Users\mkhal\Downloads\vrchat-guide\.venv\Lib\site-packages\pglast\visitors.py", line 317, in __call__
+    result = method(ancestors, node)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 261, in visit_SelectStmt
+    results, column_info = _analyze_SelectStmt(
+                           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1624, in _analyze_SelectStmt
+    return _execute_and(
+           ^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1540, in _execute_and
+    return _execute_free_text_queries(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1405, in _execute_free_text_queries
+    _retrieve_and_verify(
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 618, in _retrieve_and_verify
+    id_index = list(map(lambda x: x[0], column_info)).index(id_field_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: '_id' is not in list
+==============
+
+SELECT * FROM events WHERE answer(description, 'Is this a cheerio event in VRChat?') = 'Yes' ORDER BY start_time LIMIT 5;
+'_id' is not in list
+Traceback (most recent call last):
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1956, in _suql_execute_single
+    visitor(root)
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 236, in __call__
+    super().__call__(node)
+  File "C:\Users\mkhal\Downloads\vrchat-guide\.venv\Lib\site-packages\pglast\visitors.py", line 317, in __call__
+    result = method(ancestors, node)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 261, in visit_SelectStmt
+    results, column_info = _analyze_SelectStmt(
+                           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1624, in _analyze_SelectStmt
+    return _execute_and(
+           ^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1540, in _execute_and
+    return _execute_free_text_queries(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1405, in _execute_free_text_queries
+    _retrieve_and_verify(
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 618, in _retrieve_and_verify
+    id_index = list(map(lambda x: x[0], column_info)).index(id_field_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: '_id' is not in list
+==============
+
+SELECT * FROM events WHERE answer(description, 'Is this a chill or relaxing event?') = 'Yes' ORDER BY start_time LIMIT 3;
+'_id' is not in list
+Traceback (most recent call last):
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1956, in _suql_execute_single
+    visitor(root)
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 236, in __call__
+    super().__call__(node)
+  File "C:\Users\mkhal\Downloads\vrchat-guide\.venv\Lib\site-packages\pglast\visitors.py", line 317, in __call__
+    result = method(ancestors, node)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 261, in visit_SelectStmt
+    results, column_info = _analyze_SelectStmt(
+                           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1624, in _analyze_SelectStmt
+    return _execute_and(
+           ^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1540, in _execute_and
+    return _execute_free_text_queries(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1405, in _execute_free_text_queries
+    _retrieve_and_verify(
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 618, in _retrieve_and_verify
+    id_index = list(map(lambda x: x[0], column_info)).index(id_field_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: '_id' is not in list
+==============
+
+SELECT * FROM events WHERE answer(description, 'Is this event suitable for chilling and hanging out?') = 'Yes' AND start_time >= CURRENT_TIMESTAMP ORDER BY start_time LIMIT 3;
+'_id' is not in list
+Traceback (most recent call last):
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1956, in _suql_execute_single
+    visitor(root)
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 236, in __call__
+    super().__call__(node)
+  File "C:\Users\mkhal\Downloads\vrchat-guide\.venv\Lib\site-packages\pglast\visitors.py", line 317, in __call__
+    result = method(ancestors, node)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 261, in visit_SelectStmt
+    results, column_info = _analyze_SelectStmt(
+                           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1605, in _analyze_SelectStmt
+    return _execute_and(
+           ^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1502, in _execute_and
+    return _execute_free_text_queries(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1405, in _execute_free_text_queries
+    _retrieve_and_verify(
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 618, in _retrieve_and_verify
+    id_index = list(map(lambda x: x[0], column_info)).index(id_field_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: '_id' is not in list
+==============
+
+SELECT * FROM events WHERE answer(description, 'Is this event related to banks or banking in VRChat?') = 'Yes' ORDER BY start_time LIMIT 3;
+'_id' is not in list
+Traceback (most recent call last):
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1956, in _suql_execute_single
+    visitor(root)
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 236, in __call__
+    super().__call__(node)
+  File "C:\Users\mkhal\Downloads\vrchat-guide\.venv\Lib\site-packages\pglast\visitors.py", line 317, in __call__
+    result = method(ancestors, node)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 261, in visit_SelectStmt
+    results, column_info = _analyze_SelectStmt(
+                           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1624, in _analyze_SelectStmt
+    return _execute_and(
+           ^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1540, in _execute_and
+    return _execute_free_text_queries(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 1405, in _execute_free_text_queries
+    _retrieve_and_verify(
+  File "C:\Users\mkhal\Downloads\vrchat-guide\packages\suql\src\suql\sql_free_text_support\execute_free_text_sql.py", line 618, in _retrieve_and_verify
+    id_index = list(map(lambda x: x[0], column_info)).index(id_field_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: '_id' is not in list
