@@ -1,3 +1,5 @@
+https://docs.google.com/document/d/11fEVCHZI3y7cwvLF-TaUjrNJu-4QB1B3z3E-iKGqwuE/edit?usp=sharing
+
 # VRChat Guide 🎮
 
 An intelligent VRChat agent built using the Genie Worksheets framework, demonstrating advanced knowledge-integrated task assistance for social VR environments. This project showcases real-time knowledge retrieval and task completion capabilities to provide immersive, dynamic, and personalized assistance for VRChat users.
