@@ -15,7 +15,13 @@ from worksheets.knowledge import SUQLKnowledgeBase, SUQLParser
 
 
 # Define API functions
-def update_profile(username: str, experience_level: str, device_mode: str, social_preferences: str, **kwargs):
+def update_profile(
+    username: str,
+    experience_level: str,
+    device_mode: str,
+    social_preferences: str,
+    **kwargs,
+):
     return {
         "status": "success",
         "params": {
@@ -26,6 +32,7 @@ def update_profile(username: str, experience_level: str, device_mode: str, socia
         },
         "response": {"session_id": uuid4()},
     }
+
 
 def add_event(event: str, attendees: list = None, notes: str = None, **kwargs):
     return {
@@ -41,7 +48,10 @@ def add_event(event: str, attendees: list = None, notes: str = None, **kwargs):
 
 # Initialize paths to prompt and data directories
 current_dir = os.path.dirname(os.path.realpath(__file__))
-prompt_dir = os.path.join(current_dir, "prompts")
+# prompt_dir = os.path.join(current_dir, "prompts")
+prompt_dir = os.path.join(
+    current_dir, "vrchat_interface/prompts"
+)  # conversational prompts
 data_dir = os.path.join(current_dir, "data")
 
 
@@ -50,25 +60,25 @@ DB_CONFIG = {
     "host": "localhost",
     "port": "5432",
     "dbname": "vr_event_hub",
-    "select_user": "select_user",    
+    "select_user": "select_user",
     "select_password": "select_user",
     "creator_user": "creator_role",
     "creator_password": "creator_role",
-    "embedding_server_address": "http://localhost:8501"
+    "embedding_server_address": "http://localhost:8501",
 }
 
 
 def result_postprocess(results: List[Dict], columns: List[str]) -> List[Dict]:
     processed_results = []
     for result in results:
-        if '_id' in result:
+        if "_id" in result:
             result = {
-                'id': result['_id'],
-                'summary': result.get('summary', ''),
-                'start_time': result.get('start_time'),
-                'end_time': result.get('end_time'),
-                'location': result.get('location', ''),
-                'description': result.get('description', '')
+                "id": result["_id"],
+                "summary": result.get("summary", ""),
+                "start_time": result.get("start_time"),
+                "end_time": result.get("end_time"),
+                "location": result.get("location", ""),
+                "description": result.get("description", ""),
             }
         processed_results.append(result)
     return processed_results
@@ -82,7 +92,9 @@ suql_knowledge = SUQLKnowledgeBase(
     embedding_server_address=DB_CONFIG["embedding_server_address"],
     source_file_mapping={
         "vrchat_general_info": os.path.join(data_dir, "vrchat_general_info.txt"),
-        "vrchat_community_guidelines": os.path.join(data_dir, "vrchat_community_guidelines.txt"),
+        "vrchat_community_guidelines": os.path.join(
+            data_dir, "vrchat_community_guidelines.txt"
+        ),
         "vrchat_user_guide": os.path.join(data_dir, "vrchat_user_guide.txt"),
         "vrchat_events": os.path.join(data_dir, "vrchat_events.txt"),
     },
@@ -98,28 +110,31 @@ suql_parser = SUQLParser(
     llm_model_name="gpt-4o",
 )
 
+
 # Configure logging
 def prompt_filter(record):
     excluded_terms = [
-        "prompt", "Prompt", "PROMPT",
-        "gpt-4", "GPT", "token",
-        "completion", "llama", "embedding"
+        "prompt",
+        "Prompt",
+        "PROMPT",
+        "gpt-4",
+        "GPT",
+        "token",
+        "completion",
+        "llama",
+        "embedding",
     ]
     return not any(term in str(record["message"]) for term in excluded_terms)
+
 
 logger.remove()
 logger.add(
     sys.stdout,
     level="INFO",
     filter=prompt_filter,
-    format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> | <white>{message}</white>"
+    format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> | <white>{message}</white>",
 )
-logger.add(
-    "vrchat_bot.log",
-    level="DEBUG",
-    filter=prompt_filter,
-    rotation="500 MB"
-)
+logger.add("vrchat_bot.log", level="DEBUG", filter=prompt_filter, rotation="500 MB")
 
 
 # Only used when running directly (not imported)
@@ -142,12 +157,13 @@ How can I help you today?""",
         ).load_from_gsheet(
             gsheet_id="1aLyf6kkOpKYTrnvI92kHdLVip1ENCEW5aTuoSZWy2fU",
         )
-        
+
         await conversation_loop(bot, "vrchat_bot.json")
-        
+
     except Exception as e:
         logger.error(f"Failed to start VRChat bot: {e}")
         sys.exit(1)
+
 
 if __name__ == "__main__":
     logger.info("Starting VRChat bot...")
