@@ -1,5 +1,3 @@
-https://docs.google.com/document/d/11fEVCHZI3y7cwvLF-TaUjrNJu-4QB1B3z3E-iKGqwuE/edit?usp=sharing
-
 # VRChat Guide 🎮
 
 An intelligent VRChat agent built using the Genie Worksheets framework, demonstrating advanced knowledge-integrated task assistance for social VR environments. This project showcases real-time knowledge retrieval and task completion capabilities to provide immersive, dynamic, and personalized assistance for VRChat users.
@@ -29,6 +27,8 @@ An intelligent VRChat agent built using the Genie Worksheets framework, demonstr
 - OpenAI API key / Azure OpenAI API key
 
 ## 🚀 Quick Start
+
+https://docs.google.com/document/d/11fEVCHZI3y7cwvLF-TaUjrNJu-4QB1B3z3E-iKGqwuE/edit?usp=sharing
 
 ### 1. Clone and Setup
 
@@ -278,7 +278,13 @@ Finally, here is what you all are waiting for - running the agent in VRChat!
 You can run the agent in VRChat by running:
 
 ```bash
-# TODO: WORK IN PROGRESS
+cd src/vrchat_guide/vrchat_interface/
+
+# Start the VRChat Guide Avatar in VRChat
+# Enable OSC control of the avatar
+# Switch sound output to "CABLE Input" in Windows sound settings
+
+python .\vrchat_interface.py # Windows
 ```
 
 ## 📖 Documentation
