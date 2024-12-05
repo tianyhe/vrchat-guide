@@ -225,3 +225,176 @@ class STTService:
         except Exception as e:
             logger.error(f"Transcription error: {e}")
             return None
+
+
+class StreamingSTTService:
+    """Streaming Speech-to-Text service with real-time VAD and audio cues."""
+
+    def __init__(self, device: str):
+        self.device = device
+        self.client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        self.sample_rate = 44100
+        self.chunk_size = 1024
+        self.vad_threshold = -40
+        self.buffer = []
+        self.is_speaking = False
+        self.silence_duration = 0
+        self.speech_timeout = 1.5
+        self.min_speech_duration = 0.5
+        self.speech_started = False
+        self.speech_duration = 0
+        # Add audio cues
+        self.audio_cues = AudioCues()
+
+    async def start_listening(self):
+        """Start streaming audio capture with VAD."""
+        self._reset_state()
+        # Play start cue before starting stream
+        await self.audio_cues.play_start_cue()
+
+        self.stream = sd.InputStream(
+            samplerate=self.sample_rate,
+            channels=1,
+            dtype="float32",
+            blocksize=self.chunk_size,
+            callback=self._audio_callback,
+        )
+        self.stream.start()
+
+    async def stop_listening(self):
+        """Stop listening and play end cue."""
+        if hasattr(self, "stream"):
+            self.stream.stop()
+            self.stream.close()
+        self._reset_state()
+        await self.audio_cues.play_end_cue()
+
+    def _audio_callback(self, indata, frames, time, status):
+        audio_level = 20 * np.log10(np.abs(indata).mean() + 1e-10)
+
+        # Add max buffer protection
+        max_buffer_duration = 30  # 30 seconds max
+        if len(self.buffer) * self.chunk_size / self.sample_rate > max_buffer_duration:
+            self._reset_state()
+            return
+
+        if audio_level > self.vad_threshold:
+            if not self.speech_started:
+                self._reset_state()  # Clean slate when new speech starts
+                self.speech_started = True
+            self.speech_duration += self.chunk_size / self.sample_rate
+            self.silence_duration = 0
+            self.buffer.append(indata.copy())
+        elif self.speech_started:
+            self.silence_duration += self.chunk_size / self.sample_rate
+            self.buffer.append(indata.copy())
+
+    def _reset_state(self):
+        """Helper to reset all state variables"""
+        self.buffer = []
+        self.speech_started = False
+        self.speech_duration = 0
+        self.silence_duration = 0
+        self.is_speaking = False
+
+    async def get_transcription(self) -> Optional[str]:
+        if not self.buffer or not self.speech_started:
+            return None
+
+        if (
+            self.silence_duration >= self.speech_timeout
+            and self.speech_duration >= self.min_speech_duration
+        ):
+
+            audio = np.concatenate(self.buffer)
+            duration = len(audio) / self.sample_rate
+            logger.info(f"Recorded speech duration: {duration:.1f}s")
+
+            with io.BytesIO() as buf:
+                sf.write(buf, audio, self.sample_rate, format="wav", subtype="PCM_16")
+                buf.seek(0)
+                try:
+                    transcript = await self.client.audio.transcriptions.create(
+                        model="whisper-1", file=("audio.wav", buf, "audio/wav")
+                    )
+                    # Reset ALL state variables after transcription
+                    self.buffer = []
+                    self.speech_started = False
+                    self.speech_duration = 0
+                    self.silence_duration = 0
+                    self.is_speaking = False  # Added this
+                    return transcript.text
+                except Exception as e:
+                    logger.error(f"Transcription error: {e}")
+                    return None
+        return None
+
+
+class StreamingTTSService:
+    """Streaming Text-to-Speech service."""
+
+    def __init__(self, device: str = None):
+        self.device = device
+        self.client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        self.sample_rate = 24000
+        self.chunk_queue = asyncio.Queue()
+        self.is_speaking = False
+
+    def _split_text(self, text: str) -> list[str]:
+        """Split text into natural chunks."""
+        chunks = []
+        current = []
+
+        for sentence in text.split(". "):
+            if len(" ".join(current)) + len(sentence) < 100:
+                current.append(sentence)
+            else:
+                chunks.append(". ".join(current) + ".")
+                current = [sentence]
+
+        if current:
+            chunks.append(". ".join(current) + ".")
+        return chunks
+
+    async def speak(self, text: str, channel: int):
+        """Stream TTS audio with overlapped generation/playback."""
+        try:
+            self.is_speaking = True
+            chunks = self._split_text(text)
+
+            # Start generation task
+            gen_task = asyncio.create_task(self._generate_chunks(chunks))
+
+            # Start playback task
+            play_task = asyncio.create_task(self._play_chunks(channel))
+
+            # Wait for both tasks
+            await asyncio.gather(gen_task, play_task)
+
+        finally:
+            self.is_speaking = False
+
+    async def _generate_chunks(self, chunks: list[str]):
+        """Generate audio for text chunks."""
+        for chunk in chunks:
+            if not self.is_speaking:
+                break
+
+            response = await self.client.audio.speech.create(
+                model="tts-1", voice="alloy", input=chunk
+            )
+            audio_data, _ = sf.read(io.BytesIO(response.content))
+            await self.chunk_queue.put(audio_data)
+
+        await self.chunk_queue.put(None)  # Signal end
+
+    async def _play_chunks(self, channel: int):
+        """Play audio chunks as they become available."""
+        while self.is_speaking:
+            chunk = await self.chunk_queue.get()
+            if chunk is None:
+                break
+
+            sd.play(chunk, self.sample_rate, device=channel)
+            await asyncio.sleep(len(chunk) / self.sample_rate)
+            sd.wait()

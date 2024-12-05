@@ -26,6 +26,7 @@ from vrchat_guide.vrchat_interface.audio import (
 )
 from vrchat_guide.vrchat_interface.osc import VRChatOSC
 from vrchat_guide.vrchat_interface.filler_words import FillerWords, FillerType
+from vrchat_guide.vrchat_interface.audio import StreamingTTSService, StreamingSTTService
 from vrchat_guide.metrics.utils import MetricsManager
 from worksheets.agent import Agent
 from worksheets.chat import generate_next_turn
@@ -60,27 +61,15 @@ class VRChatInterface:
         self.audio_path.parent.mkdir(parents=True, exist_ok=True)
 
     def _init_audio_services(self):
-        """Initialize TTS and STT services."""
-        try:
-            # Initialize audio manager first
-            self.audio_manager = AudioDeviceManager()
-            self.mic_channel = self.audio_manager.get_virtual_mic_channel()
+        self.audio_manager = AudioDeviceManager()
+        self.mic_channel = self.audio_manager.get_virtual_mic_channel()
 
-            if self.mic_channel is None:
-                raise RuntimeError("Could not find virtual microphone channel")
-
-            # Initialize services
-            self.tts = TTSService(self.device)
-            self.stt = STTService(self.device)
-            self.audio_service = AudioService()  # Reference the audio service
-
-            logger.info(
-                f"Audio services initialized successfully (mic channel: {self.mic_channel})"
-            )
-
-        except Exception as e:
-            logger.error(f"Failed to initialize audio services: {str(e)}")
-            raise RuntimeError(f"Audio services initialization failed: {str(e)}")
+        # Initialize both standard and streaming services
+        self.tts = TTSService(self.device)
+        self.streaming_tts = StreamingTTSService(self.device)
+        self.stt = STTService(self.device)
+        self.streaming_stt = StreamingSTTService(self.device)
+        self.audio_service = AudioService()
 
     def _init_vrchat_services(self):
         """Initialize VRChat-related services."""
@@ -102,18 +91,30 @@ class VRChatInterface:
         return udp_client.SimpleUDPClient(args.ip, args.port)
 
     async def get_user_input(self) -> Optional[str]:
-        """Get user input via speech-to-text with error handling."""
-        with self.metrics.measure_latency("stt"):
-            try:
-                audio_data = await self.stt.listen_and_record(self.audio_path)
-                transcript = await self.stt.transcribe(audio_data)
-                if not transcript:
-                    await self._handle_failed_input()
-                return transcript
-            except Exception as e:
-                logger.error(f"Error getting user input: {e}")
-                await self._handle_failed_input()
-                return None
+        try:
+            await self.streaming_stt.start_listening()
+
+            timeout = 10.0
+            start_time = time.time()
+
+            while True:
+                if time.time() - start_time > timeout:
+                    logger.debug("Recording timeout reached")
+                    break
+
+                transcript = await self.streaming_stt.get_transcription()
+                if transcript:
+                    await self.streaming_stt.stop_listening()
+                    return transcript
+
+                await asyncio.sleep(0.1)
+
+            return None
+        except Exception as e:
+            logger.error(f"Error getting user input: {e}")
+            return None
+        finally:
+            await self.streaming_stt.stop_listening()
 
     async def _handle_failed_input(self):
         """Handle failed speech input gracefully."""
@@ -124,16 +125,16 @@ class VRChatInterface:
         )
 
     async def send_agent_response(self, text: str, expression: Optional[str] = None):
-        """Send agent response with coordinated TTS, OSC, and expressions."""
+        """Send agent response using streaming TTS."""
         with self.metrics.measure_latency("agent_response"):
             try:
-                # Send thinking indicator while processing
+                # Send thinking filler first
                 thinking_filler = self.filler_words.get_thinking_filler()
                 await self.osc.send_chatbox(thinking_filler.text)
                 if thinking_filler.expression:
                     await self.osc.send_expression(thinking_filler.expression)
 
-                # Split response into chunks and coordinate TTS/OSC
+                # Use coordinated response for synchronization
                 await self._send_coordinated_response(text, expression)
 
             except Exception as e:
@@ -145,6 +146,7 @@ class VRChatInterface:
     ):
         """Coordinate TTS and OSC message chunking."""
         chunks = self.osc._split_into_chunks(text)
+        use_streaming = len(text) > 144  # Threshold for using streaming service
 
         for i, chunk in enumerate(chunks):
             if not self.running:
@@ -159,7 +161,10 @@ class VRChatInterface:
             # Coordinate OSC and TTS
             async with asyncio.TaskGroup() as tg:
                 tg.create_task(self.osc.send_chatbox(chunk))
-                tg.create_task(self.tts.speak(chunk, self.mic_channel))
+                if use_streaming:
+                    tg.create_task(self.streaming_tts.speak(chunk, self.mic_channel))
+                else:
+                    tg.create_task(self.tts.speak(chunk, self.mic_channel))
 
             # Send expression if provided
             if expression and i == len(chunks) - 1:
@@ -170,8 +175,6 @@ class VRChatInterface:
                 await asyncio.sleep(0.5)
 
     async def run(self):
-        """Run the VRChat interface with proper initialization and cleanup."""
-        print("Initializing VRChat interface...")
         try:
             # Start session
             self.metrics.logger.start_session(user_id="vrchat_user")
@@ -201,22 +204,14 @@ class VRChatInterface:
             )
 
             while self.running:
-                # Start listening with cue
-                await self.audio_service.start_listening()  # Use audio_service from interface
-
-                user_input = await self.get_user_input()
+                user_input = (
+                    await self.get_user_input()
+                )  # Remove duplicate start_listening
                 if user_input:
-                    # Stop listening
-                    await self.audio_service.stop_listening()  # Stop listening
-
                     logger.info(f"Received user input: {user_input}")
                     response_filler = self.filler_words.get_response_filler(
                         "?" in user_input
                     )
-                    logger.info(
-                        f"Sending response with filler: {response_filler.expression}"
-                    )
-                    # response = await agent.get_response(user_input)
                     await generate_next_turn(user_input, agent)
                     response = agent.dlg_history[-1].system_response
                     await self.send_agent_response(response, response_filler.expression)
