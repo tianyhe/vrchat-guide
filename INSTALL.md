@@ -1,6 +1,5 @@
 # VRChat Guide - Getting Started Guide
 
-===============================================
 The following documentation has been run and tested on macOS.
 
 ## Prerequisites
