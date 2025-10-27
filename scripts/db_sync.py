@@ -34,7 +34,7 @@ logger.add(
 DB_CONFIG = {
     "host": "localhost",
     "port": "5432",
-    "dbname": "vr_event_hub",
+    "dbname": "vrchat_events",
     "user": "creator_role",
     "password": "creator_role",
 }

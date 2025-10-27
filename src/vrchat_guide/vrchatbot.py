@@ -1,20 +1,30 @@
 import asyncio
-import datetime
-import yaml
 import os
 import sys
-from decimal import Decimal
-from typing import Dict, List
+import random
 from uuid import uuid4
+from typing import Dict, List
 
-from loguru import logger
 from suql.agent import postprocess_suql
-from worksheets.agent import Agent
-from worksheets.interface_utils import conversation_loop
-from worksheets.knowledge import SUQLKnowledgeBase, SUQLParser
+
+from worksheets import (
+    Config,
+    SUQLKnowledgeBase,
+    conversation_loop,
+)
+
+from worksheets.agent.agent import Agent
+from worksheets.agent.builder import TemplateLoader
+from worksheets.agent.config import agent_api
+from worksheets.core.worksheet import get_genie_fields_from_ws
+from worksheets.knowledge.parser import SUQLParser
+from worksheets import Config, OpenAIModelConfig
 
 
 # Define API functions
+
+
+@agent_api("update_profile", "Update VRChat user profile")
 def update_profile(
     username: str,
     experience_level: str,
@@ -34,6 +44,19 @@ def update_profile(
     }
 
 
+@agent_api("event_detail_to_individual_params", "Get event details")
+def event_detail_to_individual_params(event_detail):
+    if event_detail.value is None:
+        return {}
+    event_detail = event_detail.value
+    event_details = {}
+    for field in get_genie_fields_from_ws(event_detail):
+        event_details[field.name] = field.value
+
+    return event_details
+
+
+@agent_api("add_event", "Add an event to VRChat calendar")
 def add_event(event: str, attendees: list = None, notes: str = None, **kwargs):
     return {
         "status": "success",
@@ -46,27 +69,7 @@ def add_event(event: str, attendees: list = None, notes: str = None, **kwargs):
     }
 
 
-# Initialize paths to prompt and data directories
-current_dir = os.path.dirname(os.path.realpath(__file__))
-# prompt_dir = os.path.join(current_dir, "prompts")
-prompt_dir = os.path.join(
-    current_dir, "vrchat_interface/prompts"
-)  # conversational prompts
-data_dir = os.path.join(current_dir, "data")
-
-
-# DB configuration
-DB_CONFIG = {
-    "host": "localhost",
-    "port": "5432",
-    "dbname": "vr_event_hub",
-    "select_user": "select_user",
-    "select_password": "select_user",
-    "creator_user": "creator_role",
-    "creator_password": "creator_role",
-    "embedding_server_address": "http://localhost:8501",
-}
-
+# Define result postprocessing function for SUQL queries
 
 def result_postprocess(results: List[Dict], columns: List[str]) -> List[Dict]:
     processed_results = []
@@ -84,87 +87,66 @@ def result_postprocess(results: List[Dict], columns: List[str]) -> List[Dict]:
     return processed_results
 
 
-# Initialize knowledge base
-suql_knowledge = SUQLKnowledgeBase(
-    llm_model_name="gpt-4o",
+# Define path to the prompts
+
+
+current_dir = os.path.dirname(os.path.realpath(__file__))
+prompt_dir = os.path.join(current_dir, "prompts")
+
+config = Config.load_from_yaml(os.path.join(current_dir, "config.yaml"))
+
+starting_prompt = TemplateLoader.load(
+    os.path.join(current_dir, "starting_prompt.md"), format="jinja2"
+)
+
+
+# Define Knowledge Base
+suql_knowledge_base = SUQLKnowledgeBase(
+    model_config=config,
     tables_with_primary_keys={"events": "_id"},
-    database_name=DB_CONFIG["dbname"],
-    embedding_server_address=DB_CONFIG["embedding_server_address"],
+    database_name="vrchat_events",
+    embedding_server_address="http://127.0.0.1:8509",
     source_file_mapping={
-        "vrchat_general_info": os.path.join(data_dir, "vrchat_general_info.txt"),
-        "vrchat_community_guidelines": os.path.join(
-            data_dir, "vrchat_community_guidelines.txt"
-        ),
-        "vrchat_user_guide": os.path.join(data_dir, "vrchat_user_guide.txt"),
-        "vrchat_events": os.path.join(data_dir, "vrchat_events.txt"),
+        "vrchat_general_info": os.path.join(current_dir, "./data/vrchat_general_info.txt"),
+        "vrchat_community_guidelines": os.path.join(current_dir, "./data/vrchat_community_guidelines.txt"),
+        "vrchat_user_guide": os.path.join(current_dir, "./data/vrchat_user_guide.txt"),
     },
-    db_host=DB_CONFIG["host"],
-    db_port=DB_CONFIG["port"],
-    db_username=DB_CONFIG["select_user"],
-    db_password=DB_CONFIG["select_password"],
-    postprocessing_fn=postprocess_suql,
-    result_postprocessing_fn=result_postprocess,
+    postprocessing_fn=None,  # custom functions to postprocess SUQL queries
+    result_postprocessing_fn=result_postprocess,  # custom functions to postprocess SUQL results
+    db_username="select_user",
+    db_password="select_user",
 )
-# Initialize SUQL parser
+
+# Define the SUQL Parser
 suql_parser = SUQLParser(
-    llm_model_name="gpt-4o",
+    model_config=config
 )
 
 
-# Configure logging
-def prompt_filter(record):
-    excluded_terms = [
-        "prompt",
-        "Prompt",
-        "PROMPT",
-        "gpt-4",
-        "GPT",
-        "token",
-        "completion",
-        "llama",
-        "embedding",
-    ]
-    return not any(term in str(record["message"]) for term in excluded_terms)
 
 
-logger.remove()
-logger.add(
-    sys.stdout,
-    level="INFO",
-    filter=prompt_filter,
-    format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> | <white>{message}</white>",
-)
-logger.add("vrchat_bot.log", level="DEBUG", filter=prompt_filter, rotation="500 MB")
-
-
-# Only used when running directly (not imported)
 async def main():
+    print("inside async main in vrchat_bot.py")
     try:
-        bot = Agent(
-            botname="VRChatBot",
-            description="You are an assistant at VRChat and help users with all their queries related to finding events and adding them to their calendar. You can search for events, answer questions about events and add them to calendar",
-            prompt_dir=prompt_dir,
-            starting_prompt="""Hello! I'm your VRChat Guide. I can help you with:
-- Create / Update your VRChat profile with your preferences
-- Explore / Learn about upcoming VRChat events and add them to your calendar
-- Answer any questions related to VRChat events
-
-How can I help you today?""",
-            args={},
-            api=[update_profile, add_event],
-            knowledge_base=suql_knowledge,
+        vrchatbot = Agent(
+            botname="VRChat Assistant",
+            description="You are a VRChat assistant that helps users discover events, answer questions, add events to their calendar, and guide them through onboarding and navigation with helpful tips.",
+            config=config,
+            starting_prompt=starting_prompt.render(),
+            api=[update_profile, event_detail_to_individual_params, add_event],
+            knowledge_base=suql_knowledge_base,
             knowledge_parser=suql_parser,
-        ).load_from_gsheet(
+        )
+        vrchatbot.load_runtime_from_specification(
             gsheet_id="1aLyf6kkOpKYTrnvI92kHdLVip1ENCEW5aTuoSZWy2fU",
         )
-
-        await conversation_loop(bot, "vrchat_bot.json")
-
+        print("bot loaded in main in vrchat_bot.py, calling conversation_loop")
+        await conversation_loop(vrchatbot, "vrchat_bot.json")
+    
     except Exception as e:
-        logger.error(f"Failed to start VRChat bot: {e}")
+        print(f"Failed to start VRChat bot: {e}")
         sys.exit(1)
 
-
 if __name__ == "__main__":
-    logger.info("Starting VRChat bot...")
+    print("Starting VRChat bot...")
     asyncio.run(main())

@@ -2,6 +2,7 @@ from suql.faiss_embedding import MultipleEmbeddingStore
 from loguru import logger
 import os
 
+
 def init_embedding_store(data_dir: str):
     """Initialize the embedding store for VRChat events"""
     try:
@@ -13,11 +14,11 @@ def init_embedding_store(data_dir: str):
             table_name="events",
             primary_key_field_name="_id",
             free_text_field_name="description",
-            db_name="vr_event_hub",
+            db_name="vrchat_events",
             user="select_user",
             password="select_user",
             chunking_param=512,
-            cache_embedding=True
+            cache_embedding=False,
         )
 
         # Add events table summary field
@@ -25,11 +26,11 @@ def init_embedding_store(data_dir: str):
             table_name="events",
             primary_key_field_name="_id",
             free_text_field_name="summary",
-            db_name="vr_event_hub",
+            db_name="vrchat_events",
             user="select_user",
             password="select_user",
             chunking_param=0,
-            cache_embedding=True
+            cache_embedding=True,
         )
 
         return embedding_store
@@ -37,6 +38,7 @@ def init_embedding_store(data_dir: str):
     except Exception as e:
         logger.error(f"Failed to initialize embedding store: {e}")
         raise
+
 
 if __name__ == "__main__":
     # Server configuration
@@ -46,13 +48,13 @@ if __name__ == "__main__":
     DATA_DIR = "src/vrchat_guide/data"  # Adjust this path as needed
 
     logger.info("Initializing VRChat Guide Embedding Server...")
-    
+
     try:
         # Initialize and start server
         embedding_store = init_embedding_store(DATA_DIR)
         logger.info(f"Starting embedding server on {HOST}:{PORT}")
         embedding_store.start_embedding_server(host=HOST, port=PORT)
-        
+
     except Exception as e:
         logger.error(f"Failed to start embedding server: {e}")
         raise

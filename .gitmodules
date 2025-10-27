@@ -1,6 +1,7 @@
 [submodule "packages/genie-worksheets"]
 	path = packages/genie-worksheets
 	url = https://github.com/tianyhe/genie-worksheets.git
+	branch = dev/20251027
 [submodule "packages/suql"]
 	path = packages/suql
 	url = https://github.com/tianyhe/suql.git

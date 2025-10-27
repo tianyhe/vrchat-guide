@@ -1,6 +1,6 @@
 [project]
 name = "vrchat-guide"
-version = "0.1.0"
+version = "0.2.0"
 description = "Intelligent VRChat Guide using Genie Worksheets framework"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -8,105 +8,99 @@ license = { file = "LICENSE" }
 
 # Core dependencies with version constraints
 dependencies = [
-    "pip==24.3.1",
+    "pip>=24.3.1",
+    "google_auth_oauthlib>=1.2.1",
+    # "pydantic>=1.7.4",
+
     # Genie Worksheets Core Dependencies
-    "chainlite < 0.3.0",
     "google-api-python-client>=2.149.0",
     "google-auth>=2.35.0",
-    "google_auth_oauthlib>=1.2.1",
     "json-repair>=0.30.0",
     "loguru>=0.7.2",
     "pandas>=2.2.3",
-    "psycopg2-binary>=2.9.10",
-    "sympy>=1.13.3",
     "termcolor>=2.5.0",
     "toml>=0.10.2",
     "sql-metadata>=2.13.0",
-    "pydantic>=2.0.0",
-    "PyYAML>=6.0.1",
-    "langchain-openai>=0.1.7",
-    "langchain-together>=0.1.1",
     "grandalf>=0.8",
-    
-    # VRChat Integration Core Dependencies
-    "numpy>=1.24.0",
-    "sentence-transformers>=2.2.2",
-    "python-dotenv>=1.0.0",
-    "unidecode>=1.3.6",
-    "pymongo>=4.5.0",
-]
+    "langchain-openai>=0.1.7",
+    "langgraph >= 0.6.0",
+    "langchain-together>=0.1.1",
+    # "PyYAML>=6.0.1",
 
-# Optional feature sets
-[project.optional-dependencies]
-dev = [
-    "black>=23.0.0",
-    "pytest>=7.0.0",
-    "pylint>=2.17.0",
-    "jupyter>=1.1.1",
-]
-
-suql = [
+    # SUQL Core Dependencies
+    "suql>=1.1.8",
     "Jinja2==3.1.2",
     "Flask==2.3.2",
     "Flask-Cors==4.0.0",
     "Flask-RESTful==0.3.10",
-    "requests==2.31.0",
+    "requests>=2.31.0",
     "tiktoken>=0.4.0",
-    "psycopg2-binary>=2.9.7",
-    "pglast>=5.3",
+    "pglast>=6.10",
     "litellm>=1.34.34",
     "platformdirs>=4.0.0",
-    "faiss-cpu>=1.7.4",  # or faiss-gpu for GPU support
+    "sqlparse~=0.5.0",
+    "sympy>=1.14.0",
+    "psycopg2-binary>=2.9.10",
+    "psycopg2>=2.9.10",
+    "faiss-cpu>=1.7.4",        # or faiss-gpu for GPU support
     "spacy>=3.5.0",
-    "litellm>=0.1.1",
-    "psycopg2-binary>=2.9.9",
-    "flagembedding==1.3.2",  
+    "FlagEmbedding~=1.2.5",
+    "torch~=2.2.2",
+    "numpy<2.0.0",
+    "peft==0.17.1",
+
+    # Web Integration Core Dependencies
+    "chainlit>=2.0.0",
+    "beautifulsoup4>=4.13.4",
+    "rich>=14.0.0",
+    "redis >= 6.4.0",
 ]
 
 
-web = [
-    "chainlit>=1.2.0",
-]
+# VRChat Integration Optional Dependencies - Unable to test on Intel Mac
+# [project.optional-dependencies]
+# vrchat-integration = [
+#     "pytorch<2.2.0",
+#     "sentence-transformers>=2.2.2",
+#     "python-dotenv>=1.0.0",
+#     "unidecode>=1.3.6",
+#     "pymongo>=4.5.0",
+#     "deepgram-sdk==2.12.0",
+#     "sounddevice>=0.4.6",
+#     "speechrecognition>=3.10.0",
+#     "playsound==1.2.2",
+#     "pydub>=0.25.1",
+#     "vosk>=0.3.45",
+#     "pyaudio>=0.2.13",
+#     "soundfile>=0.12.1",
+#     "wavio>=0.0.7",
+#     "ffmpeg-python>=0.2.0",
+#     "python-osc>=1.9.0",
+# ]
 
-voice = [
-    "deepgram-sdk==2.12.0",
-    "sounddevice>=0.4.6",
-    "speechrecognition>=3.10.0",
-    "playsound==1.2.2",
-    "pydub>=0.25.1",
-    "vosk>=0.3.45",
-    "pyaudio>=0.2.13",
-    "soundfile>=0.12.1",
-    "wavio>=0.0.7",
-    "ffmpeg-python>=0.2.0",
-    "python-osc>=1.9.0",
-]
-
-cloud = [
-    "boto3>=1.28.0",
-]
-
-all = [
-    "vrchat-guide[suql,dev,web,voice,cloud]",
-]
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.uv]
+dev-dependencies = [
+    "build>=1.2.2.post1",
+    "jupyter>=1.1.1",
+    "black>=23.0.0",
+    "pytest>=7.0.0",
+    "pylint>=2.17.0",
+]
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/vrchat_guide"]
-
 [tool.hatch.build]
-only-packages = true
-artifacts = [
-    "src/vrchat_guide/py.typed",
-]
+inclued = ["src/worksheets"]
 
 [tool.uv.sources]
 genie-worksheets = { path = "packages/genie-worksheets", editable = true }
-neu-llm-avatars = { path = "packages/neu-llm-avatars", editable = true }
-
-# Optional features
-kraken = { path = "packages/genie-worksheets/packages/knowledge-agent", editable = true }
-suql = { path = "packages/suql", editable = true }
+# Commented out to use local version with edits
+# 1. Uncomment the line below to use the local suql package
+# suql = { path = "packages/suql", editable = true }
+# 2. Uninstall PyPI suql if already installed
+# 3. 'uv pip install -e packages/suql' to install the local version in editable mode
